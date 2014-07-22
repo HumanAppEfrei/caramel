@@ -1,0 +1,36 @@
+﻿/*
+
+Salut à toi aventurier du Model! :)
+
+
+Ceci est juste une page pour t'apprendre à utiliser le CRUD
+
+La version utile de ce fichier est application/core/MY_Model.php
+
+
+Les fonctions ci dessous sont déjà incluses dans tous les autres model
+
+
+
+public function create($options_echappees = array(), $options_non_echappees = array() )
+
+public function read($select = '*', $where = array(), $nb = null, $debut = null)
+
+public function update($where, $options_echappees = array(), $options_non_echappees = array())
+
+public function delete($where)
+
+public function count($champ = array(), $valeur = null)
+
+
+
+Elles servent de briques de base pour être utilisées directement ou fabriquer des fonctions spécifiques à ton modèle
+
+
+Pour apprendre à les utiliser :
+http://www.siteduzero.com/tutoriel-3-370693-modification-de-la-classe-model-le-crud.html
+
+
+Antoni.
+
+*/
