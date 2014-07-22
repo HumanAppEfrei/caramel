@@ -1,0 +1,74 @@
+***********************************************
+	Installation de Caramel
+***********************************************
+
+/!\ Mettre à jour pour lier avec Git et l'IDE
+
+***********************************************
+	Sous windows 
+***********************************************
+
+Installer WAMP
+
+Mettre les sources dans c:/wamp/www
+
+***********************************************
+	Sous linux
+***********************************************
+
+Installer LAMP
+
+mettre les sources dans /var/www
+
+
+
+***********************************************
+	Création de la BDD
+***********************************************
+
+Avec le navigateur aller sur localhost/phpmyadmin
+
+Créer une base "caramel"
+
+Aller dans cette base dans l'option "importer" 
+
+Choisir le script caramel.sql qui crée la structure et peuple avec des données
+/!\ Les données proviennent en partie du club du dons, elles sont donc confidentielles
+
+
+***********************************************
+	Modification des fichiers de conf
+***********************************************
+
+Dans caramel/application/config/database.php
+--------------------------------------------
+
+lignes 51 -> 54:
+
+hostname laisser "localhost"
+username par defaut avec wamp "root"
+password par defaut avec wamp "" (vide)
+database normalement "caramel" (celle créée dans l'étape précédente)
+
+Dans caramel/application/config/config.php
+------------------------------------------
+
+ligne 17:
+
+normalement:
+$config 'base_url'	= 'http://localhost/caramel/';
+
+
+ligne 29:
+
+normalement:
+$config 'index_page'	= 'index.php';
+
+
+***********************************************
+	Consultation
+***********************************************
+
+Normalement caramel est accessible à
+localhost/caramel
+dans le navigateur
