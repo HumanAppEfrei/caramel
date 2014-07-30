@@ -1,0 +1,145 @@
+PA8 réunion 01/07/14
+
+Sylvie
+Pierre
+Adrien
+
+Objectif: Trouver des membres pour l'équipe
+
+On avait pensé à Delphine et Marion mais elles veulent pas
+Loic Benet ne répond pas
+
+************************************************************
+*Avant de passer à la liste de tous les élèves on pense à  *
+************************************************************
+
+
+3	Antoine Payet
+	A voir on est pas sur de sa motivation
+
+1	Sebastien Moriniere
+	A contacter
+	
+1	Loic Benet
+	A relancer
+	
+3	David Auriac
+	Pierre aime pas
+	A voir si on est dans le caca
+
+?	Emeric Batistoni
+	Reserve sur sa motivation sur le code
+	mais pourquoi sur le reste
+	Pourquoi pas si on manque de gens
+
+*******************
+*  Dans la liste  *
+*******************
+
+2	Guillaume André
+	Il a l'air bien a demander
+
+3	Augustin Chemineau
+	A voir il a l'air solide
+	Impression que c'est un branleur qu'il faut pousser
+	Il est au BDE 
+
+2	Arthur Cousin
+	Il a l'air serieux mais on est pas sur
+	A voir
+
+3	Pierre Delachaux
+	A voir 
+	Pierre dit qu'il est serieux
+
+1	Victor Haffreingue
+	Discuter avec Matthieu
+
+3	Léa Michon 
+	A voir 
+	
+1	Alois Odon
+	On y croit pas
+	Mais ca sertait bien
+
+2	Louis Ryckbosh
+	Super sympa
+	Mais on sait pas comment il bosse
+	
+1	Yves Viaud
+	Il est sympa et très technique
+	voir s'il est disponible
+
+	
+****************************************
+	Après classement
+****************************************
+
+?	Emeric Batistoni
+	Reserve sur sa motivation sur le code
+	mais pourquoi sur le reste
+	Pourquoi pas si on manque de gens
+	
+1	Sebastien Moriniere
+	A contacter
+	
+1	Loic Benet
+	A relancer	
+	
+1	Victor Haffreingue
+	Discuter avec Matthieu	
+	
+1	Alois Odon
+	On y croit pas
+	Mais ca sertait bien	
+	
+1	Yves Viaud
+	Il est sympa et très technique
+	voir s'il est disponible	
+
+2	Guillaume André
+	Il a l'air bien a demander	
+	
+2	Arthur Cousin
+	Il a l'air serieux mais on est pas sur
+	A voir
+
+2	Louis Ryckbosh
+	Super sympa
+	Mais on sait pas comment il bosse
+	
+3	Antoine Payet
+	A voir on est pas sur de sa motivation
+	
+3	David Auriac
+	Pierre aime pas
+	A voir si on est dans le caca
+
+3	Augustin Chemineau
+	A voir il a l'air solide
+	Impression que c'est un branleur qu'il faut pousser
+	Il est au BDE 	
+	
+3	Pierre Delachaux
+	A voir 
+	Pierre dit qu'il est serieux	
+	
+3	Léa Michon 
+	A voir 	
+	
+**************************************************
+	Message que l'on envoi
+**************************************************
+
+
+salut,
+
+On est en train de monter une équipe de PA8 sur le projet Caramel que Topp avait présenté.
+Pour mémoire Caramel c'est un CRM destiné à des ONG pour les aider à gérer leurs campagnes de dons et leurs donateurs dont le developpement à été commencé par des équipes précédentes.
+Le projet de cette année consiste à faire du dev php (+ framework imposé) notamment sur des fonctions de BI (statistiques sur les dons et autres) et de la rédaction de documentation + business plan.
+
+On veut constituer une équipe vraiment sérieuse et on a pensé à toi.
+Pour l'instant notre équipe est composée de Sylvie Boudailliez, Matthieu Filizzola, Pierre Renoux et moi même.
+On a pensé que tu serais un bon élément, es tu déjà dans une autre équipe? Sinon ce projet t'intéresse-t-il?
+
+Bien sûr demander plus de renseignements ne t'engage en rien alors n'hésite pas.
