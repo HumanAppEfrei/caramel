@@ -14,7 +14,11 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/caramel/caramel/';
+
+# changé pour coller avec la VM de Matthieu
+#$config['base_url']	= 'http://localhost/caramel/caramel/';
+$config['base_url']	= 'caramel.fr';
+
 
 /*
 |--------------------------------------------------------------------------
