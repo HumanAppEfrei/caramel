@@ -2,7 +2,7 @@
 
 class Campagne_model extends MY_Model
 {
-    protected $table = 'CAMPAGNES';
+    protected $table = 'campagnes';
 	protected $PKey = 'CAM_ID';
 
 	public function select() {
