@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 class Contact_model extends MY_Model {
 
-    protected $table = 'CONTACTS';
+    protected $table = 'contacts';
     protected $PKey = 'CON_ID';
 
     public function select() {
