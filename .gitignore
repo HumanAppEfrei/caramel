@@ -1,8 +1,8 @@
 # configuration files #
 # #####################
 # Those files can differ depending on each system
-application/config/database.php
-application/config/config.php
+#application/config/database.php
+#application/config/config.php
 
 # compiled source #
 ###################
