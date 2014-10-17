@@ -1,0 +1,116 @@
+**********************************************************
+	Installation de Caramel sous Windows (Testé sous 8.1)
+**********************************************************
+
+Ce tutoriel montre comment installer les outils pour consulter et commencer à developper Caramel sous Windows
+
+
+* Installer WAMP
+
+Récupérer les sources sous http://sourceforge.net/projects/wampserver/files/WampServer%202/Wampserver%202.5/wampserver2.5-Apache-2.4.9-Mysql-5.6.17-php5.5.12-32b.exe/download
+(La version 32 bits est conseillée même pour les systèmes 64bits)
+
+Suivre l'installateur 
+	mettre wamp sous c:/wamp
+	quand c'est demandé choisir le .exe d'un autre navigateur que Explorer (normalement sous c:/Programme Files/Mozilla Firefox par exemple)
+
+* Vérifier que WAMP à bien été installée:
+
+Si il ne s'est pas lancé à la fin de l'installation, lancer WAMP.
+(attendre que le logo dans la barre de notification Windows passe en vert)
+
+Dans le navigateur
+	taper 'localhost' : la page d'accueil de wamp doit s'afficher
+	taper 'localhost/phpmyadmin' : la page de login de phpmyadmin doit se lancer
+
+* Télécharger Git
+
+http://git-scm.com/download/win
+
+Le soft permettra en ligne de commande d'effectuer les différentes opérations liées à Git
+
+(Se renseigner sur les GUI si nécéssaire)
+
+* Récupérer les sources de Caramel
+
+Lancer la console git précédemment installée.
+
+taper: 
+cd c:/wamp/www (pour changer de dossier normalement le chemin affiché en jaune change)
+
+/!\ voir avec Victor pour créer une nouvelle branche si c'est ici qu'il faut le faire
+
+taper:
+git clone https://github.com/statox/caramel.git
+
+(les logins demandés sont ceux pour vous connecter à github)
+
+* Vérifier que ça c'est bien passé
+
+Dans votre dossier c:/wamp/www un nouveau dossier caramel doit apparaitre (environ 60Mo)
+
+
+* Créer la BDD
+
+Avec le navigateur aller sur localhost/phpmyadmin
+
+Créer une base "caramel"
+	Bouton à gauche 'nouvelle base de données'
+	Dans le champ 'nom de la base de données' mettre 'caramel' (sans maju sans rien)
+	Laisser 'Interclassement' 
+	bouton 'créer'
+
+Cliquer sur la base 'caramel' nouvellement créée
+
+Dans le ruban en haut cliquer sur l'option 'importer'
+
+Dans parcourir choisir c:/wamp/www/caramel/caramel.sql 
+
+Cliquer sur 'éxécuter'
+
+Le script crée la structure et peuple avec des données
+/!\ Les données proviennent en partie du club du dons, elles sont donc confidentielles
+
+
+
+* Modification des fichiers de conf
+
+
+Dans caramel/application/config/database.php
+
+lignes 51 -> 54:
+
+hostname laisser "localhost"
+username par defaut "root"
+password par defaut "" (vide)
+database normalement "caramel" (celle créée dans l'étape précédente)
+
+Dans caramel/application/config/config.php
+
+ligne 17:
+normalement:
+$config 'base_url'	= 'http://localhost/caramel/';
+
+
+ligne 29:
+normalement:
+$config 'index_page'	= 'index.php';
+
+
+***********************************************
+	Consultation
+***********************************************
+
+Normalement caramel est accessible à
+localhost/caramel
+dans le navigateur
+
+* note *
+pour l'instant on a un petit problème donc si l'installation s'est bien passée rien ne s'affiche.
+Pour tester l'installation editer le fichier caramel/index.php:
+ligne 2 ajouter: echo "plop";
+et sauvegarder.
+
+Sur le navigateur recharfer localhost/caramel
+
+Si 'plop' apparait sur la page alors c'est bon!
