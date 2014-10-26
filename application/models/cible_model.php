@@ -16,19 +16,19 @@ class Cible_model extends MY_Model
 	public function get_cible($offre)
 	{
 		return $this->db->query("SELECT cibles.CON_ID,CON_FIRSTNAME,CON_LASTNAME, DON_MONTANT, DON_ID
-								FROM cibles NATURAL JOIN CONTACTS LEFT JOIN DONS ON DONS.CON_ID = cibles.CON_ID AND DONS.OFF_ID = cibles.OFF_ID WHERE cibles.OFF_ID='".$offre."'")
+								FROM cibles NATURAL JOIN contacts LEFT JOIN dons ON dons.CON_ID = cibles.CON_ID AND dons.OFF_ID = cibles.OFF_ID WHERE cibles.OFF_ID='".$offre."'")
 								->result();
 	
 	}
 	
 	public function comptage_total($offre) {
 		return $this->db->query("SELECT cibles.CON_ID,CON_FIRSTNAME,CON_LASTNAME, DON_MONTANT, DON_ID
-								FROM cibles NATURAL JOIN CONTACTS LEFT JOIN DONS ON DONS.CON_ID = cibles.CON_ID AND DONS.OFF_ID = cibles.OFF_ID WHERE cibles.OFF_ID='".$offre."'")->num_rows();
+								FROM cibles NATURAL JOIN contacts LEFT JOIN dons ON dons.CON_ID = cibles.CON_ID AND dons.OFF_ID = cibles.OFF_ID WHERE cibles.OFF_ID='".$offre."'")->num_rows();
 	}
 
 	public function comptage_repondu($offre) {
 		return $this->db->query("SELECT cibles.CON_ID,CON_FIRSTNAME,CON_LASTNAME, DON_MONTANT, DON_ID
-								FROM cibles NATURAL JOIN CONTACTS LEFT JOIN DONS ON DONS.CON_ID = cibles.CON_ID AND DONS.OFF_ID = cibles.OFF_ID WHERE DONS.DON_MONTANT > 0 AND cibles.OFF_ID='".$offre."'")->num_rows();
+								FROM cibles NATURAL JOIN contacts LEFT JOIN dons ON dons.CON_ID = cibles.CON_ID AND dons.OFF_ID = cibles.OFF_ID WHERE dons.DON_MONTANT > 0 AND cibles.OFF_ID='".$offre."'")->num_rows();
 	}
 
 	public function read_doublon($contact, $mission){
