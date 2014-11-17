@@ -58,7 +58,7 @@ class Don extends MY_Controller {
             $this->form_validation->set_rules('commentaire', 'Commentaires', 'trim|encode_php_tags|xss_clean');
             
             // Vérification de la date
-          $message_date = "";
+            $message_date = "";
             if ($post_date == "--") {
                 $message_date = "La date du versement doit être renseignée.";
             } else if (!isValidDate(date_usfr($post_date))) {
@@ -71,9 +71,11 @@ class Don extends MY_Controller {
                 } else if (!isValidDate(date_usfr($post_cheq_date_depot))) {
                     $message_cheq_date = "La date de dépôt du chèque est invalide";
                 }
+            } else {
+                $post_cheq_date_depot = null;
             }
 
-			 $message_flech="";
+			$message_flech="";
 			if($post_flech_valide!="true" && $post_montant_flechage==null && $post_flechage==null){
 				$message_flech = "Le fléchage ne correspond pas au montant du don.";
 			}
@@ -106,14 +108,19 @@ class Don extends MY_Controller {
                 $options_non_echappees['DON_DATEADDED'] = 'NOW()';
                 
                 $this->don_model->create($options_echappees, $options_non_echappees);
-				
+
 				/*
 				 * Traitement du flechage
 				 */
+                $post_flechage_tmp = array();
+                foreach ($post_flechage as $i => $type) {
+                    array_push($post_flechage_tmp, $type);
+                }
+
 				$don_id = $this->don_model->last_don();
-				foreach($post_montant_flechage as $i=>$montant){
-					if($montant != null){
-						$this->don_model->insert_flech($don_id->id,$post_flechage[$i],$montant);
+				foreach($post_montant_flechage as $i=>$montant) {
+					if($montant != null) {
+						$this->don_model->insert_flech($don_id->id, $post_flechage_tmp[$i], $montant);
 					}
 				}
             }
@@ -402,6 +409,7 @@ class Don extends MY_Controller {
                 $list_data['items'] = $items;
                 $list_data['div'] = "oui";
                 $list_data['elements'] = $this->don_model->count();
+                $list_data['not_for_contact'] = true;
                 
                 $nav_data = array();
                 $nav_data['username'] = $this->session->userdata('username');
@@ -450,7 +458,7 @@ class Don extends MY_Controller {
         $id_don = intval($id_don);
         $this->load->model('don_model');
         $this->don_model->delete(array('DON_ID' => $id_don));
-        //redirect('don', 'refresh');
+        redirect('/don/quicksearch');
     }
     
     /* CHANGES Suppression des engagements

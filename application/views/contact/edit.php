@@ -1,22 +1,23 @@
 <?php
 foreach ($contact as $contact) {
-    $split = @split("-", $contact->CON_DATE);
-    $annee = $split[0];
-    $mois = $split[1];
-    $jourTmp = $split[2];
+    $split = explode("-", $contact->CON_DATE);
+    if (count($split) > 1) {
+        $annee = $split[0];
+        $mois = $split[1];
+        $jourTmp = $split[2];
 
-    if ($jourTmp[0] == '0')
-        $jour = $jourTmp[1];
-    else
-        $jour = $jourTmp;
+        if ($jourTmp[0] == '0')
+            $jour = $jourTmp[1];
+        else
+            $jour = $jourTmp;
 
-    if ($jourTmp[0] == '0' && $jourTmp[1] == '0')
-        $jour = "";
-    if ($mois[0] == '0' && $mois[1] == '0')
-        $mois = "";
-    if ($annee[0] == '0' && $annee[1] == '0' && $annee[2] == '0' && $annee[3] == '0')
-        $annee = "";
-    ?>
+        if ($jourTmp[0] == '0' && $jourTmp[1] == '0')
+            $jour = "";
+        if ($mois[0] == '0' && $mois[1] == '0')
+            $mois = "";
+        if ($annee[0] == '0' && $annee[1] == '0' && $annee[2] == '0' && $annee[3] == '0')
+            $annee = "";
+    } ?>
 
     <div class="well"><h3>Edition du contact : <?php echo($contact->CON_FIRSTNAME . " " . $contact->CON_LASTNAME) ?> </h3>
         <div class="pull-right">
@@ -107,9 +108,9 @@ foreach ($contact as $contact) {
                     <div class="control-group">
                         <label id="nom" class="control-label" for="surname">Date de naissance</label>
                         <div class="controls">
-                            <input class="input-mini" type="text" name="jour" value=<?php echo("'" . $jour . "'") ?> maxlength="2" placeholder="dd" > /
-                            <input class="input-mini" type="text" name="mois" value=<?php echo("'" . $mois . "'") ?> maxlength="2" placeholder="mm" > /
-                            <input class="input-mini" type="text" name="annee" value=<?php echo("'" . $annee . "'") ?> maxlength="4" placeholder="aaaa" >
+                            <input class="input-mini" type="text" name="jour" value="<?php if (isset($jour)) echo $jour; ?>" maxlength="2" placeholder="dd" > /
+                            <input class="input-mini" type="text" name="mois" value="<?php if (isset($mois)) echo $mois; ?>" maxlength="2" placeholder="mm" > /
+                            <input class="input-mini" type="text" name="annee" value="<?php if (isset($annee)) echo $annee; ?>" maxlength="4" placeholder="aaaa" >
                         </div>
                     </div>
                     <?php echo form_error('jour'); ?>
@@ -126,19 +127,19 @@ foreach ($contact as $contact) {
                         <div class="control-group">
                             <label class="control-label" for="Email">Email</label>
                             <div class="controls">
-                                <span class="add-on"><i class="icon-envelope"></i></span><input class="span2" name="email" type="text" placeholder=".input-large" value=<?php echo($contact->CON_EMAIL) ?> >
+                                <span class="add-on"><i class="icon-envelope"></i></span><input class="span2" name="email" type="text" value=<?php echo($contact->CON_EMAIL) ?> >
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="telFixe">Téléphone Fixe</label>
                             <div class="controls">
-                                <span class="add-on"><i class="icon-home"></i></span><input class="span2" name="telFixe" type="text" placeholder=".input-large" value=<?php echo($contact->CON_TELFIXE) ?> ><br />
+                                <span class="add-on"><i class="icon-home"></i></span><input class="span2" name="telFixe" type="text" value=<?php echo($contact->CON_TELFIXE) ?> ><br />
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="Portable">Téléphone Portable</label>
                             <div class="controls">
-                                <span class="add-on"><i class="icon-user"></i></span><input class="span2" name="telPort" type="text" placeholder=".input-large" value=<?php echo($contact->CON_TELPORT) ?> ><br />
+                                <span class="add-on"><i class="icon-user"></i></span><input class="span2" name="telPort" type="text" value=<?php echo($contact->CON_TELPORT) ?> ><br />
                             </div>
                         </div>
                     </div>
@@ -291,13 +292,9 @@ foreach ($contact as $contact) {
                 <div id="searchPattern">
                     <button type="submit" class="btn btn-success btn-large">Sauvegarder</button>
                 </div>
-
-
             </div>
         </div>
-
         <div id="clear"></div>
-
     </form>
 
     <?php
@@ -310,4 +307,4 @@ foreach ($contact as $contact) {
     var Options_physique ="<?php echo implode(',', $Options_physique) ?>";
 </script>
 
-<SCRIPT LANGUAGE="Javascript" SRC="<?php echo base_url() . 'assets/javascript/contact_view.js' ?>" ></SCRIPT>
+<SCRIPT LANGUAGE="Javascript" SRC="<?php echo js_url('contact_view.js') ?>" ></SCRIPT>

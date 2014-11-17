@@ -30,7 +30,7 @@ class Campagne extends MY_Controller {
 			$post_fin = $this->input->post('anneef')."-".$this->input->post('moisf')."-".$this->input->post('jourf');
 			$post_type = $this->input->post('type');
 			$post_description = $this->input->post('description');
-			$post_objectif = $this->input->post('objectif');
+			$post_objectif = $this->input->post('objectif') != '' ? $this->input->post('objectif') : null;
 			$post_web = $this->input->post('web');
 			$post_courrier = $this->input->post('courrier');
 			$post_email = $this->input->post('email');
@@ -167,7 +167,7 @@ class Campagne extends MY_Controller {
 			$post_fin = $this->input->post('anneef')."-".$this->input->post('moisf')."-".$this->input->post('jourf');
 			$post_type = $this->input->post('type');
 			$post_description = $this->input->post('description');
-			$post_objectif = $this->input->post('objectif');
+			$post_objectif = $this->input->post('objectif') != '' ? $this->input->post('objectif') : null;
 			$post_web = $this->input->post('web');
 			$post_courrier = $this->input->post('courrier');
 			$post_email = $this->input->post('email');

@@ -137,4 +137,43 @@ class Don_model extends MY_Model
 		if($query->num_rows()>0) return $query->row();
 		else return 0;
 	}
+
+	//requête pour le top 10 des dons, avec les noms des donateurs correspondants.
+	public function read_stat_top10_montant_avec_nom(){
+		return $this->db->select('DON_MONTANT','CON_FIRSTNAME', 'CON_LASTNAME')->join('contacts', 'contacts.CON_ID = dons.CON_ID')->order_by('DON_MONTANT', 'desc')->limit(10);
+	}
+
+	//requête pour le top 10 des donateurs, tous dons cumulés, avec leurs nom
+	public function read_stat_top10_montant_cumule(){
+		return $this->db->query("SELECT SUM(`DON_MONTANT` ) AS NUMBER , C.`CON_FIRSTNAME` , C.`CON_LASTNAME` 
+			FROM  `dons` D,  `contacts` C
+				WHERE C.`CON_ID` = D.`CON_ID` 
+					GROUP BY C.`CON_ID` 
+						ORDER BY SUM(  `DON_MONTANT` ) DESC 
+							LIMIT 0 , 10");
+	}
+
+	//requête top 10 villes donateurs
+	public function read_stat_top10_ville(){
+		return $this->db->query("SELECT  `CON_CITY` , SUM(  `DON_MONTANT` ) AS NUMBER
+			FROM  `dons` 
+				JOIN contacts ON contacts.`CON_ID` = dons.`CON_ID` 
+					GROUP BY  `CON_CITY` 
+						ORDER BY SUM(`DON_MONTANT`) DESC 
+							LIMIT 0 , 10");
+	}
+
+	//requête pour avoir la répartition des types de dons (nature, cotisation, don)
+	//query plus simple
+	public function percent_type_versement(){
+		return $this->db->query("SELECT  DON_TYPE , COUNT(  DON_TYPE ) AS NUMBER FROM  dons GROUP BY  DON_TYPE ORDER BY COUNT(  DON_TYPE ) DESC");
+	}
+
+	//requête pour avoir la répartition du mode de versement
+	public function percent_mode_versement(){
+		return $this->db->query("SELECT `DON_MODE` , COUNT(  `DON_MODE` ) AS NUMBER
+			FROM  `dons` 
+				GROUP BY `DON_MODE`
+					ORDER BY COUNT(  `DON_MODE` ) DESC");
+	}
 }

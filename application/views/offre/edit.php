@@ -54,28 +54,28 @@
 			</div>
 			</div>
 			</pretty>
-			<pretty>
-			
-			 <div class="control-group">
-			<label class="control-label" for="dateDebut">Date de début</label>
-			<div class="controls">
-				<input type="text" style="width:40px;" name="jourd" value="<?php echo($jourd); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisd" value="<?php echo($moisd); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneed" value="<?php echo($anneed); ?>" maxlength="4" placeholder="aaaa" >
-				</div>
-			</div>
 
-			 <div class="control-group">
-			<label class="control-label" for="dateDebut">Date de fin</label>
-			<div class="controls">
-				<input type="text" style="width:40px;" name="jourf" value="<?php echo($jourf); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisf" value="<?php echo($moisf); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneef" value="<?php echo($anneef); ?>" maxlength="4" placeholder="aaaa" >
-				<?php echo form_error('jourd'); ?>
-				<?php echo form_error('moisd'); ?>
-				<?php echo form_error('anneed'); ?>
-			</div>
-			</div>
+			<pretty>
+				<div class="control-group">
+					<label class="control-label" for="dateDebut">Date de début</label>
+					<div class="controls">
+						<input type="text" style="width:40px;" name="jourd" value="<?php echo($jourd); ?>" maxlength="2" placeholder="dd" > /
+						<input type="text" style="width:40px;" name="moisd" value="<?php echo($moisd); ?>" maxlength="2" placeholder="mm" > /
+						<input type="text" style="width:50px;" name="anneed" value="<?php echo($anneed); ?>" maxlength="4" placeholder="aaaa" >
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="dateDebut">Date de fin</label>
+					<div class="controls">
+						<input type="text" style="width:40px;" name="jourf" value="<?php echo($jourf); ?>" maxlength="2" placeholder="dd" > /
+						<input type="text" style="width:40px;" name="moisf" value="<?php echo($moisf); ?>" maxlength="2" placeholder="mm" > /
+						<input type="text" style="width:50px;" name="anneef" value="<?php echo($anneef); ?>" maxlength="4" placeholder="aaaa" >
+						<?php echo form_error('jourd'); ?>
+						<?php echo form_error('moisd'); ?>
+						<?php echo form_error('anneed'); ?>
+					</div>
+				</div>
 
 				<?php if(isset($message_debut)) echo('<div class="error">'.$message_debut.'</div>'); ?>
 				<?php echo form_error('jourf'); ?>
@@ -87,22 +87,26 @@
 		
 			
 			<pretty>
-				Reliée à la campagne 
-				<a href=<?php echo site_url('campagne/edit').'/'.$campagne->CAM_ID;?>><?php echo $campagne->CAM_ID." : ".$campagne->CAM_NOM;?> </a></p>
+				<div class="control-group">
+					<label class="control-label">Reliée à la campagne</label>
+					<div class="controls">
+						<a href=<?php echo site_url('campagne/edit').'/'.$campagne->CAM_ID;?>><?php echo $campagne->CAM_ID." : ".$campagne->CAM_NOM;?> </a></p>
+					</div>
+				</div>
 			</pretty>
 			
 			<pretty>
-			<div class="control-group">
-			<label class="control-label" for="segments">Segments associés </label>
-			<div class="controls">
-				<?php foreach($segments as $segment)
-				{ ?>
-					<div><a href=<?php echo site_url('segment/edit').'/'.$segment;?>><?php echo $segment;?></a></div>
-		  <?php } ?>
-				<br/>
-					<a href="<?php echo site_url('cible/affich/'.$offre->OFF_ID);?>"><input class="btn" type="button" value="Voir la cible enregistrée"> </a> 
-			</div>
-			</div>
+				<div class="control-group">
+					<label class="control-label" for="segments">Segments associés </label>
+					<div class="controls">
+						<?php foreach($segments as $segment)
+						{ ?>
+							<div><a href=<?php echo site_url('segment/edit').'/'.$segment;?>><?php echo $segment;?></a></div>
+				  <?php } ?>
+						<br/>
+							<a href="<?php echo site_url('cible/affich/'.$offre->OFF_ID);?>"><input class="btn" type="button" value="Voir la cible enregistrée"> </a> 
+					</div>
+				</div>
 			</pretty>
 			
 			<div class="pull-left">

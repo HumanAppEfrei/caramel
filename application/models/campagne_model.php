@@ -2,7 +2,7 @@
 
 class Campagne_model extends MY_Model
 {
-    protected $table = 'campagnes';
+    protected $table = 'CAMPAGNES';
 	protected $PKey = 'CAM_ID';
 
 	public function select() {
@@ -60,5 +60,15 @@ class Campagne_model extends MY_Model
 	
 	public function read_email($email){
 		return $this->db->where('CAM_EMAIL', (string) $email);
+	}
+
+	//requête pour obenir le montant global reçu pour chaque campagne
+	public function read_montant_global(){
+		return $this->db->query("SELECT C.CAM_NOM AS NOM, SUM( D.`DON_MONTANT` ) AS NUMBER , C.CAM_DEBUT AS DEBUT, C.CAM_FIN AS FIN
+			FROM  `dons` D,  `offres` O,  `campagnes` C
+				WHERE C.`CAM_ID` = O.`CAM_ID` 
+					AND O.`OFF_ID` = D.`OFF_ID` 
+						GROUP BY C.`CAM_ID` 
+							ORDER BY SUM( D.`DON_MONTANT` ) DESC");
 	}
 }

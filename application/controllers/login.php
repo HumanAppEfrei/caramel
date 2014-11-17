@@ -18,10 +18,8 @@ class Login extends CI_Controller
 	//Appelé avec le formulaire de la view login
 	public function connect() {
 		
-		echo "test";
 		$this->load->model('user_model');
-		echo "test load model";	
-	
+		
 		$username = $this->session->userdata('username');
 		if ($username === false) {
 			$post_username = $this->input->post('username');

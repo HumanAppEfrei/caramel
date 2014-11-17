@@ -65,4 +65,30 @@ class Offre_model extends MY_Model
 		$mois = "-" . $mois . "-";
 		return $this->db->like('OFF_DATEADDED', (string) $mois, 'both');
 	}
+
+	//requête qui retourne le nombre d'offre crée sur les 12 derniers mois.
+	public function read_nombre_offre_12_mois(){
+		return $this->db->query("SELECT EXTRACT(YEAR_MONTH FROM `OFF_DATEADDED`) AS DATE, COUNT(`OFF_ID` ) AS NUMBER
+			FROM offres
+				GROUP BY EXTRACT(YEAR_MONTH FROM `OFF_DATEADDED`) 
+					ORDER BY EXTRACT(YEAR_MONTH FROM `OFF_DATEADDED`)  DESC
+						LIMIT 0,12");
+	}
+
+	//requête qui retourne le nombre d'offre crée lors des 10 années passées
+	public function read_nombre_offre_10_ans(){
+		return $this->db->query("SELECT EXTRACT(YEAR FROM `OFF_DATEADDED`) AS YEAR, COUNT(`OFF_ID` ) AS NUMBER
+			FROM offres
+				GROUP BY EXTRACT(YEAR FROM `OFF_DATEADDED`) 
+					ORDER BY EXTRACT(YEAR FROM `OFF_DATEADDED`)  DESC
+						LIMIT 0,10");
+	}
+
+	// requête qui retourne la somme récoltée par offre
+	public function read_somme_recoltee_offre(){
+		return $this->db->query("SELECT O.`OFF_NOM` AS NOM, SUM(D.`DON_MONTANT`) AS VALUE
+			FROM `dons` D, `offres` O 
+				WHERE D.`OFF_ID`=O.`OFF_ID`
+					GROUP BY O.`OFF_NOM` ASC");
+	}
 }
