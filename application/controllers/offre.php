@@ -34,7 +34,7 @@ class Offre extends MY_Controller {
 			$post_debut = $this->input->post('anneed')."-".$this->input->post('moisd')."-".$this->input->post('jourd');
 			$post_fin = $this->input->post('anneef')."-".$this->input->post('moisf')."-".$this->input->post('jourf');
 			$post_description = $this->input->post('description');
-			$post_objectif = $this->input->post('objectif');
+			$post_objectif = $this->input->post('objectif') != '' ? $this->input->post('objectif') : null;
 			$post_campagne = $this->input->post('campagne');
 			$post_segments = $this->input->post('segments');
 			
@@ -296,7 +296,7 @@ class Offre extends MY_Controller {
 			$post_debut = $this->input->post('anneed')."-".$this->input->post('moisd')."-".$this->input->post('jourd');
 			$post_fin = $this->input->post('anneef')."-".$this->input->post('moisf')."-".$this->input->post('jourf');
 			$post_description = $this->input->post('description');
-			$post_objectif = $this->input->post('objectif');
+			$post_objectif = $this->input->post('objectif') != '' ? $this->input->post('objectif') : null;
 			//$post_campagne = $this->input->post('campagne');
 			
 			$message_debut = "";

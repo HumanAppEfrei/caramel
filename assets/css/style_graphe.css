@@ -1,0 +1,27 @@
+#chart_container {
+	min-width: 980px;
+	max-width: 1143px;
+	min-height: 310px;
+	max-height: 900px;
+	margin-left: auto; 
+	margin-right: auto;
+	padding-bottom: 10px;
+}
+
+#graphe_gauche, #graphe_milieu {
+	float:left;
+	position:relative;
+	padding:1px;
+}
+
+#versment_type, #versement_model {
+	float:left;
+	position:relative;
+	padding:1px;
+}
+
+#top_don, #top_donateur, #top_ville, #top_cumule {
+	float: center;
+	position: relative;
+	padding:1px;
+}

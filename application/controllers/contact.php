@@ -45,8 +45,6 @@ class Contact extends MY_Controller {
             $post_telFixe = $this->input->post('telFixe');
             $post_telPort = $this->input->post('telPort');
             $post_complement = $this->input->post('complement');
-            //$post_complement2 = $this->input->post('complement2');
-            //$post_voie = $this->input->post('voie');
             $post_voie_num = $this->input->post('voie_num');
             $post_voie_type = $this->input->post('voie_type');
             $post_voie_nom = $this->input->post('voie_nom');
@@ -54,7 +52,7 @@ class Contact extends MY_Controller {
             $post_cp = $this->input->post('cp');
             $post_city = $this->input->post('city');
             $post_country = $this->input->post('country');
-            $post_npai = '0'; //$this->input->post('npai');
+            $post_npai = '0';
             $post_commentaire = $this->input->post('commentaire');
 
             $nb = strlen($post_civilite);
@@ -113,9 +111,7 @@ class Contact extends MY_Controller {
                 $options_echappees['CON_TELFIXE'] = $post_telFixe;
                 $options_echappees['CON_TELPORT'] = $post_telPort;
                 $options_echappees['CON_COMPL'] = $post_complement;
-                //$options_echappees['CON_COMPL2'] = $post_complement2;
-                //$options_echappees['CON_VOIE'] = $post_voie;
-                $options_echappees['CON_VOIE_NUM'] = $post_voie_num;
+                $options_echappees['CON_VOIE_NUM'] = $post_voie_num == '' ? null : $post_voie_num;
                 $options_echappees['CON_VOIE_TYPE'] = $post_voie_type;
                 $options_echappees['CON_VOIE_NOM'] = $post_voie_nom;
                 $options_echappees['CON_BP'] = $post_bp;
@@ -124,6 +120,8 @@ class Contact extends MY_Controller {
                 $options_echappees['CON_COUNTRY'] = $post_country;
                 $options_echappees['CON_NPAI'] = $post_npai;
                 $options_echappees['CON_COMMENTAIRE'] = $post_commentaire;
+                $options_echappees['CON_RF_TYPE'] = 'never';
+                $options_echappees['CON_SOLICITATION'] = 'not';
                 $options_non_echappees = array();
                 $options_non_echappees['CON_DATEADDED'] = 'NOW()';
                 $options_non_echappees['CON_DATEMODIF'] = 'NOW()';
@@ -429,12 +427,12 @@ class Contact extends MY_Controller {
             $escaped_data['CON_CIVILITE'] = $this->input->post('civilite');
             $escaped_data['CON_FIRSTNAME'] = $this->input->post('firstname');
             $escaped_data['CON_LASTNAME'] = $this->input->post('lastname');
-            $escaped_data['CON_DATE'] = $post_date;
+            $escaped_data['CON_DATE'] = $this->input->post('date') == '--' ? null : $this->input->post('date');
             $escaped_data['CON_EMAIL'] = $this->input->post('email');
             $escaped_data['CON_TELFIXE'] = $this->input->post('telFixe');
             $escaped_data['CON_TELPORT'] = $this->input->post('telPort');
             $escaped_data['CON_COMPL'] = $this->input->post('complement');
-            $escaped_data['CON_VOIE_NUM'] = $this->input->post('voie_num');
+            $escaped_data['CON_VOIE_NUM'] = $this->input->post('voie_num') == '' ? null : $this->input->post('voie_num');
             $escaped_data['CON_VOIE_TYPE'] = $this->input->post('voie_type');
             $escaped_data['CON_VOIE_NOM'] = $this->input->post('voie_nom');
             $escaped_data['CON_BP'] = $this->input->post('bp');

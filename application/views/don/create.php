@@ -9,8 +9,8 @@
                     <div class="control-group">
                         <label class="control-label" for="codeCon">Code Donateur*</label>
                         <div class="controls">
-                            <input type="text" name="codeCon" id="codeCon" value="<?php echo set_value('codeCon'); ?>" />
-                            <div id="msg_codeCon" class="error"></div> <!-- TODO qu'est-ce que c'est ? -->
+                            <input type="text" name="codeCon" id="codeCon" value="<?php if(isset($contact->CON_ID)) echo $contact->CON_ID; else echo set_value('codeCon'); ?>" />
+                            <div id="msg_codeCon" class="error"></div>
                         </div>
                         <?php echo form_error('codeCon'); if(isset($check_contact) && (!$check_contact)) 
                             echo '<div class="error">Ce code donateur est inexistant</div>'

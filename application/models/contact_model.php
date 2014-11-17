@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 class Contact_model extends MY_Model {
 
-    protected $table = 'contacts';
+    protected $table = 'CONTACTS';
     protected $PKey = 'CON_ID';
 
     public function select() {
@@ -207,4 +207,20 @@ class Contact_model extends MY_Model {
         return false;
     }
 
+    //requête évolution du nombre d'adhérents
+    public function read_evolution_nombre_adherents(){
+        return $this->db->query("SELECT EXTRACT(YEAR FROM `CON_DATEADDED`) AS YEAR, COUNT(`CON_ID`) AS NOMBRE
+            FROM `contacts` 
+                GROUP BY EXTRACT(YEAR FROM `CON_DATEADDED`)
+                    ORDER BY EXTRACT(YEAR FROM `CON_DATEADDED`) LIMIT 0,10");
+    }
+
+    //requête évolution nombre de donateurs
+    public function read_evolution_donateurs(){
+        return $this->db->query("SELECT EXTRACT(YEAR FROM `CON_DATEADDED`) AS YEAR, COUNT(`CON_ID`) AS NOMBRE
+            FROM `contacts` 
+                WHERE CON_TYPEC =\"donateur\"
+                    GROUP BY EXTRACT(YEAR FROM `CON_DATEADDED`)
+                        ORDER BY EXTRACT(YEAR FROM `CON_DATEADDED`)");
+    }
 }

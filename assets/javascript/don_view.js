@@ -40,6 +40,7 @@ $("button.suppr_don").click( function() {
 
 /* *** Flechage *** */
 
+
 /*
  * @brief Controle les saisie codeDonateur et Montant
  * @return 	true = adherent | false = n'existe pas | nb = doit cotiser nb
@@ -50,6 +51,7 @@ function check_con(){
 	
 	//verifier contact existe ? adherent ?
 	if (codeCon != '') {
+		delAllFleche();
 		var controller = 'don';
 		$.ajax({
 			url : $("#base_url").val() + '/' + controller + '/check_con',
@@ -62,7 +64,6 @@ function check_con(){
 					if (data == 'true') {
 						if (montant_saisi != '') {
 						//adherent
-						delAllFleche();
 						//generer avec montant
 						generate_flech('donation', montant_saisi);
 						check_attr();
@@ -78,12 +79,10 @@ function check_con(){
 						//comparer montant saisi et montant a cotiser
 						if(montant_saisi != ''){
 							if (parseFloat(montant_saisi) > data) {
-								delAllFleche();
 								//coti+don
 								generate_flech('cotisation', data);
 								generate_flech('donation', montant_saisi-data);
 							} else {
-								delAllFleche();
 								//coti
 								generate_flech('cotisation', montant_saisi);
 							}
@@ -134,9 +133,9 @@ $("#addFlechage").click(function(){
 	
 	//personnalisation input montant
 	var select = '<select name="flechage['+idFlech+']" >';
-	var input_montant = '<input class="form-control montant_attr" name="montant_flechage[]" placeholder="Montant"  onfocusout="check_attr()"/>';
+	var input_montant = '<input class="form-control montant_attr" name="montant_flechage[]" placeholder="Montant" />';
 	if(montant != 0){
-		input_montant = '<input class="form-control montant_attr" name="montant_flechage[]" value="'+montant+'" placeholder="Montant" onfocusout="check_attr()"/>';
+		input_montant = '<input class="form-control montant_attr" name="montant_flechage[]" value="'+montant+'" placeholder="Montant" />';
 	}
 	
 	//personnalisation selection
@@ -174,9 +173,9 @@ $("#addFlechage").click(function(){
 					<select name="flechage['+idFlech+']" >'+option+
 					'</select>	\
 				<a name="annuler_flech'+idFlech+'" onClick="delFleche(\'addFlechBlock\',\'flech_'+idFlech+'\')">Annuler </a>\
-				<input name ="idFlech_list[]" type="hidden" value= '+idFlech+' " /> \
+				<input name ="idFlech_list[]" type="hidden" value= '+idFlech+'  /> \
 				</div>');
-
+				$("input[name='montant_flechage[]']").focusout(check_attr);
 	console.log($( "#addFlechBlock p:last-child" ));
 	$( "#addFlechBlock .flechage:last-child" ).attr('id','flech_'+idFlech);
 	idFlech++;
@@ -233,8 +232,10 @@ function delFleche(parent, child){
  function delAllFleche(){
 	var obj = document.getElementById('addFlechBlock');
 	var fleches = document.getElementsByName('idFlech_list[]');
-	for(var i=0; i<fleches.length; ++i){
-			var old = document.getElementById('flech_'+fleches[i].value);
+	var size = fleches.length;
+	for(var i=0; i<size; i++){
+			var old = document.getElementById('flech_'+fleches[0].value);
 			obj.removeChild(old);
 	}
+	
 }

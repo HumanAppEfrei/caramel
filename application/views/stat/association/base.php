@@ -2,7 +2,7 @@
 <div id="example-section4">
     <div id="flotcontainer" style="width: 600px;height:200px; text-align: center; margin:0 auto;"> </div> 
 </div> 
-</div>
+<!--</div>
 <!-- Javascript --> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
 <script src="http://www.pureexample.com/js/flot/excanvas.min.js"></script> 
