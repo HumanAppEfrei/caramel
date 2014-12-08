@@ -13,6 +13,10 @@ class Offre_model extends MY_Model
 		return $this->db->select('*')->from($this->table);
 	}
 	
+	/**
+	 * Effectue la requete "SELECT OFF_ID, OFF_NOM, OFF_FIN, DON_MONTANT, DON_ID FROM offres"
+	 * @return tous les attributs d'une offre'
+	 **/
 	public function select_off_att()
 	{
 		return $this->db->select('offres.OFF_ID, OFF_NOM, OFF_FIN, DON_MONTANT, DON_ID')->from($this->table);
@@ -26,18 +30,38 @@ class Offre_model extends MY_Model
 		return $this->db->result();
 	}
 	
+	/**
+	 * Liste toutes les offres dont l'id est egale a $id
+	 * @param $id correspond a l'id de l'offre que l'on cherche a lister
+	 * @return toutes les lignes ou OFF_ID = $id
+	 **/
 	public function read_id($id) {
 		return $this->db->where('OFF_ID', (string) $id);
 	}
 	
+	/**
+	 * Liste toutes les offres dont le nom est egale a $name
+	 * @param $name (string) correspond au nom de l'offre que l'on cherche a lister
+	 * @return toutes les lignes ou OFF_NOM = $name
+	 **/
 	public function read_name($name) {
 		return $this->db->like('OFF_NOM', (string) $name, 'both');
 	}
-	
+
+	/**
+	 * Liste toutes les offres dont l'id de la campagne est egale a $id
+	 * @param $id correspond a l'identifiant de la campagne de l'offre que l'on cherche a lister
+	 * @return toutes les lignes ou CAM_ID = $id
+	 **/
 	public function read_camId($id) {
 		return $this->db->where('CAM_ID', (string) $id);
 	}
 
+	/**
+	 * Liste toutes les offres dont le nom est egale a $name
+	 * @param $name (string) correspond au nom de l'offre que l'on cherche a lister
+	 * @return toutes les lignes ou OFF_NOM = $name
+	 **/
 	public function read_donsID() {
 		return $this->db->join('dons', 'dons.OFF_ID = offres.OFF_ID');
 	}
