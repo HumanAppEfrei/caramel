@@ -5,6 +5,10 @@ class Offre_model extends MY_Model
     protected $table = 'offres';
 	protected $PKey = 'OFF_ID';
 
+	/**
+	 * Effectue la requete "SELECT * FROM offres"
+	 * @return toutes les lignes de la table 'offres'
+	 **/
 	public function select() {
 		return $this->db->select('*')->from($this->table);
 	}
