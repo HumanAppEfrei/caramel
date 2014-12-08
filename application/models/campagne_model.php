@@ -6,16 +6,19 @@ class Campagne_model extends MY_Model
 	protected $PKey = 'CAM_ID';
 	
 	/**
-     	*  Récupérer les tuples de la table pour effectuer des actions dessus
-     	*  @param pas de paramètres
+     	*  Recuperer les tuples de la table pour effectuer des actions dessus
+     	*  @param pas de parametres
 	*  @return l'ensemble des tuples de la table Campagne'
         **/
-     
 	public function select() {
 		return $this->db->select('*')->from($this->table);
 	}
 	
-	/** Permet d'obtenir le résultat d'une campagne */
+	/**
+     	*  Recuperer le resultat de la derniere requete
+     	*  @param pas de paramètres
+	*  @return le resultat de la derniere requete
+        **/
 	public function get_results() {
 		return $this->db->get()->result();
 	}
