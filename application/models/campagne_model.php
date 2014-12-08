@@ -2,21 +2,32 @@
 
 class Campagne_model extends MY_Model
 {
-    protected $table = 'CAMPAGNES';
+	protected $table = 'CAMPAGNES';
 	protected $PKey = 'CAM_ID';
-
+	
+	/**
+     	*  Insère une nouvelle ligne dans la base de données.
+     	*  Les paramètres sont des tableaux associatifs qui doivent porter comme clés des noms de champs en BDD.
+     	*  @param $options_echappees (array) options à insérer. Elles seront échappées.
+	*  @param $option_non_echappees (array) options à insérer. Elles se seront pas échappées.
+	*  @return (boolean) false s'il y a eu un problème, true si l'ajout a été effectué.
+        **/
+     
 	public function select() {
 		return $this->db->select('*')->from($this->table);
 	}
 	
+	/** Permet d'obtenir le résultat d'une campagne */
 	public function get_results() {
 		return $this->db->get()->result();
 	}
-
+	
+	/** Permet d'obtenir l'identifiant d'une campagne */
 	public function read_id($id) {
 		return $this->db->where('CAM_ID', (string) $id);
 	}
 	
+	/** Permet d'obtenir un nom d'une campagne */
 	public function read_name($name) {
 		// $sql=" CAM_NOM LIKE '%{$name}%'";
 		// return $this->db->where($sql,NULL, FALSE);
