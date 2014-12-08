@@ -6,11 +6,9 @@ class Campagne_model extends MY_Model
 	protected $PKey = 'CAM_ID';
 	
 	/**
-     	*  Insère une nouvelle ligne dans la base de données.
-     	*  Les paramètres sont des tableaux associatifs qui doivent porter comme clés des noms de champs en BDD.
-     	*  @param $options_echappees (array) options à insérer. Elles seront échappées.
-	*  @param $option_non_echappees (array) options à insérer. Elles se seront pas échappées.
-	*  @return (boolean) false s'il y a eu un problème, true si l'ajout a été effectué.
+     	*  Récupérer les tuples de la table pour effectuer des actions dessus
+     	*  @param pas de paramètres
+	*  @return l'ensemble des tuples de la table Campagne'
         **/
      
 	public function select() {
