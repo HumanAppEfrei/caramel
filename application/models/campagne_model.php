@@ -5,30 +5,18 @@ class Campagne_model extends MY_Model
 	protected $table = 'CAMPAGNES';
 	protected $PKey = 'CAM_ID';
 	
-	/**
-     	*  Recuperer les tuples de la table pour effectuer des actions dessus
-     	*  @param pas de parametres
-	*  @return l'ensemble des tuples de la table Campagne'
-        **/
 	public function select() {
 		return $this->db->select('*')->from($this->table);
 	}
 	
-	/**
-     	*  Recuperer le resultat de la derniere requete
-     	*  @param pas de paramètres
-	*  @return le resultat de la derniere requete
-        **/
 	public function get_results() {
 		return $this->db->get()->result();
 	}
 	
-	/** Permet d'obtenir l'identifiant d'une campagne */
 	public function read_id($id) {
 		return $this->db->where('CAM_ID', (string) $id);
 	}
 	
-	/** Permet d'obtenir un nom d'une campagne */
 	public function read_name($name) {
 		// $sql=" CAM_NOM LIKE '%{$name}%'";
 		// return $this->db->where($sql,NULL, FALSE);
