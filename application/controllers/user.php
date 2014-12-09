@@ -1,5 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Controler de la page user
+ */
 class User extends MY_Controller {
 
 	/**
