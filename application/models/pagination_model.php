@@ -2,13 +2,21 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-	
+
+/**
+ * Model pour la pagination
+ */
 class Pagination_model extends MY_Model {
-	
-	
-	
-	
-		
+
+
+
+
+    /**
+     * Cree une config en fonction de l'url et des informations de post
+     * @param string $url L'url demandee
+     * @param string $post Les informations de post
+     * @return array Les informations de de pagination
+     */
 	public function template($url,$post){
 		$this->load->helper("url");
 		$this->load->library("pagination");
@@ -34,14 +42,22 @@ class Pagination_model extends MY_Model {
 
 		return $config;
 	}
-	
+
+    /**
+     * Initialise la pagination
+     * @param unknown $config La configuration a initialiser
+     */
 	public function initialize($config){
 		$this->pagination->initialize($config);
 	}
-	
+
+    /**
+     * Cree des liens
+     * @return unknown Les liens crees
+     */
 	public function create_links(){
 		return $this->pagination->create_links();
 	}
-	
+
 }
-	
+
