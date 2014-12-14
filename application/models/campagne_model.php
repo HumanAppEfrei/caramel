@@ -1,41 +1,22 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/** BUT : Manipuler les informations de la table "Campagne" */
 class Campagne_model extends MY_Model
 {
     	protected $table = 'campagnes';
 	protected $PKey = 'CAM_ID';
 	
-	/**
-     	*  Recuperation de tous les tuples de la base
-	*  @return tous les tuples en question
-        **/
 	public function select() {
 		return $this->db->select('*')->from($this->table);
 	}
 	
-	/**
-     	*  Recuperation de tous les resultats repondant a une requete donnee
-	*  @return (array object) tous les resultats en question
-        **/
 	public function get_results() {
 		return $this->db->get()->result();
 	}
 	
-	/**
-     	*  Recuperation de tous les tuples de la table correspondant à l'id insere
-     	*  @param identifiant à lire
-	*  @return tous les tuples en question (CAM_ID = $id)
-        **/
 	public function read_id($id) {
 		return $this->db->where('CAM_ID', (string) $id);
 	}
 	
-	/**
-     	*  Recuperation de tous les tuples de la table correspondant au nom insere
-     	*  @param nom à lire
-	*  @return tous les tuples en question (CAM_ID = $id)
-        **/
 	public function read_name($name) {
 		// $sql=" CAM_NOM LIKE '%{$name}%'";
 		// return $this->db->where($sql,NULL, FALSE);
