@@ -1,42 +1,89 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Don_model est la classe qui definit le modele d'un don
+*/
 class Don_model extends MY_Model
 {
-    protected $table = 'dons';
+	/** @var (String) Nom de la table dans la BDD */
+        protected $table = 'dons';
+        /** @var (String) Cle primaire de cette table */
 	protected $PKey = 'DON_ID';
 	
+	/**
+	* Selectionne tous les tuples de la table "dons"
+	* @return (Mixed[]) tous les dons, mixed[] signifiant plusieurs types possibles
+	**/
 	public function select() {
 		return $this->db->select('*')->from($this->table);
 	}
 	
+	/**
+	* Execution de la requete et retourne le(s) resultat(s)
+	* @return (Mixed[]) le(s) resultat(s) de la requete
+	**/
 	public function get_results() {
 		return $this->db->get()->result();
 	}
-    
-    public function get() {
+    	
+    	/**
+	* Execution de la requete (determiner la reelle difference avec get_results())
+	* @return (Mixed[]) le(s) resultat(s) de la requete
+	**/
+    	public function get() {
 		return $this->db->get();
 	}
-
+	
+	/**
+	* Selectionne les dons en fonction d'un id
+	* @param (Int) l'id saisi
+	* @return (Mixed[]) les dons avec le meme id
+	**/
 	public function read_id($id) {
 		return $this->db->where($this->table.'.'.$this->PKey, (string) $id);
 	}
 	
+	/**
+	* Selectionne les dons en fonction d'un montant
+	* @param (Decimal) le montant saisi
+	* @return (Mixed[]) les dons avec un montant superieur au montant saisie
+	**/
 	public function read_montant_min($min) {
 		return $this->db->where('DON_MONTANT >=', $min);
 	}
 	
+	/**
+	* Selectionne les dons en fonction d'un montant
+	* @param (Decimal) le montant saisi
+	* @return (Mixed[]) les dons avec un montant inferieur au montant saisie
+	**/
 	public function read_montant_max($max) {
 		return $this->db->where('DON_MONTANT <=', $max);
 	}
 	
+	/**
+	* Selectionne les dons en fonction d'un mode (de paiement : carte bleu, cheque, espece, virement)
+	* @param (Varchar) le mode selectionne
+	* @return (Mixed[]) les dons avec le meme mode 
+	**/
 	public function read_mode($mode) {
 		return $this->db->where('DON_MODE', (string) $mode);
 	}
 	
+	/**
+	* Selectionne les dons en fonction d'un type (de versement : carte, cheque, espece, virement)
+	* @param (Varchar) le type selectionne
+	* @return (Mixed[]) les dons avec le meme type 
+	**/
 	public function read_type($type) {
 		return $this->db->where('DON_TYPE', (string) $type);
 	}
 	
+	/**
+	* Selectionne les dons en fonction d'un numero d'adherent
+	* @param (Int) le numero d'adherent
+	* @return (Mixed[]) les dons avec le meme numero
+	**/
 	public function read_numAd($numAd) {
 		return $this->db->where($this->table.'.CON_ID', (string) $numAd);
 	}
