@@ -9,7 +9,7 @@ class Campagne_model extends MY_Model
 	protected $table = 'campagnes';
 	/** @var (String) Cle primaire de cette table */
 	protected $PKey = 'CAM_ID';
-
+	
 	/**
      	*  Selectionne tous les tuples de la table Campagne
 	*  @return (Mixed[]) toutes les campagnes, mixed[] signifiant plusieurs types possibles
@@ -17,21 +17,24 @@ class Campagne_model extends MY_Model
 	public function select() {
 		return $this->db->select('*')->from($this->table);
 	}
-
-	protected $PKey = 'CAM_ID';
-
-	public function select() {
-		return $this->db->select('*')->from($this->table);
-	}
-
+	
+	/**
+     	*  Execution de la requete et retourne le(s) resultat(s)
+	*  @return (Mixed[]) le(s) resultat(s) de la requete
+        **/
 	public function get_results() {
 		return $this->db->get()->result();
 	}
-
+	
+	/**
+     	*  Selectionne les campagnes en fonction d'un id
+     	*  @param (Varchar) l'id saisi
+	*  @return (Mixed[]) les campagnes avec le meme id
+        **/
 	public function read_id($id) {
 		return $this->db->where('CAM_ID', (string) $id);
 	}
-
+	
 	/**
      	*  Selectionne les campagnes en fonction d'un nom
      	*  @param (String) le nom saisi
@@ -42,7 +45,7 @@ class Campagne_model extends MY_Model
 		// return $this->db->where($sql,NULL, FALSE);
 		return $this->db->like('CAM_NOM', (string) $name, 'after');
 	}
-
+	
 	/**
      	*  Selectionne les campagnes en fonction d'une date
      	*  @param (Date) la date saisie
@@ -51,7 +54,7 @@ class Campagne_model extends MY_Model
 	public function read_date_debut($first_date){
 		return $this->db->where('CAM_DEBUT >=', $first_date);
 	}
-
+	
 	/**
      	*  Selectionne les campagnes en fonction d'une date
      	*  @param (Date) la date saisie
@@ -60,7 +63,7 @@ class Campagne_model extends MY_Model
 	public function read_date_fin($second_date){
 		return $this->db->where('CAM_FIN <=', $second_date);
 	}
-
+	
 	/**
      	*  Selectionne les campagnes en fonction d'un type (fidelisation, prospection)
      	*  @param (String) le type selectionne
@@ -69,11 +72,11 @@ class Campagne_model extends MY_Model
 	public function read_type($type){
 		return $this->db->where('CAM_TYPE', (string) $type);
 	}
-
+	
 	/**
      	*  Selectionne les campagnes en fonction d'une des categories (web, courrier, email) avec la fonction OU
      	*  @param (String) les categories (vide ou coche)
-	*  @return (Mixed[]) les campagnes avec au moins une categorie identique, rien quand 0 selectionnee
+	*  @return (Mixed[]) les campagnes avec au moins une categorie identique, rien quand 0 selectionnee 
         **/
 	public function read_media_or($web, $courrier, $email){
 		$where = "(CAM_WEB LIKE '%".$web."%'
@@ -82,7 +85,7 @@ class Campagne_model extends MY_Model
 		if($web=="pasok" && $courrier=="pasok" && $email=="pasok");
 		else $this->db->where($where);
 	}
-
+	
 	/**
      	*  Selectionne les campagnes en fonction d'une des categories (web, courrier, email) avec la fonction ET
      	*  @param (String) les categories (vide ou coche)
@@ -94,7 +97,7 @@ class Campagne_model extends MY_Model
 		AND CAM_EMAIL LIKE '%".$email."%')";
 		$this->db->where($where);
 	}
-
+	
 	/**
      	*  Selectionne les campagnes en fonction de la categorie web
      	*  @param (String) la categorie web (vide ou coche)
@@ -103,7 +106,7 @@ class Campagne_model extends MY_Model
 	public function read_web($web){
 		return $this->db->where('CAM_WEB', (string) $web);
 	}
-
+	
 	/**
      	*  Selectionne les campagnes en fonction de la categorie courrier
      	*  @param (String) la categorie courrier (vide ou coche)
@@ -112,7 +115,7 @@ class Campagne_model extends MY_Model
 	public function read_courrier($courrier){
 		return $this->db->where('CAM_COURRIER', (string) $courrier);
 	}
-
+	
 	/**
      	*  Selectionne les campagnes en fonction de la categorie email
      	*  @param (String) la categorie email (vide ou coche)
@@ -129,9 +132,9 @@ class Campagne_model extends MY_Model
 	public function read_montant_global(){
 		return $this->db->query("SELECT C.CAM_NOM AS NOM, SUM( D.`DON_MONTANT` ) AS NUMBER , C.CAM_DEBUT AS DEBUT, C.CAM_FIN AS FIN
 			FROM  `dons` D,  `offres` O,  `campagnes` C
-				WHERE C.`CAM_ID` = O.`CAM_ID`
-					AND O.`OFF_ID` = D.`OFF_ID`
-						GROUP BY C.`CAM_ID`
+				WHERE C.`CAM_ID` = O.`CAM_ID` 
+					AND O.`OFF_ID` = D.`OFF_ID` 
+						GROUP BY C.`CAM_ID` 
 							ORDER BY SUM( D.`DON_MONTANT` ) DESC");
 	}
 }
