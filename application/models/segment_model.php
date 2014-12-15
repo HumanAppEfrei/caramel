@@ -1,5 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Model d'un segment
+ */
 class Segment_model extends MY_Model
 {
     protected $table = 'segments';
