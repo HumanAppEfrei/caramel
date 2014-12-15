@@ -29,6 +29,7 @@ class Cible_model extends MY_Model
 
     /**
      * Selectionne des cibles en fonction d'une offre
+     * @param string $offre L'id de l'offre selectionnee
      * @return mixed[] Retourne le(s) cibles(s) de l'offre
      */
 	public function get_cible($offre)
