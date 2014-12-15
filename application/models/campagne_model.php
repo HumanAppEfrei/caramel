@@ -6,7 +6,7 @@
 class Campagne_model extends MY_Model
 {
 	/** @var (String) Nom de la table dans la BDD */
-	protected $table = 'CAMPAGNES';
+	protected $table = 'campagnes';
 	/** @var (String) Cle primaire de cette table */
 	protected $PKey = 'CAM_ID';
 	
