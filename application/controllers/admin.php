@@ -5,6 +5,17 @@ if (!defined('BASEPATH'))
 
 class Admin extends MY_Controller {
 
+    /*
+     *  Affichage de la page appelee par le bouton "engrenage".
+     *  Appelle les vues necessaires.
+     *
+     *  Cette page sert a traiter
+     *
+     *      - les critères personnalisés utilisés dans les segments
+     *      - les informations complementaires liees aux contacts
+     *      - le dedoublonnage de deux contacts (fusion de leurs informations)
+     *      - l'inscription de nouveaux utilisateurs
+     */
     public function index() {
         $nav_data = array('username' => $this->session->userdata('username'));
 
@@ -14,6 +25,10 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+
+    /*
+     *  Appelle les vues permettant d'afficher les criteres de segments deja crees.
+     */
     public function reglage() {
         $this->load->model('reglage_model');
 
@@ -26,7 +41,12 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  Fonction d'edition des criteres déjà crees.
+     *  Met à jour la BDD
+     *
+     *  @param string $reg code du critere a editer.
+     */
     public function editReg($reg) {
         $this->load->model('reglage_model');
         $this->load->library('form_validation');
@@ -34,7 +54,7 @@ class Admin extends MY_Controller {
 
         $post_form = $this->input->post('is_form_sent');
         if ($post_form) {
-            // Récupération des données			
+            // Récupération des données
             $post_valeur = $this->input->post('valeurAjoutee');
 
             // Vérifications des données
@@ -90,7 +110,12 @@ class Admin extends MY_Controller {
         }
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  Suppression d'un critere.
+     *  Met à jour la BDD
+     *  @param  string $RegCode code du reglage a supprimer
+     *          ?? $valeur à définir (voir application/view/reglage/edit.php)
+     */
     public function removeReg($RegCode, $valeur) {
         $this->load->model('reglage_model');
         $items = $this->reglage_model->read($RegCode);
@@ -105,6 +130,9 @@ class Admin extends MY_Controller {
         redirect('admin/editReg/' . $RegCode, 'refresh');
     }
 
+    /*
+     *  Liste les information supplementaires de contacts deja creees
+     */
     public function infoComplementaires() {
         $this->load->model('infos_comp_model');
 
@@ -117,7 +145,10 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  A VALIDER: cette fonction semble être obsolette.
+     *  Elle fait appel à la vue document_type/view qui n'existe pas
+     */
     public function document_type() {
         $nav_data = array();
         $nav_data['username'] = $this->session->userdata('username');
@@ -128,7 +159,10 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  Creation d'une nouvelle information complémentaire
+     *  Met à jour la BDD
+     */
     public function createIC() {
         $this->load->model('infos_comp_model');
         $this->load->model('contacts_ic_model');
@@ -195,7 +229,11 @@ class Admin extends MY_Controller {
         }
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  Suppression d'une information complementaire
+     *  Met à jour la BDD
+     *  @param  string IC_ID ID de l'information complementaire a supprimer
+     */
     public function removeIC($IC_ID) {
         $this->load->model('infos_comp_model');
         $this->load->model('contacts_ic_model');
@@ -206,6 +244,11 @@ class Admin extends MY_Controller {
         redirect('admin/infoComplementaires', 'refresh');
     }
 
+
+    /*
+     *  Fusion des informations de deux contacts, saisis a la main par leur identifiant.
+     *  Met à jour la BDD
+     */
     public function dedoublonnage() {
         $this->load->model('contact_model');
         $this->load->model('old_id_link_model');
@@ -444,6 +487,11 @@ class Admin extends MY_Controller {
         }
     }
 
+    /*
+     *  Incription d'un nouvel utilisateur a partir d'un formulaire.
+     *  Met a jour la BDD.
+     *  Refuse l'ajout en cas d'erreur dans le formulaire ou de nom d'utilisateur deja existant
+     */
     public function user_signup() {
         $this->load->helper('form');
 
@@ -525,6 +573,7 @@ class Admin extends MY_Controller {
         $this->load->view('reglage/user_signup');
         $this->load->view('base/footer');
     }
+
 
     public function database($table) {
         $this->load->model('tables_names_model');
