@@ -294,7 +294,10 @@ class Don_model extends MY_Model
 		return $this->db->query("SELECT  DON_TYPE , COUNT(  DON_TYPE ) AS NUMBER FROM  dons GROUP BY  DON_TYPE ORDER BY COUNT(  DON_TYPE ) DESC");
 	}
 
-	//requête pour avoir la répartition du mode de versement
+	/**
+	* Selectionne les dons groupes par nombre de modes de paiement (cheque10carte, ...)
+	* @return (Mixed[]) les dons repartis
+	**/
 	public function percent_mode_versement(){
 		return $this->db->query("SELECT `DON_MODE` , COUNT(  `DON_MODE` ) AS NUMBER
 			FROM  `dons` 
