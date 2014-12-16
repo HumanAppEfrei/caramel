@@ -71,8 +71,8 @@ class Don_model extends MY_Model
 	}
 	
 	/**
-	* Selectionne les dons en fonction d'un type (de versement : carte, cheque, espece, virement)
-	* @param (Varchar) le type selectionne
+	* Selectionne les dons en fonction d'un type (de versement : nature forcément...)
+	* @param (Varchar) le type defini
 	* @return (Mixed[]) les dons avec le meme type 
 	**/
 	public function read_type($type) {
@@ -287,21 +287,24 @@ class Don_model extends MY_Model
 	}
 
 	/**
-	* Selectionne les dons repartis par type (nature, cotisation, don)
+	* Selectionne les dons repartis par nombre de types de dons (un don quoi.. INCOHERENCE DE CETTE FONCTION)
 	* @return (Mixed[]) les dons repartis
 	**/
 	public function percent_type_versement(){
-		return $this->db->query("SELECT  DON_TYPE , COUNT(  DON_TYPE ) AS NUMBER FROM  dons GROUP BY  DON_TYPE ORDER BY COUNT(  DON_TYPE ) DESC");
+		return $this->db->query("SELECT `DON_TYPE` , COUNT( `DON_TYPE` ) AS NUMBER 
+			FROM `dons` 
+				GROUP BY `DON_TYPE` 
+					ORDER BY COUNT( `DON_TYPE` ) DESC");
 	}
 
 	/**
-	* Selectionne les dons groupes par nombre de modes de paiement (cheque10carte, ...)
+	* Selectionne les dons repartis par nombre de mode de paiement (cheque, carte, nature, etc...)
 	* @return (Mixed[]) les dons repartis
 	**/
 	public function percent_mode_versement(){
-		return $this->db->query("SELECT `DON_MODE` , COUNT(  `DON_MODE` ) AS NUMBER
+		return $this->db->query("SELECT `DON_MODE` , COUNT( `DON_MODE` ) AS NUMBER
 			FROM  `dons` 
 				GROUP BY `DON_MODE`
-					ORDER BY COUNT(  `DON_MODE` ) DESC");
+					ORDER BY COUNT( `DON_MODE` ) DESC");
 	}
 }
