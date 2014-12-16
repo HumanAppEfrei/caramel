@@ -238,6 +238,10 @@ class Don_model extends MY_Model
         	return false;
     	}
 	
+	/**
+	* Selectionne le dernier don rentre dans la base
+	* @return (Mixed[]) le dernier don (rien si aucun don dans la base)
+	**/
 	public function last_don(){
 		$sql = "SELECT MAX(DON_ID) as id
 			FROM DONS ";
@@ -248,12 +252,18 @@ class Don_model extends MY_Model
 		else return 0;
 	}
 
-	//requête pour le top 10 des dons, avec les noms des donateurs correspondants.
+	/**
+	* Selectionne les 10 meilleurs dons avec les noms/prenoms des donateurs correspondants
+	* @return (Mixed[]) le top 10 des meilleurs dons
+	**/
 	public function read_stat_top10_montant_avec_nom(){
 		return $this->db->select('DON_MONTANT','CON_FIRSTNAME', 'CON_LASTNAME')->join('contacts', 'contacts.CON_ID = dons.CON_ID')->order_by('DON_MONTANT', 'desc')->limit(10);
 	}
 
-	//requête pour le top 10 des donateurs, tous dons cumulés, avec leurs nom
+	/**
+	* Selectionne les 10 meilleurs donateurs, tous dons cumulés
+	* @return (Mixed[]) le top 10 des meilleurs donateurss
+	**/
 	public function read_stat_top10_montant_cumule(){
 		return $this->db->query("SELECT SUM(`DON_MONTANT` ) AS NUMBER , C.`CON_FIRSTNAME` , C.`CON_LASTNAME` 
 			FROM  `dons` D,  `contacts` C
@@ -263,7 +273,10 @@ class Don_model extends MY_Model
 							LIMIT 0 , 10");
 	}
 
-	//requête top 10 villes donateurs
+	/**
+	* Selectionne les 10 meilleures villes donateurs
+	* @return (Mixed[]) le top 10 des meilleures villes
+	**/
 	public function read_stat_top10_ville(){
 		return $this->db->query("SELECT  `CON_CITY` , SUM(  `DON_MONTANT` ) AS NUMBER
 			FROM  `dons` 
@@ -273,8 +286,10 @@ class Don_model extends MY_Model
 							LIMIT 0 , 10");
 	}
 
-	//requête pour avoir la répartition des types de dons (nature, cotisation, don)
-	//query plus simple
+	/**
+	* Selectionne les dons repartis par type (nature, cotisation, don)
+	* @return (Mixed[]) les dons repartis
+	**/
 	public function percent_type_versement(){
 		return $this->db->query("SELECT  DON_TYPE , COUNT(  DON_TYPE ) AS NUMBER FROM  dons GROUP BY  DON_TYPE ORDER BY COUNT(  DON_TYPE ) DESC");
 	}
