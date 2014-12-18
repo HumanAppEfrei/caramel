@@ -242,7 +242,7 @@ foreach ($contact as $contact) {
                             <a href="<?php echo site_url("contact/IncrementNPAI/" . $contact->CON_ID); ?>">
                                 <input type="button" class="btn" value="Incrémenter" onClick='return window.confirm("Incrémenter NPAI?");'/> </a> 
                             <a href="<?php echo site_url("contact/RAZ_NPAI/" . $contact->CON_ID); ?>">
-                                <input type="button" class="btn" value="RAZ" onClick='return window.confirm("Remettre à zéro NPAI?");'/> </a><br/><br/>
+                                <input type="button" class="btn" value="RAZ" onClick='return window.confirm("Remettre à zéro NPAI?");'title="Remise à Zéro"/> </a><br/><br/>
                         </div>
                     </div>
                     <div class="control-group">
