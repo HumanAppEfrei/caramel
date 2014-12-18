@@ -16,7 +16,7 @@
 			<?php foreach($items as $campagne) : ?>
 				<tr>
 					<td>
-						<a href="<?php echo site_url('campagne/edit').'/'.$campagne->CAM_ID; ?>"><img src="<?php echo img_url('icons/edit.png'); ?>"/></a>
+						<a href="<?php echo site_url('campagne/edit').'/'.$campagne->CAM_ID; ?>" title="éditer" ><img src="<?php echo img_url('icons/edit.png'); ?>"/></a>
 						<a href="<?php echo site_url('campagne/remove').'/'.$campagne->CAM_ID; ?>" onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce segment ?\')) {return true;}else{return false;}"><img src="<?php echo img_url('icons/drop.png'); ?>"/></a>
 					</td>
 					<td><?php echo $campagne->CAM_ID; ?></td>
