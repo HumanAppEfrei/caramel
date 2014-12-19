@@ -13,7 +13,7 @@
 		<table class="table table-striped">			
 			<tr>
 				<th></th>
-				<th>Code</th>
+				<th title="Identifiant de l'offre (unique)" >Code</th>
 				<th>Titre de l'offre</th>
 				<th>Date de fin</th>
 			</tr>
