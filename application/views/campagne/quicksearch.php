@@ -3,8 +3,8 @@
     <form method="post" name="quicksearch" class="well form-search" <?php echo ('action="'.site_url('campagne/quicksearch').'"'); ?>>
         <input name= "is_form_sent" type="hidden" value="true">
         <select  name="selection">
-            <option  value="code">Code</option>
-            <option  value="nom">Nom</option>
+            <option  value="code" title="Identifiant d'une campagne (unique) " >Code</option>
+            <option  value="nom" title="Nom de la campagne" >Nom</option>
         </select>
         <input type="text" name="recherche" value="" />
 
