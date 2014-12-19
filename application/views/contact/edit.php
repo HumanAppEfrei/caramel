@@ -236,7 +236,7 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="NPAI">NPAI</label>
+                        <label class="control-label" for="NPAI" title="Permet de compter le nombre de lettres marquées de la mention pli non distribuable.">PND</label>
                         <div class="controls">
                             <?php echo("<span style='font-weight:bold'>" . $contact->CON_NPAI . "</span>") ?> 
                             <a href="<?php echo site_url("contact/IncrementNPAI/" . $contact->CON_ID); ?>">
@@ -246,7 +246,7 @@ foreach ($contact as $contact) {
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="solicitation">Solicitation </label>
+                        <label class="control-label" for="solicitation" title="Permet de savoir si la personne souhaite être contactée">Solicitation </label>
                         <div class="controls">
                             <select name="solicitation" value="<?php echo set_value('solicitation'); ?>" >
                                 <option value="yes" <?php if ($contact->CON_SOLICITATION == "yes") echo'selected' ?>>OK</option>
@@ -259,7 +259,7 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="ville">Reçus fiscaux </label>
+                        <label class="control-label" for="ville" title="Règle la fréquence de l’envoi des reçus fiscaux">Reçus fiscaux </label>
                         <div class="controls">
                             <select name="rf_type" id="rf_type" value="<?php echo set_value('voie_type'); ?>" >
                                 <option value="never" <?php if ($contact->CON_RF_TYPE == "never") echo'selected' ?>>Jamais</option>
@@ -270,7 +270,7 @@ foreach ($contact as $contact) {
                         </div>
                     </div>
                     <div class="control-group" id="rf_envoi">
-                        <label class="control-label" for="ville">Envoi par</label>
+                        <label class="control-label" for="ville" title="Définit comment envoyer le reçu fiscal">Envoi par</label>
                         <div class="controls">
                             <select name="rf_envoi" value="<?php echo set_value('voie_type'); ?>" >
                                 <option value="courrier" <?php if ($contact->CON_RF_ENVOI == "courrier") echo'selected' ?>>courrier</option>
@@ -282,7 +282,7 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="comm">Commentaires</label>
+                        <label class="control-label" for="comm" title="Ecrivez ici des informations complémentaires sur le contact">Commentaires</label>
                         <div class="controls">
                             <textarea name="commentaire" rows="5" cols="60"><?php echo($contact->CON_COMMENTAIRE) ?></textarea>
                         </div>

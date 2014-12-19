@@ -15,8 +15,8 @@
 			<?php foreach($items as $contact) : ?>
 				<tr>
 					<td>
-						<a href="<?php echo site_url('contact/edit').'/'.$contact->CON_ID; ?>" title="éditer" ><i class="icon-edit"></i></a>
-						<a href="<?php echo site_url('contact/remove').'/'.$contact->CON_ID; ?>" title="supprimer" onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce segment ?\')) {return true;}else{return false;}"><i class="icon-remove"></i></a>
+						<a href="<?php echo site_url('contact/edit').'/'.$contact->CON_ID; ?>" title="Editer" ><i class="icon-edit"></i></a>
+						<a href="<?php echo site_url('contact/remove').'/'.$contact->CON_ID; ?>" title="Supprimer" onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce segment ?\')) {return true;}else{return false;}"><i class="icon-remove"></i></a>
 					</td>
 					<td><?php echo $contact->CON_ID; ?></td>
 					<td><?php echo $contact->CON_LASTNAME; ?></td>
