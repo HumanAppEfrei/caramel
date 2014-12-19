@@ -236,7 +236,7 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="NPAI" title="Permet de compter le nombre de lettres marquées de la mention pli non distribuable.">PND</label>
+                        <label class="control-label" for="NPAI" title="Permet de compter le nombre de lettres marquées de la mention pli non distribuable.">NPAI</label>
                         <div class="controls">
                             <?php echo("<span style='font-weight:bold'>" . $contact->CON_NPAI . "</span>") ?> 
                             <a href="<?php echo site_url("contact/IncrementNPAI/" . $contact->CON_ID); ?>">

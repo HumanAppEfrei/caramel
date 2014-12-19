@@ -8,7 +8,7 @@
 		<option  value="source">Numéro d'adhérent</option>
 	</select>
 	<input type="text" name="search-value" value="" />
-	<button type="submit" class="btn" value="Rechercher">Recherche rapide</button>
+	<button type="submit" class="btn" value="Rechercher" title="Permet d'effectuer une recherche par code de versement ou code d’adhérent. Laisser en blanc pour afficher tout">Recherche rapide</button>
 	
 	<div id="searchPattern">
         <a class="btn pull-center" href=<?php echo (site_url('don/search')); ?>>Recherche avancée</a>
