@@ -18,12 +18,6 @@ class Campagne_model extends MY_Model
 		return $this->db->select('*')->from($this->table);
 	}
 
-	protected $PKey = 'CAM_ID';
-
-	public function select() {
-		return $this->db->select('*')->from($this->table);
-	}
-
 	public function get_results() {
 		return $this->db->get()->result();
 	}
