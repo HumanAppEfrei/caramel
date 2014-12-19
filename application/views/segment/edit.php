@@ -16,7 +16,7 @@
 		Code :<?php echo($segment->SEG_CODE) ?>
 		<div class="pull-right"> Date de création :<?php echo $segment->SEG_DATEADDED ?> </div>
 		<br/>
-		Libellé :<input type="text" name="libelle" value=<?php echo('"'.$segment->SEG_LIBELLE.'"')?> size=37 required/>*
+		Libellé :<input type="text" name="libelle" value=<?php echo('"'.$segment->SEG_LIBELLE.'"')?> size=37 title="champ obligatoire" required/>*
 		<div class="pull-right"> Dernière modification : <?php echo $segment->SEG_DATEMODIF ?> </div>
 		<br/>
 		<?php echo form_error('libelle'); ?>
