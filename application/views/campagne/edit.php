@@ -39,7 +39,7 @@
 		<div class="inner-block">
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Code</label>
+				<label class="control-label" for="description" title="Référence de la campagne (unique)">Code</label>
 				<div class="controls">
 				<input type="text" value="<?php echo($campagne->CAM_ID);?>" readonly="readonly">
 				</div>
