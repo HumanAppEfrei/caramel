@@ -7,7 +7,7 @@ class MY_Model extends CI_Model
 {
     /** @var string Nom de la table */
 	protected $table = '';
-    /** @var string Nom de la table */
+    /** @var string Nom de la cle primaire */
 	protected $PKey = '';
 
 	/**
