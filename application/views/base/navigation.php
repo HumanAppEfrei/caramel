@@ -34,6 +34,8 @@
 	
 	<nav id="navigation" style="margin-left: 800px">
 			<ul>
+				<li><a href = <?php echo (site_url('man')); ?> title="Accéder au manuel d'aide utilisateur">
+				<img <?php echo('src="'.img_url('icons/man.png').'"'); ?> alt="Manuel"/> </a></li>
 				<li><a href = <?php echo (site_url('stat')); ?> title="Accès aux outils statistiques">
 				<img <?php echo('src="'.img_url('icons/stat.png').'"'); ?> alt="Statistics"/> </a></li>
 				<li><a href = <?php echo (site_url('document')); ?> title="Edition de reçus fiscaux et de lettres pré-enregistrées" >

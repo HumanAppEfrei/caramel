@@ -40,14 +40,14 @@
 		
 		<pretty>
 		<div class="control-group">
-			<label class="control-label" for="code">Code</label>
+			<label class="control-label" for="code" title="Code de l'offre (unique)">Code</label>
 			<div class="controls">
 				<input type="text" name="libelle" value="<?php echo($offre->OFF_ID);?>" readonly="readonly">
 			</div>
 		</div>
 
 			<div class="control-group">
-			<label class="control-label" for="Libele">libéllé</label>
+			<label class="control-label" for="Libele" title="Description de l'offre">libéllé</label>
 			<div class="controls">
 				<input type="text" name="libelle" value="<?php echo($offre->OFF_NOM);?>" >
 				<?php echo form_error('libelle'); ?>
@@ -88,7 +88,7 @@
 			
 			<pretty>
 				<div class="control-group">
-					<label class="control-label">Reliée à la campagne</label>
+					<label class="control-label" title="Offre en relation">Reliée à la campagne</label>
 					<div class="controls">
 						<a href=<?php echo site_url('campagne/edit').'/'.$campagne->CAM_ID;?>><?php echo $campagne->CAM_ID." : ".$campagne->CAM_NOM;?> </a></p>
 					</div>
@@ -97,7 +97,7 @@
 			
 			<pretty>
 				<div class="control-group">
-					<label class="control-label" for="segments">Segments associés </label>
+					<label class="control-label" for="segments" title="Critères de selection" liés à l'offre>Segments associés </label>
 					<div class="controls">
 						<?php foreach($segments as $segment)
 						{ ?>

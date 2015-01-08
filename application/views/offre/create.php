@@ -11,14 +11,14 @@
 		
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Code*</label>
+				<label class="control-label" for="description" title="Code unique (champ obligatoire)">Code*</label>
 				<div class="controls">
 				<input type="text" name="code" value="<?php echo set_value('code');?>" >
 				<?php echo form_error('code'); ?>
 				</div>
 				</div>
 				<div class="control-group">
-				<label class="control-label" for="description">Libellé</label>
+				<label class="control-label" for="description" title="Description de l'offre">Libellé</label>
 				<div class="controls">
 				<input type="text" name="libelle" value="<?php echo set_value('libelle');?>" >
 				<?php echo form_error('libelle'); ?>
