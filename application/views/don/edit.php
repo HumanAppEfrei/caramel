@@ -1,7 +1,7 @@
 <div id="edit">
     <?php foreach ($items as $don) : ?>
     <h2 class="well">Edition du don n°<?php echo $don->DON_ID; ?></h2>
-    <form method="post" class="form-horizontal" name="editDon" action="<?php echo site_url('don/edit').'/'.$don->DON_ID; ?>" Onsubmit='return window.confirm("Attention, des données risquent d être écrasées.\nSouhaitez vous continuer ?");'>
+    <form method="post" class="form-horizontal" name="editDon" title="Editer" action="<?php echo site_url('don/edit').'/'.$don->DON_ID; ?>" Onsubmit='return window.confirm("Attention, des données risquent d être écrasées.\nSouhaitez vous continuer ?");'>
         <input name= "is_form_sent" type="hidden" value="true"/>
         <div class="inline-block">
             <pretty>
