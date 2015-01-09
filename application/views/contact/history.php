@@ -45,7 +45,7 @@
                             if ($current_datetime == $history_checking_array['hist_datetime']) {
                                 if ($history_checking_array['hist_field_value'] != $contact_array[$history_checking_array['tabl_field']]) {
                                     ?>
-                                    <td><a href="<?php echo site_url('contact/restauration') . '/' . $id_con . '/' . $date . '/' . $time ?>"><i class="icon-edit"></i></a></td>
+                                    <td><a href="<?php echo site_url('contact/restauration') . '/' . $id_con . '/' . $date . '/' . $time ?>" title="Editer"><i class="icon-edit"></i></a></td>
                                     <?php
                                     break;
                                 }
@@ -60,7 +60,7 @@
                         //affichage speciale pour les modifications de type restauration
                         if ($history_array['hist_modif_type'] == 1) {
                             ?>
-                            <td><span class='label'>Restauration</span></td>
+                            <td><span class='label' title="Remplace la valeur par l'ancienne">Restauration</span></td>
                             <?php
                         } else {
                             ?>
