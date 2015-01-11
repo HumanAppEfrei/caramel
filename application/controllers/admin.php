@@ -575,6 +575,13 @@ class Admin extends MY_Controller {
     }
 
 
+    /*
+     *  Fonction d'édition de la BDD.
+     *  @param "all":   affiche toutes les tables, un bouton pour les modifier
+     *                  TODO: comprendre le fonctionnement du bouton "peupler"
+     *  @param nom d'un table:  affiche les champs de la table et permet de les renommer via un formulaire
+     *
+     */
     public function database($table) {
         $this->load->model('tables_names_model');
         $this->load->model('tables_fields_model');
