@@ -78,7 +78,7 @@ if ( ! function_exists('convert_contrainte'))
 
 /**
 * Convertit une valeur utilisateur en string correspondant
-* @param $contrainte (string) La contrainte émise
+* @param $contrainte (var) La contrainte émise
 * @param $type (string) Le type
 * @param $valeur (?) La valeur
 * @return (array) A déterminer...
