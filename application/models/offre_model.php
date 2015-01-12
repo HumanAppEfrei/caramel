@@ -84,7 +84,8 @@ class Offre_model extends MY_Model
 	}
 	
 	/**
-	 * 
+	 * Retourne toutes les reponses aux offres.
+	 * @return (Mixed[]) l'ensemble des dons ayant un montant superieur a 0
 	 */
 	public function nb_rep() {
 		return $this->db->where('dons.DON_MONTANT > 0');
@@ -93,7 +94,8 @@ class Offre_model extends MY_Model
 
 	/**
 	 * Retourne toutes les offres rattachees a un id
-	 * @param
+	 * @param (Id) l'id des offres recherchees
+ 	 * @return (Mixed[]) l'ensemble des offres ayant l'id recherche 
 	 */
 	public function offre_rattache($con_id) {
 
@@ -101,7 +103,6 @@ class Offre_model extends MY_Model
 	}
 
 	/**
-	 * 
 	 * 
 	 */
 	public function reponses_associees($con_id) {
