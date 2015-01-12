@@ -1,10 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Controller pour la Page Cible
+ */
 class Cible extends MY_Controller {
 	
+	/**
+         * Affichager d'une Offre
+         * @param $offre_id (string) L'id de l'offre à afficher
+         */
 	public function affich($offre_id)
 	{
-	//	$line_page = 25; //Nombre de lignes par pages
+	//	$line_page = 25; // Nombre de lignes par pages
 		$this->load->model('cible_model');
 		$this->load->model('offre_model');
 		
@@ -41,6 +48,10 @@ class Cible extends MY_Controller {
 
 	}
 	
+	/**
+         * Rechercher une campagne ? une offre à partir d'une campagne ?
+         * @param $id_campagne (string) L'id de la campagne à rechercher
+         */
 	public function search($campagne_id)
 	{
 		$this->load->model('contact_model');
@@ -51,7 +62,7 @@ class Cible extends MY_Controller {
 		
 		if ($post_form)
 		{
-			//Récupération des données
+			// Récupération des données
 			$post_numAd = $this->input->post('numAd');
 			$post_firstname = $this->input->post('firstname');
 			$post_lastname = $this->input->post('lastname');
@@ -69,7 +80,7 @@ class Cible extends MY_Controller {
 			$post_pays = $this->input->post('pays');
 			$post_commentaire = $this->input->post('commentaire');
 			
-			// Vérifications des données
+			// Vérification des données
 			
 			$items = $this->contact_model->select();
 			
@@ -116,7 +127,7 @@ class Cible extends MY_Controller {
 			
 			if($this->form_validation->run())
 			{
-				//	Le formulaire est valide
+				// Le formulaire est valide
 				$list_data = array();
 				$list_data['items'] = $items;
 				$list_data['campagneInfo'] = $this->campagne_model->read('CAM_ID,CAM_NOM',array('CAM_ID' => $campagne_id));
@@ -134,7 +145,7 @@ class Cible extends MY_Controller {
 			}
 			else
 			{
-				//	Le formulaire est invalide ou vide
+				// Le formulaire est invalide ou vide
 				$list_data = array();
 				$list_data['campagne_id'] = $campagne_id;
 				$nav_data = array();
@@ -148,7 +159,7 @@ class Cible extends MY_Controller {
 		}
 		else
 		{
-			// affichage
+			// Affichage
 			$list_data = array();
 			$list_data['campagne_id'] = $campagne_id;
 			$nav_data = array();
@@ -161,6 +172,10 @@ class Cible extends MY_Controller {
 		}
 	}
 	
+	/**
+         * Ajouter une campagne à une offre
+         * @param $id_campagne (string) L'id de la campagne à associer
+         */
 	public function add($campagne_id)
 	{
 		$this->load->model('cible_model');
@@ -182,7 +197,10 @@ class Cible extends MY_Controller {
 		redirect('cible/affich/'.$campagne_id, 'refresh');
 	}
 	
-	
+	/**
+         * Supprimer une campagne d'une offre
+         * @param $id_campagne (string) L'id de la campagne à supprimer d'une offre
+         */
 	public function remove($id_cam,$id_con)
 	{
 		$id_cam = intval($id_cam);

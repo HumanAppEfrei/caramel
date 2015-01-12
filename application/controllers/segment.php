@@ -2,6 +2,9 @@
 
 class Segment extends MY_Controller {
 
+    /**
+     * Fonction d'affichage de la page des segments
+     */
     public function index() {
         $post_form = $this->input->post('is_form_sent');
 
@@ -14,6 +17,9 @@ class Segment extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Creation d'un nouveau segment
+     */
     public function create() {
         $this->load->model('segment_model');
         $this->load->library('form_validation');
@@ -68,6 +74,9 @@ class Segment extends MY_Controller {
         }
     }
 
+    /**
+     * Recherche rapide dans les segments
+     */
     public function quicksearch() {
         $this->load->model('segment_model');
         $post_form = $this->input->post('is_form_sent');
@@ -107,6 +116,9 @@ class Segment extends MY_Controller {
         }
     }
 
+    /**
+     * Fonction de recherche approfondie
+     */
     public function search() {
         $this->load->model('segment_model');
         $post_form = $this->input->post('is_form_sent');
@@ -168,6 +180,10 @@ class Segment extends MY_Controller {
         }
     }
 
+    /**
+     * Fonction d'edition de code en fonction d'un id
+     * @param string $segCode L'id du sement a editer
+     */
     public function edit($segCode) {
         $this->load->model('segment_model');
         $this->load->model('critere_model');
@@ -282,6 +298,11 @@ class Segment extends MY_Controller {
         }
     }
 
+    /**
+     * Fonction d'ajout d'un critere a un segment
+     * @param string $segCode L'id du sement a editer
+     * @param string $idCritPrecedent L'ancien id du segment
+     */
     public function addCritere($segCode, $idCritPrecedent = '') {
         $this->load->model('contact_model');
         $this->load->model('critere_model');
@@ -468,7 +489,7 @@ class Segment extends MY_Controller {
 
             if ($this->form_validation->run() && !$erreur) {
 
-                //recherche d'un id critere libre (pas d'auto incrémente pour pouvoir créer un lien après -> besoin de l'id)					
+                //recherche d'un id critere libre (pas d'auto incrémente pour pouvoir créer un lien après -> besoin de l'id)
                 $critereID = $this->critere_model->Generate_CritereID($segCode);
 
                 // Envoie dans la BDD
@@ -556,6 +577,11 @@ class Segment extends MY_Controller {
         }
     }
 
+    /**
+     * Fonction qui supprime un critere du segment choisi
+     * @param string $code L'id du segment choisi
+     * @param string $critere Le critere a supprimer
+     */
     public function removeCritere($code, $critere) {
         $this->load->model('critere_model');
 
@@ -571,6 +597,10 @@ class Segment extends MY_Controller {
         redirect('segment/edit/' . $code, 'refresh');
     }
 
+    /**
+     * Fonction qui supprime un segment de la table
+     * @param string $code L'id du segment choisi
+     */
     public function remove($code) {
         $this->load->model('segment_model');
         //On teste si on peut supprimer le segment sans causer de pb dans offre (segment non relié)
@@ -583,6 +613,11 @@ class Segment extends MY_Controller {
         }
     }
 
+
+    /**
+     * Affiche la page des potentiels en fonction du segment selectionne
+     * @param string $code L'id du segment selectionne
+     */
     public function potentiel($code) {
         $this->load->model('segment_model');
         $this->load->model('critere_model');
@@ -605,6 +640,10 @@ class Segment extends MY_Controller {
     }
 
     //Afficher page d'exporter
+    /**
+     * Affiche la page d'export en fonction du segment selectionne
+     * @param string $code L'id du segment selectionne
+     */
     public function export($code) {
         $this->load->model('reglage_model');
 
@@ -622,23 +661,26 @@ class Segment extends MY_Controller {
     }
 
     //Exporter les contacts
+    /**
+     * Fonction d'exportation du segment
+     */
     public function exportation() {
 
         $this->load->model('segment_model');
         $option = $this->input->post("option");
         $code = $this->input->post("code");
-       
+
         $datas = array();
         array_push($datas,"c.CON_ID");
         array_push($datas,"CON_TYPE");
         array_push($datas,"CON_TYPEC");
-        
+
         foreach ($option as $value) {
-            
+
             if($value == "nom"){
                 array_push($datas, "CON_CIVILITE");
                 array_push($datas, "CON_FIRSTNAME");
-                
+
             }
             else if ($value == "prenom"){
                 array_push($datas, "CON_LASTNAME");
@@ -653,7 +695,7 @@ class Segment extends MY_Controller {
                 array_push($datas, "CON_TELFIXE");
                 array_push($datas, "CON_TELPORT");
             }
-            
+
             else if ($value == "adresse"){
                 array_push($datas, "CON_COMPL");
                 array_push($datas, "CON_VOIE_NUM");
@@ -664,19 +706,19 @@ class Segment extends MY_Controller {
                 array_push($datas, "CON_CITY");
                 array_push($datas, "CON_COUNTRY");
             }
-            
+
             else if ($value == "date_ajout"){
                 array_push($datas, "CON_DATEADDED");
             }
             else if ($value == "date_modif"){
                 array_push($datas, "CON_DATEMODIF");
             }
-            
+
         }
         array_push($datas, "CON_RF_ENVOI");
         array_push($datas, "CON_SOLICITATION");
         array_push($datas, "CON_COMMENTAIRE");
-        
+
         if ($value == "dons"){
             array_push($datas, "DON_ID");
             array_push($datas, "DON_MONTANT");
@@ -685,16 +727,16 @@ class Segment extends MY_Controller {
             array_push($datas, "DON_DATEADDED");
             array_push($datas, "DON_TYPE");
             array_push($datas, "OFF_ID");
-            array_push($datas, "DON_DATE");      
+            array_push($datas, "DON_DATE");
         }
         $query = $this->segment_model->createRequest($code,$datas);
-        
+
         $this->load->dbutil();
         $csv = $this->dbutil->csv_from_result($query,";");
 
         header('Content-Type: application/csv');
         header('Content-Disposition: attachement; filename="export_contact.CSV"');
-        echo $csv; 
+        echo $csv;
     }
 
 }
