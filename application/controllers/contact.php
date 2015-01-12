@@ -3,8 +3,14 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
+/**
+ * Classe de contact
+ */
 class Contact extends MY_Controller {
 
+    /**
+     * Affichage de la page des contacts
+     */
     public function index() {
         $post_form = $this->input->post('is_form_sent');
 
@@ -17,6 +23,9 @@ class Contact extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Creation d'un contact
+     */
     public function create() {
         $this->load->model('contact_model');
         $this->load->model('reglage_model');
@@ -184,6 +193,9 @@ class Contact extends MY_Controller {
         }
     }
 
+    /**
+     * Rechercher rapide
+     */
     public function quicksearch() {
 		$this->load->model("pagination_model");
         $this->load->model('contact_model');
@@ -215,14 +227,14 @@ class Contact extends MY_Controller {
         $this->pagination->initialize($config);
 		// Vérifications des données
 		if ($this->input->get("per_page") > ($config['total_rows'])){
-			$this->index();	
+			$this->index();
 		}
 		else {
 			$items = $this->contact_model->select();
 			//$items = $this->contact_model->read_contact($post_recherche);
 			$items = $this->contact_model->read_quicksearch($post_recherche);
 			$items = $this->contact_model->fetch_contact($config["per_page"],$this->input->get("per_page"));
-			
+
 			$list_data = array();
 			$list_data['items'] = $items;
 			$list_data['div'] = "oui";
@@ -238,6 +250,9 @@ class Contact extends MY_Controller {
 			}
     }
 
+    /**
+     * Recherche avancee
+     */
     public function search() {
         $this->load->model('contact_model');
         $post_form = $this->input->post('is_form_sent');
@@ -374,6 +389,10 @@ class Contact extends MY_Controller {
         }
     }
 
+    /**
+     * Edition d'un contact en fonction de son id
+     * @param string $id L'id du contact a editer
+     */
     public function edit($id_con) {
         $this->load->model('contact_model');
         $this->load->model('reglage_model');
@@ -508,6 +527,10 @@ class Contact extends MY_Controller {
         }
     }
 
+    /**
+     * Fonction de suppression d'un contact
+     * @param string $segCode L'id du sement a supprimer
+     */
     public function remove($id_con) {
         $id_con = intval($id_con);
         $this->load->model('contact_model');
@@ -517,6 +540,10 @@ class Contact extends MY_Controller {
         redirect('contact', 'refresh');
     }
 
+    /**
+     * Fonction d'affichage de la liste des dons en fonction d'un contact
+     * @param string $id L'id du contact selectionne
+     */
     public function list_dons($id_con) {
         $this->load->model('don_model');
         $this->load->model('contact_model');
@@ -538,7 +565,7 @@ class Contact extends MY_Controller {
         $list_data['stats'] = $stats;
         $list_data['contact'] = $contact;
         $list_data['not_for_contact'] = false;
-        
+
         // Calcul des statistiques sur les reçus fiscaux
         $list_data['nbDonsSansRecu'] = 0;
         $list_data['urlDonsSansRecu'] = "";
@@ -549,7 +576,7 @@ class Contact extends MY_Controller {
             }
         }
         $list_data['urlDonsSansRecu'] = rtrim($list_data['urlDonsSansRecu'], '-');
-        
+
 
         $nav_data = array();
         $nav_data['username'] = $this->session->userdata('username');
@@ -562,6 +589,10 @@ class Contact extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Liste et affiche les informations complementaires d'un contact
+     * @param string $id_con L'id du contact selectionne
+     */
     public function infos_comp($id_con) {
         $this->load->model('infos_comp_model');
         $this->load->model('contact_model');
@@ -621,6 +652,10 @@ class Contact extends MY_Controller {
         }
     }
 
+    /**
+     * Liste les offres d'un contact
+     * @param string $id_con L'id du contact selectionne
+     */
     public function list_offres($id_con) {
         $this->load->model('offre_model');
         $this->load->model('contact_model');
@@ -668,6 +703,10 @@ class Contact extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Affiche l'historique des actions d'un contact
+     * @param string $id_con L'id du contact selectionne
+     */
     public function historique($id_con) {
         $this->load->model('contact_model');
         $this->load->model('historique_model');
@@ -696,6 +735,12 @@ class Contact extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Restaure les donnees de l'historique
+     * @param string $id_con L'id du contact selectionne
+     * @param date $date La date de debut de restauration
+     * @param time $time Le temps de restauration
+     */
     public function restauration($id_con, $date, $time) {
         $this->load->model('contact_model');
         $this->load->model('historique_model');

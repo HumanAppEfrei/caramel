@@ -8,19 +8,7 @@ if (!defined('BASEPATH')) {
 class Stat extends MY_Controller {
 
     /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -  
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in 
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see http://codeigniter.com/user_guide/general/urls.html
+     * Fonction d'affichage de la page des statistiques
      */
     public function index() {
         parent::__construct();
@@ -38,6 +26,9 @@ class Stat extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Affichage de la page des adherents
+     */
     public function adherents() {
 
         $this->load->model('contact_model');
@@ -52,7 +43,7 @@ class Stat extends MY_Controller {
         //requête pour connaître évolution nb adhérents
         $this->contact_model->select();
         $list_data['stat_evolution_nombre_adhérents'] =$this->contact_model->read_evolution_nombre_adherents()->result();
-        
+
         //requête pour connaître évolution nb donateurs
         $this->contact_model->select();
         $list_data['stat_evolution_donateurs'] =$this->contact_model->read_evolution_donateurs()->result();
@@ -66,6 +57,9 @@ class Stat extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Affichage de la page des versements
+     */
     public function versements(){
         $this->load->model('don_model');
 
@@ -93,6 +87,9 @@ class Stat extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Affichage de la page des campagnes
+     */
     public function campagnes(){
         $this->load->model('campagne_model');
 
@@ -120,6 +117,9 @@ class Stat extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Affichage de la page des offres
+     */
     public function offres(){
         $this->load->model('offre_model');
 
@@ -141,7 +141,7 @@ class Stat extends MY_Controller {
         //le nombre d'offre crée les 10 derniers années
         $this->offre_model->select();
         $list_data['stat_somme_recoltee_offre']=$this->offre_model->read_somme_recoltee_offre()->result();
-        
+
         //Chargement des vues de navigation standard.
         $this->load->view('base/header');
         $this->load->view('base/navigation', $nav_data);
@@ -151,6 +151,9 @@ class Stat extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Affiche le top pour les dons.
+     */
     public function top(){
 
         $this->load->model('don_model');
@@ -190,6 +193,3 @@ class Stat extends MY_Controller {
     }
 
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
