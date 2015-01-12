@@ -93,7 +93,6 @@ class Offre_model extends MY_Model
 		$mois = "-" . $mois . "-";
 		return $this->db->like('OFF_DATEADDED', (string) $mois, 'both');
 	}
-<<<<<<< HEAD
 
 	//requête qui retourne le nombre d'offre crée sur les 12 derniers mois.
 	public function read_nombre_offre_12_mois(){
