@@ -1,33 +1,50 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+* Gestion des segments
+*/
 class Segment_model extends MY_Model
 {
     protected $table = 'segments';
 	protected $PKey = 'SEG_ID';
-	
+	/**
+	* Selection d'un segment dans la BDD
+	*/
 	public function select() {
 		return $this->db->select('*')->from($this->table);
 	}
-	
+	/**
+	* Selection d'un result dans la BDD
+	*/
 	public function get_results() {
 		return $this->db->get()->result();
 	}
-        
+    /**
+	* Selection dans la BDD
+	*/    
         public function get() {
 		return $this->db->get();
 	}
-
+	/**
+	* Lecture du code d'un segment dans la BDD
+	* @param string $code le code du segment
+	*/
 	public function read_code($code) {
 		return $this->db->where('SEG_CODE', (string) $code);
 	}
-	
+	/**
+	* Lecture du libelle d'un segment dans la BDD
+	* @param string $libelle le libelle du segment
+	*/
 	public function read_libelle($libelle) {
 		return $this->db->like('SEG_LIBELLE', (string) $libelle, 'after');
 	}
 	
-	//permet de verifier si un segment est contenu dans un autre (evite les boucles de segments)
+	/**
+	* permet de verifier si un segment est contenu dans un autre (evite les boucles de segments)
+	* @param $segTeste $segCode les codes des deux segments que l'on va comparer
+	*/
 	public function contientSeg($segTeste,$segCode) {
-		//recup�ration des criteres du segment test�
+		//recuperation des criteres du segment test
 		$this->load->model('segment_model');
 		$this->load->model('critere_model');
 		$criteres = $this->critere_model->read('CRIT_ATTRIBUT,CRIT_VAL',array('SEG_CODE' => $segTeste));
@@ -45,8 +62,10 @@ class Segment_model extends MY_Model
 		return $bool;
 			
 	}
-	
-	//Bloque la modification d'un segment et de sa descendance
+	/**
+	* Bloque la modification d'un segment et de sa descendance
+	* @param $segCode le code du segment "racine"
+	*/
 	public function blockSegEdit($segCode)
 	{
 		$this->load->model('segment_model');
@@ -65,11 +84,15 @@ class Segment_model extends MY_Model
 			}
 		}
 	}
-
-	/** genere la liste des contacts � partir du code segment **/
+	
+	/**
+	* genere la liste des contacts a partir du code segment
+	* @param $segCode le code du segment "racine"
+	*/
+	
 	public function createRequest($segCode, $array = null) {
 		
-		//r�cup�ration des criteres du segments	
+		//recuperation des criteres du segments	
 		$this->load->model('critere_model');
 		$this->load->model('contacts_ic_model');
 		$criteres = $this->critere_model->read('*',array('SEG_CODE' => $segCode));
@@ -104,7 +127,7 @@ class Segment_model extends MY_Model
 			}else if($critere->CRIT_ATTRIBUT=='dateVersement'){
 			
 				$dateVersements = $this->GetDateVersement();
-				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste � l'array de ne pas etre vide)
+				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste a l'array de ne pas etre vide)
 				foreach($dateVersements as $dateVersement)
 				{
 					if($critere->CRIT_COMP == ">")
@@ -124,7 +147,7 @@ class Segment_model extends MY_Model
 			}else if($critere->CRIT_ATTRIBUT=='NbDon'){
 			
 				$Nbdons = $this->GetNbDon($critere->CRIT_VAL);
-				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste � l'array de ne pas etre vide)
+				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste a l'array de ne pas etre vide)
 				foreach($Nbdons as $NbDon)
 				{
 					if($critere->CRIT_COMP == ">")
@@ -144,7 +167,7 @@ class Segment_model extends MY_Model
 			}else if($critere->CRIT_ATTRIBUT=='DonMoyen'){
 			
 				$DonMoyens = $this->GetDonMoyen($critere->CRIT_VAL);
-				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste � l'array de ne pas etre vide)
+				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste a l'array de ne pas etre vide)
 				foreach($DonMoyens as $DonMoyen)
 				{
 					if($critere->CRIT_COMP == ">")
@@ -164,7 +187,7 @@ class Segment_model extends MY_Model
 			}else if($critere->CRIT_ATTRIBUT=='TotalDon'){
 			
 				$Totaldons = $this->GetTotalDon($critere->CRIT_VAL);
-				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste � l'array de ne pas etre vide)
+				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste a l'array de ne pas etre vide)
 				foreach($Totaldons as $TotalDon)
 				{
 					if($critere->CRIT_COMP == ">")
@@ -186,17 +209,17 @@ class Segment_model extends MY_Model
 				$tmp = explode(":",$critere->CRIT_ATTRIBUT);
 				$champsComplementaire = $tmp[0];
 				$ICs = $this->contacts_ic_model->read("CON_ID",array($champsComplementaire=>$critere->CRIT_VAL));
-				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste � l'array de ne pas etre vide)
+				$listOK =array('none'); //evite les erreurs de requete si la liste est vide ('none' permet juste a l'array de ne pas etre vide)
 				foreach($ICs as $IC)
 				{
 					array_push($listOK,$IC->CON_ID);
 				}
 				array_push($listIC,$listOK);	
 			}
-		} //Fin de l'analyse : toutes les donn�es utiles sont charg�es
+		} //Fin de l'analyse : toutes les donnees utiles sont chargees
 		
 		
-		//Deuxieme parcours criteres : cr�ation de la requete du segment courant
+		//Deuxieme parcours criteres : creation de la requete du segment courant
 		if (!isset($array)){
                     $request = $this->db->select('C.CON_ID, C.CON_LASTNAME, C.CON_FIRSTNAME')->from('contacts C');
                 }//debut requete
@@ -208,7 +231,7 @@ class Segment_model extends MY_Model
                      }
                 }
                 
-		//initialisation des listes pr�charg�es : (remise du pointer array au d�but)
+		//initialisation des listes prechargees : (remise du pointer array au debut)
 		$SousSegment = reset($listSousSegments);
 		$DateVersement = reset($listDateVersement);
 		$NbDon = reset($listNbDon);
@@ -324,9 +347,12 @@ class Segment_model extends MY_Model
                 }	
 	}
 	
-	/** genere une cible � partir d'une liste de segment : array[CON_ID,SEGS]
-	SEGS est la liste des segments qui ont permis d'obtenir le contact (ID segments s�par�s par des virgules) 
-	**/
+	/**
+	* genere une cible a partir d'une liste de segment : array[CON_ID,SEGS]
+	* SEGS est la liste des segments qui ont permis d'obtenir le contact (ID segments separes par des virgules)
+	* @param $table_segs la table qui contient les segments
+	*/
+
 	public function createCible($table_segs)
 	{
 		//Pour le premier segment
@@ -345,12 +371,12 @@ class Segment_model extends MY_Model
 			$cibleTaille = count($cible); 
 			foreach($cibleTmp as $contactTmp)
 			{
-				//gerer le fait qu'un contact peut deja appartenir � un segment trait� pr�c�dement
+				//gerer le fait qu'un contact peut deja appartenir a un segment traite precedement
 				$j = 0;
 				$continue = true;
 				while($j < $cibleTaille && $continue)
 				{
-					if($cible[$j]["CON_ID"] == $contactTmp->CON_ID) // dans ce cas, il suffit de rajouter le segment associ� � la liste des segments
+					if($cible[$j]["CON_ID"] == $contactTmp->CON_ID) // dans ce cas, il suffit de rajouter le segment associe a la liste des segments
 					{
 						$cible[$j]["SEGS"] = $cible[$j]["SEGS"].",".$table_segs[$i];
 						$continue = false;
@@ -358,7 +384,7 @@ class Segment_model extends MY_Model
 					$j++;
 				}
 				
-				//Si le contact n'�tait pas deja pr�sent, on le rajoute � la cible
+				//Si le contact n'etait pas deja present, on le rajoute a la cible
 				if($continue)
 				{
 					$con_ajout = array("CON_ID"=>$contactTmp->CON_ID,"SEGS"=>$table_segs[$i]);
@@ -370,9 +396,13 @@ class Segment_model extends MY_Model
 		return $cible;
 	}
 	
+	/**
+	* Trouve le don moyen en fonction d'un parametre
+	* @param $valeur int, la valeur du don moyen
+	*/
 	public function GetDonMoyen($valeur) {
 		
-		//r�cup�ration dates dans valeur:
+		//recuperation dates dans valeur:
 		$tmp = explode(":",$valeur);				
 		$tmp = explode("/",$tmp[1]);
 		$DateDebut = $tmp[0];
@@ -389,9 +419,13 @@ class Segment_model extends MY_Model
 	
 	}
 	
+	/**
+	* Trouve le nombre de don
+	* @param $valeur int, le nombre de don recherche
+	*/
 	public function GetNbDon($valeur) {
 	
-		//r�cup�ration dates dans valeur:
+		//recuperation dates dans valeur:
 		$tmp = explode(":",$valeur);				
 		$tmp = explode("/",$tmp[1]);
 		$DateDebut = $tmp[0];
@@ -415,9 +449,13 @@ class Segment_model extends MY_Model
 		return $listResult;
 	}
 	
+	/**
+	* Trouve le nombre total de don
+	* @param $valeur int, le nombre de don recherche
+	*/
 	public function GetTotalDon($valeur) {
 	
-		//r�cup�ration dates dans valeur:
+		//recuperation dates dans valeur:
 		$tmp = explode(":",$valeur);				
 		$tmp = explode("/",$tmp[1]);
 		$DateDebut = $tmp[0];
@@ -433,6 +471,9 @@ class Segment_model extends MY_Model
 		return $result;
 	}
 	
+	/**
+	* Trouve la date d'un versement
+	*/
 	public function GetDateVersement(){
 		$listContact = $this->db->select('CON_ID')->from('contacts')->group_by('CON_ID')->get()->result();
 	
