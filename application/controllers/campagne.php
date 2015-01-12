@@ -1,7 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Controller pour la Page Campagne
+ */
 class Campagne extends MY_Controller {
-
+	
+	/**
+         * Affichage de la Page
+         */
 	public function index()
 	{		
 		$nav_data = array();
@@ -13,7 +19,9 @@ class Campagne extends MY_Controller {
 		$this->load->view('base/footer');
 	}
 	
-	
+	/**
+     	 * Creation d'une nouvelle campagne
+         */
 	public function create()
 	{
 		$this->load->model('campagne_model');
@@ -38,7 +46,7 @@ class Campagne extends MY_Controller {
 			$message_debut = "";
 			$message_fin = "";
 
-			//vérification
+			// Vérification
 			$this->form_validation->set_rules('code', 'Code', 'trim|required|max_length[10]|is_unique[campagnes.CAM_ID]|alpha_dash|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('nom', 'Nom', 'trim|required|alpha_dash_spaces|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('jourd', 'Jour de début', 'trim|required|max_length[2]|numeric|encode_php_tags|xss_clean');
@@ -54,7 +62,6 @@ class Campagne extends MY_Controller {
 			
 			if($this->form_validation->run() && $message_debut=="" && $message_fin=="")
 			{
-			
 				// Envoie dans la BDD
 				$options_echappees = array();
 				$options_echappees['CAM_ID'] = $post_code;
@@ -75,11 +82,10 @@ class Campagne extends MY_Controller {
 				$this->campagne_model->create($options_echappees, $options_non_echappees);
 				
 				redirect('campagne/edit/'.$post_code, 'refresh');
-				
 			}
 			else
 			{
-				//	Le formulaire est invalide ou vide
+				//Le formulaire est invalide ou vide
 				$nav_data = array();
 				$nav_data['username'] = $this->session->userdata('username');
 				
@@ -93,12 +99,10 @@ class Campagne extends MY_Controller {
 				$this->load->view('campagne/create',$list_data);		
 				$this->load->view('base/footer');
 			}
-		
 		}
-		
 		else
 		{
-			// affichage
+			// Affichage
 			$nav_data = array();
 			$nav_data['username'] = $this->session->userdata('username');
 			
@@ -110,6 +114,9 @@ class Campagne extends MY_Controller {
 		}
 	}
 	
+	/**
+         * Faire une recherche rapide
+         */
 	public function quicksearch()
 	{
 		$this->load->model('campagne_model');
@@ -119,11 +126,11 @@ class Campagne extends MY_Controller {
 		
 		if ($post_form)
 		{
-			//Récupération des données
+			// Récupération des données
 			$post_selection = $this->input->post('selection');
 			$post_recherche = mysql_real_escape_string($this->input->post('recherche'));
 			
-			// Vérifications des données
+			// Vérification des données
 			
 			$items = $this->campagne_model->select();
 			
@@ -152,6 +159,10 @@ class Campagne extends MY_Controller {
 		}
 	}	
 	
+	/**
+         * Editer une campagne
+         * @param $id_campagne (string) L'id de la campagne à éditer
+         */
 	public function edit($id_campagne)
 	{
 		$this->load->model('campagne_model');
@@ -175,7 +186,7 @@ class Campagne extends MY_Controller {
 			$message_debut = "";
 			$message_fin = "";
 			
-			//vérification
+			// Vérification
 			$this->form_validation->set_rules('nom', 'Nom', 'trim|required|alpha_dash_spaces|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('jourd', 'Jour de début', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('moisd', 'Mois de début', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
@@ -208,7 +219,6 @@ class Campagne extends MY_Controller {
 				$this->campagne_model->update(array('CAM_ID' => $id_campagne),$options_echappees, $options_non_echappees);
 				
 				redirect('campagne', 'refresh');
-				
 			}
 			else
 			{
@@ -247,9 +257,11 @@ class Campagne extends MY_Controller {
 			$this->load->view('campagne/edit', $list_data);
 			$this->load->view('base/footer');
 		}
-	
 	}
 	
+	/**
+         * Faire une recherche avancée
+         */
 	public function search()
 	{
 		$this->load->model('campagne_model');
@@ -259,7 +271,7 @@ class Campagne extends MY_Controller {
 		
 		if ($post_form)
 		{		
-			//Récupération des données
+			// Récupération des données
 			$post_code = $this->input->post('code');
 			$post_nom = $this->input->post('nom');
 			$post_debut = $this->input->post('anneed')."-".$this->input->post('moisd')."-".$this->input->post('jourd');
@@ -270,7 +282,7 @@ class Campagne extends MY_Controller {
 			$post_email = $this->input->post('email');
 			$post_mediatype = $this->input->post('mediatype');
 			
-			// Vérifications des données
+			// Vérification des données
 			
 			$items = $this->campagne_model->select();
 			
@@ -304,7 +316,7 @@ class Campagne extends MY_Controller {
 			
 			if($this->form_validation->run() && $message=="")
 			{
-				//	Le formulaire est valide
+				// Le formulaire est valide
 				$list_data = array();
 				$list_data['items'] = $items;
 				$list_data['elements'] = $this->campagne_model->count();
@@ -322,7 +334,7 @@ class Campagne extends MY_Controller {
 			}
 			else
 			{
-				//	Le formulaire est invalide ou vide
+				// Le formulaire est invalide ou vide
 				$nav_data = array();
 				$nav_data['username'] = $this->session->userdata('username');
 				$this->load->view('base/header');
@@ -336,7 +348,7 @@ class Campagne extends MY_Controller {
 		}
 		else
 		{
-			// affichage
+			// Affichage
 			$nav_data = array();
 			$nav_data['username'] = $this->session->userdata('username');
 			$this->load->view('base/header');
