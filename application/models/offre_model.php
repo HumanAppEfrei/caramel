@@ -103,7 +103,9 @@ class Offre_model extends MY_Model
 	}
 
 	/**
-	 * 
+	 * Retourne les dons d'un contact associes a une certaine offre
+	 * @param (Id) l'id du contact recherche
+ 	 * @return (Mixed[]) l'ensemble des dons ayant l'id recherche 
 	 */
 	public function reponses_associees($con_id) {
 		return $this->db->join('dons', 'dons.CON_ID = cibles.CON_ID AND dons.OFF_ID = cibles.OFF_ID ', 'LEFT OUTER')->where('cibles.CON_ID', (string) $con_id);
@@ -127,7 +129,6 @@ class Offre_model extends MY_Model
 		$mois = "-" . $mois . "-";
 		return $this->db->like('OFF_DATEADDED', (string) $mois, 'both');
 	}
-<<<<<<< HEAD
 
 	/**
 	 * Retourne le nombre d'offre cree sur les 12 derniers mois
