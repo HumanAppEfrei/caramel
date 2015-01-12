@@ -1,5 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Convertit une contrainte utilisateur en string correspondant
+* @param $contrainte (var) Contrainte à convertir au format approprié
+* @return (string) La contrainte en format string
+**/
 if ( ! function_exists('convert_contrainte'))
 {
 	function convert_contrainte($contrainte) { 
@@ -63,7 +68,7 @@ if ( ! function_exists('convert_contrainte'))
 			break;
 			
 			default: // IC
-			$label = explode(":",$contrainte);
+			$label = explode(":",$contrainte); // CHANGES Méthode explode() au lieu de split() parce que dépréciée
 			if(count($label) > 1) return $label[1];
 			else return $contrainte;
 			break;
@@ -71,6 +76,13 @@ if ( ! function_exists('convert_contrainte'))
 	}
 }
 
+/**
+* Convertit une valeur utilisateur en string correspondant
+* @param $contrainte (string) La contrainte émise
+* @param $type (string) Le type
+* @param $valeur (?) La valeur
+* @return (array) A déterminer...
+**/
 if ( ! function_exists('convert_valeur'))
 {
 	function convert_valeur($contrainte, $type, $valeur) { 
@@ -95,7 +107,11 @@ if ( ! function_exists('convert_valeur'))
 	}
 }
 
-
+/**
+* Convertit le résultat d'une requête
+* @param $segmentResult (var) La requête à convertir
+* @return (array) Les résultats de la requête sous forme de liste
+**/
 if ( ! function_exists('convResulRequest'))
 {
 	function convResulRequest($segmentResult) { 
