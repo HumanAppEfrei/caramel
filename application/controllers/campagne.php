@@ -360,10 +360,13 @@ class Campagne extends MY_Controller {
 		}
 	}
 	
+	/**
+         * Supprimer une campagne
+         * @param $id_cam (string) L'id de la Campagne à supprimer
+         */
 	public function remove($id_cam)
 	{
-		// si admin
-		
+		// Si admin
 		$id_cam = intval($id_cam);
 		$this->load->model('campagne_model');
 		$this->load->model('offre_model');
@@ -373,6 +376,10 @@ class Campagne extends MY_Controller {
 		redirect('campagne', 'refresh');
 	}
 	
+	/**
+         * Lister les offres d'une campagne
+         * @param $id_cam (string) L'id de la Campagne dont il faut lister les offres
+         */
 	public function list_offres($id_cam)
 	{
 		$this->load->model('offre_model');
