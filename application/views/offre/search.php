@@ -55,7 +55,7 @@
 			
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Relié à la campagne</label>
+				<label class="control-label" for="description" title="Permet de rechercher les offres associées à une campagne particulière">Relié à la campagne</label>
 				<div class="controls">
 				<select name="campagne" >
 				<?php foreach($list_campagnes as $campagne)

@@ -11,9 +11,9 @@
 		
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description" title="Code unique (champ obligatoire)">Code*</label>
+				<label class="control-label" for="description" title="Référence de l'offre (unique)">Code*</label>
 				<div class="controls">
-				<input type="text" name="code" value="<?php echo set_value('code');?>" >
+				<input type="text" name="code" title="champ obligatoire" value="<?php echo set_value('code');?>" >
 				<?php echo form_error('code'); ?>
 				</div>
 				</div>
@@ -55,7 +55,7 @@
 			
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Relier à la campagne</label>
+				<label class="control-label" title="Permet d'associer l'offre à une campagne" for="description">Relier à la campagne</label>
 				<div class="controls">
 				<select name="campagne" >
 				<?php foreach($list_campagnes as $list_campagne)
@@ -80,7 +80,7 @@
 				<div class="control-group">
 				<input type="hidden" id="segments" name="segments" value="<?php echo set_value('segments');?>" >
 	
-				<label class="control-label" for="description">Segments</label>
+				<label class="control-label" title="Permet d'associer un segment à une offre en inscrivant son code" for="description">Segments</label>
 				<div class="controls">
 				<input type="text" id="seg" value="<?php echo set_value('segment');?>" >
 				<button type="button" class="btn" id="seg_ajout" >Ajouter</button>
