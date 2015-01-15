@@ -3,8 +3,14 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
+/**
+ * Controller pour les documents
+ */
 class Document extends MY_Controller {
 
+    /**
+     * Affiche la page des documents
+     */
     public function index() {
         $nav_data = array('username' => $this->session->userdata('username'));
 
@@ -17,6 +23,9 @@ class Document extends MY_Controller {
 
     /* Partie Type */
 
+    /**
+     * Affichage des types pour les documents
+     */
     public function type() {
         $this->load->model('type_model');
 
@@ -31,6 +40,9 @@ class Document extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Page de creation d'un type
+     */
     public function create_type() {
         $this->load->model('type_model');
         $this->load->library('form_validation');
@@ -53,6 +65,10 @@ class Document extends MY_Controller {
         }
     }
 
+    /**
+     * Edition d'un type
+     * @param string $typeID L'id du type selectionne
+     */
     public function edit_type($typeID) {
         $this->load->model('type_model');
         $this->load->library('form_validation');
@@ -77,6 +93,10 @@ class Document extends MY_Controller {
         }
     }
 
+    /**
+     * Supprime un type
+     * @param string $typeID L'id du type selectionne
+     */
     public function remove_type($typeID) {
         $this->load->model('type_model');
         $this->load->model('lettre_model');
@@ -86,6 +106,9 @@ class Document extends MY_Controller {
         redirect('/document/type/', 'refresh');
     }
 
+    /**
+     * Recherche rapide sur les types
+     */
     public function quicksearch() {
         if ($this->input->post('is_form_sent')) {
             $post_selection = $this->input->post('selection');
@@ -103,6 +126,9 @@ class Document extends MY_Controller {
 
     /* Partie Lettre */
 
+    /**
+     * Affiche une lettre
+     */
     public function lettre() {
         $this->load->model('type_model');
 
@@ -117,6 +143,10 @@ class Document extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Creation d'une lettre
+     * @param string $typeID  Id du type selectionne
+     */
     public function create_letter($typeID) {
         $this->load->model('lettre_model');
         $this->load->library('form_validation');
@@ -144,6 +174,10 @@ class Document extends MY_Controller {
         }
     }
 
+    /**
+     * Creation d'une lettre
+     * @param string $lettreID L'id de la lettre a modifier
+     */
     public function edit_letter($lettreID) {
         $this->load->model('lettre_model');
         $this->load->library('form_validation');
@@ -171,12 +205,20 @@ class Document extends MY_Controller {
         }
     }
 
+    /**
+     * Suppression d'une lettre
+     * @param string $lettreID L'id de la lettre a supprimer
+     */
     public function remove_letter($lettreID) {
         $this->load->model('lettre_model');
         $this->lettre_model->delete(array('LET_ID' => $lettreID));
         redirect('/document/lettre/', 'refresh');
     }
 
+    /**
+     * Reload de la page
+     * @param string $typeID L'id du type selectionne
+     */
     public function ajax_listLettres($typeID) {
         $this->load->model('lettre_model');
         $lettres = $this->lettre_model->read("LET_ID,LET_NAME", array("LET_TYPE_ID" => $typeID));
@@ -185,6 +227,10 @@ class Document extends MY_Controller {
         $this->load->view('document/listLettres', $data);
     }
 
+    /**
+     * Genere une lettre
+     * @param string $lettre_id L'id de la lettre choisie
+     */
     public function generate_lettre($lettre_id) {
         $this->load->library('form_validation');
         $this->load->library('mpdf');
@@ -244,7 +290,7 @@ class Document extends MY_Controller {
                     $html_modif = str_replace('$nom_contact$', $this->contact_model->generate_nom($contact_id->CON_ID), $html_modif);
                     $html_modif = str_replace('$civilite_contact$', $this->contact_model->generate_civilite($contact_id->CON_ID), $html_modif);
                     $html_modif = str_replace('$adresse_contact$', $this->contact_model->generate_adresse($contact_id->CON_ID), $html_modif);
-                    /** + autres variables à ajouter 
+                    /** + autres variables à ajouter
                       $html = str_replace('$NOM_VARIABLE$',$this->contact_model->GENERATE_VARIABLE($contact_id->CON_ID),$html_modif);
                       Il faut alors implementer la fonction GENERATE_VARIABLE dans contact model
                      * */
