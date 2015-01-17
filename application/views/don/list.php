@@ -27,8 +27,8 @@
         <table class="table table-striped">
             <tr>
                 <th></th>
-                <th>Code</th>
-                <th>Identifiant contact</th>
+                <th title="Référence un don (unique)">Code</th>
+                <th title="Référence un contact (unique)">Identifiant contact</th>
                 <th>Montant</th>
                 <th>Type de versement</th>
                 <th>Date de saisie</th>

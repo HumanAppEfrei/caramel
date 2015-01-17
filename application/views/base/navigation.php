@@ -7,10 +7,10 @@
 				<li><a href = <?php echo (site_url('')); ?> title="Retour à l'accueil">
 				<img <?php echo('src="'.img_url('icons/home.png').'"'); ?> alt="Home"/> </a></li>
 				<li>
-				<a href="<?php echo (site_url('contact')); ?>" title="Permet de créer, éditer ou supprimer un ou des contacts de la base de données.">Contacts</a>
+				<a href="<?php echo (site_url('contact')); ?>" title="Permet de créer, éditer ou supprimer un ou des contacts de la base de données">Contacts</a>
 				</li>
 				<li>
-				<a href="<?php echo (site_url('don')); ?>" title="Permet de créer, rechercher, éditer, supprimer un nouveau versement, et éditer un reçu fiscal">Versements</a>
+				<a href="<?php echo (site_url('don')); ?>" title="Permet de créer, rechercher, éditer, supprimer un nouveau versement et éditer un reçu fiscal">Versements</a>
 				</li>
 				<li>
 				<a href="<?php echo (site_url('campagne')); ?>" title="Permet de créer, rechercher, éditer, supprimer une nouvelle campagne">Campagnes</a>
