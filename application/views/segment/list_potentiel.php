@@ -25,7 +25,7 @@
 
 			echo('<tr>');
 			//echo('<td> </td>');
-			echo('<td><center><h3>'.'Numéro Adéhrent'.'</h3></center></td>');
+			echo('<td title="Référence un contact (unique)"><center><h3>'.'Numéro Adéhrent'.'</h3></center></td>');
 			echo('<td><center><h3>'.'Nom'.'</h3></center></td>');
 			echo('<td><center><h3>'.'Prénom'.'</h3></center></td>');
 			//echo('<td><center><h3>'.'A répondu à l\'offre'.'</h3></center></td>');
