@@ -34,7 +34,7 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="id">Identifiant</label>
+                        <label class="control-label" title="Code du contact (unique)" for="id">Identifiant</label>
                         <div class="controls">
                             <input type="text" value="<?php echo($contact->CON_ID) ?>" readonly="readonly">
                         </div>
@@ -236,11 +236,11 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="NPAI" title="Permet de compter le nombre de lettres marquées de la mention pli non distribuable.">PND</label>
+                        <label class="control-label" for="NPAI" title="Permet de compter le nombre de lettres marquées de la mention pli non distribuable.">NPAI</label>
                         <div class="controls">
                             <?php echo("<span style='font-weight:bold'>" . $contact->CON_NPAI . "</span>") ?> 
                             <a href="<?php echo site_url("contact/IncrementNPAI/" . $contact->CON_ID); ?>">
-                                <input type="button" class="btn" value="Incrémenter" onClick='return window.confirm("Incrémenter NPAI?");'/> </a> 
+                                <input type="button" class="btn" title="Le NPAI est augmenté de un" value="Incrémenter" onClick='return window.confirm("Incrémenter NPAI?");'/> </a> 
                             <a href="<?php echo site_url("contact/RAZ_NPAI/" . $contact->CON_ID); ?>">
                                 <input type="button" class="btn" value="RAZ" onClick='return window.confirm("Remettre à zéro NPAI?");'title="Remise à Zéro"/> </a><br/><br/>
                         </div>

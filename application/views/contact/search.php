@@ -12,7 +12,7 @@
 			
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="id">Identifiant contact</label>
+				<label class="control-label" for="id" >Identifiant contact</label>
 				<div class="controls">
 				<input type="text" name="numAd" value="<?php echo set_value('numAd'); ?>" >
 				<?php echo form_error('numAd'); ?>

@@ -38,15 +38,15 @@
             <?php foreach($items as $don) :	?>
                 <tr>
                     <td>
-						<a href="<?php echo site_url('don/edit').'/'.$don->DON_ID; ?>"><img src="<?php echo img_url('icons/edit.png'); ?>"/></a>
-						<a href="<?php echo site_url('don/remove').'/'.$don->DON_ID; ?>" onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce don ?\')) {return true;}else{return false;}"><img src="<?php echo img_url('icons/drop.png'); ?>"/></a>
+						<a href="<?php echo site_url('don/edit').'/'.$don->DON_ID; ?>" title="Editer"><img src="<?php echo img_url('icons/edit.png'); ?>"/></a>
+						<a href="<?php echo site_url('don/remove').'/'.$don->DON_ID; ?>" title="Supprimer" onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce don ?\')) {return true;}else{return false;}"><img src="<?php echo img_url('icons/drop.png'); ?>"/></a>
 					</td>
                     <td><a href="<?php echo site_url('don/edit').'/'.$don->DON_ID; ?>"><?php echo $don->DON_ID; ?></a></td>
                     <td><a href="<?php echo site_url('contact/edit').'/'.$don->CON_ID; ?>"><?php echo $don->CON_ID; ?></a></td>
                     <td><?php echo $don->DON_MONTANT; ?> €</td>
                     <td><?php echo $don->DON_TYPE; ?></td>
                     <td><?php echo date_usfr($don->DON_DATE, false); ?></td>
-                    <td><a class="btn btn-mini" href="<?php echo site_url('don/recu_fiscal').'/'.$don->DON_ID; ?>"><?php echo ($don->DON_RECU_ID != NULL) ? "Voir le duplicata (#".$don->DON_RECU_ID.")" :  "Éditer maintenant"; ?></a></td>
+                    <td><a class="btn btn-mini" href="<?php echo site_url('don/recu_fiscal').'/'.$don->DON_ID; ?>" title=" format PDF"><?php echo ($don->DON_RECU_ID != NULL) ? "Voir le duplicata (#".$don->DON_RECU_ID.")" :  "Éditer maintenant"; ?></a></td>
                 </tr>
             <?php endforeach; ?>
         </table>
