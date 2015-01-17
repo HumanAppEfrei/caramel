@@ -3,7 +3,7 @@
 	<div class="navbar-inner">
 		<div class="container">	
 	<nav id="navigation">
-			<ul>
+			<ul data-intro="La barre de navigation permet d'utiliser les différentes fonctions du logiciel Caramel. Vous pouvez accéder aux fonctionnalités concernant les Contacts, les Versements, les Campagnes, les Offres et les Segments. Tout est légendé pour vous aider." data-step="2">
 				<li><a href = <?php echo (site_url('')); ?> title="Retour à l'accueil">
 				<img <?php echo('src="'.img_url('icons/home.png').'"'); ?> alt="Home"/> </a></li>
 				<li>
@@ -32,8 +32,8 @@
 			<ul>
 	-->
 	
-	<nav id="navigation" style="margin-left: 800px">
-			<ul>
+	<nav id=navigation style="margin-left: 800px">
+			<ul data-intro="Ici, vous avez accès à des fonctionnalités annexes comme le manuel d'aide, les outils statistiques, l'édition de documents, les parametres. Vous pouvez aussi vous déconnecter." data-step="3">
 				<li><a href = <?php echo (site_url('man')); ?> title="Accéder au manuel d'aide utilisateur">
 				<img <?php echo('src="'.img_url('icons/man.png').'"'); ?> alt="Manuel"/> </a></li>
 				<li><a href = <?php echo (site_url('stat')); ?> title="Accès aux outils statistiques">
