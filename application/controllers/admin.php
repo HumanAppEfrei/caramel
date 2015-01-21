@@ -33,9 +33,103 @@ class Admin extends MY_Controller {
         $nav_data = array('username' => $this->session->userdata('username'));
         $this->load->view('base/header');
         $this->load->view('base/navigation', $nav_data);
-        $this->load->view('export_bdd/test.php');
-        $this->load->view('base/footer');
+        
+        /*
+         * Le code suivant est basé sur la fonction database avec le parametre all
+         * Je le met là pour voir si y'a pas moyen de chopper le nom des tables un peu pareil
+         *
+         * L'ensemble du code suivant sert a récupérer le nom des tables dans le
+         * tableau $tables_array que l'on passe ensuite a la vue pour qu'elle 
+         * affiche le nom des tables
+         */
+        
+        $this->load->model('tables_names_model');
+        $this->load->model('tables_fields_model');
 
+        //script de population
+        $added_table = 0;
+        $added_field = 0;
+   
+        //parcours la liste des tables
+        $tables = $this->db->list_tables();
+        
+        foreach ($tables as $key => $value) {
+            //vérifie si le nom de la table est répertorié
+            $this->db->select('tabl_id')->from('tables_names');
+            $this->db->where('tabl_name', $value);
+            $res = $this->db->get()->result();
+
+            if (count($res) != 0) {
+                $tabl_id = $res[0]->tabl_id;
+            }
+
+            //si le nom n'est pas répertorié, on l'ajoute
+            if (count($res) == 0) {
+                $data = array('tabl_name' => $value);
+                $this->db->insert('tables_names', $data);
+                $added_table++;
+
+                //récupère la clé primaire de tables_names
+                $this->db->select('tabl_id')->from('tables_names');
+                $this->db->where('tabl_name', $value);
+                $res = $this->db->get()->result();
+                $tabl_id = $res[0]->tabl_id;
+            }
+
+            //parcours la liste des champs de la table concernée
+            $fields = $this->db->list_fields($value);
+            foreach ($fields as $key => $value) {
+                $this->db->select('tabl_field_id')->from('tables_fields');
+                $this->db->where('tabl_field', $value);
+                $res = $this->db->get()->result();
+
+                //si le nom du champ n'est pas répertorié, on l'ajoute
+                if (count($res) == 0) {
+                    $data = array(
+                        'tabl_id' => $tabl_id,
+                        'tabl_field' => $value,
+                        'tabl_field_name' => $value
+                    );
+                    $this->db->insert('tables_fields', $data);
+                    $added_field++;
+                }
+            }
+        }
+
+        //paramètre pour l'affichage du message avant la liste
+        $tables_array['to_display'] = true;
+        $tables_array['added_table'] = $added_table;
+        $tables_array['added_field'] = $added_field;
+    
+
+        //on enlève les tables inutiles
+        $this->db->select('tabl_name')->from('tables_names');
+        $queried_tables_object = $this->db->get()->result();
+
+        //transformer tableau d'objet en tableau de string
+        $queried_tables = array();
+        foreach ($queried_tables_object as $key => $value) {
+            $queried_tables[$key] = $value->tabl_name;
+        }
+
+        $ignored_tables = array(
+            'contacts_ic',
+            'criteres',
+            'criteres_link',
+            'historique',
+            'liste_ville',
+            'old_id_link',
+            'tables_names',
+        );
+
+        //calcule la différence entre ces deux tableaux;
+        $tables = array_diff($queried_tables, $ignored_tables);
+        $tables_array = array('tables' => $tables);
+
+    
+        $this->load->view('export_bdd/test.php', $tables_array);
+        $this->load->view('base/footer');
+    
     }
 
 
@@ -558,7 +652,7 @@ class Admin extends MY_Controller {
             if ($this->form_validation->run()) {
                 $this->load->database();
 
-                // Vérification de l'existance du nom d'utilisateur
+            // Vérification de l'existance du nom d'utilisateur
                 $query = $this->db->query("SELECT user_id FROM users WHERE user_login='" . $post_inputs['username'] . "'");
                 if ($query->num_rows() == 0) {
                     $this->load->model('user_model');
