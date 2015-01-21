@@ -42,4 +42,8 @@
 ehthumbs.db
 Thumbs.db
 
+# Temp files #
+##############
+*.swp
+
 .editorconfig
