@@ -1,11 +1,15 @@
 <div>
     <div id="content">
+        <h1>Export de la bdd</h1>
         <?php
-            Echo "Page d'export de la BDD";
+            foreach ($tables as $table => $columns) {
+                ?></br>
+                    <h3><?php echo $table ; ?></h3><?php
+                foreach ($columns as $column) {
+                    ?></br><?php
+                    echo $column ;
 
-            foreach ($tables as $key => $value) {
-                ?></br><?php
-                echo $value ; 
+                }
             }
         ?>
     </div>
