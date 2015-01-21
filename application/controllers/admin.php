@@ -25,6 +25,19 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /*
+     * En test: appelle les vue permettant d'afficher la page d'export de la base de données
+     */
+    public function exportBDD() {
+
+        $nav_data = array('username' => $this->session->userdata('username'));
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $nav_data);
+        $this->load->view('export_bdd/test.php');
+        $this->load->view('base/footer');
+
+    }
+
 
     /*
      *  Appelle les vues permettant d'afficher les criteres de segments deja crees.
