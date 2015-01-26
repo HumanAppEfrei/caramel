@@ -48,6 +48,12 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /**
+     * Recupere les donnees envoyees depuis le client pour exporter les colonnes de la table
+     */
+    public function recupereCSV(){
+        var_dump($_POST);
+	}
 
     /*
      *  Appelle les vues permettant d'afficher les criteres de segments deja crees.

@@ -1,11 +1,16 @@
 <div>
     <div id="content">
         <h1>Export de la bdd</h1>
-<form action="#">
-    <div class="selectBox">
-<button id="addSelectboxButton">+</button>
+    <form  id="exportForm" method="post" name="export" <?php echo ('action="'.site_url('admin/recuperecsv').'"'); ?>>
+        <input name= "is_form_sent" type="hidden" value="true">
+    <div id="selectBox">
+<span>Nouveau choix : </span>
+<button id="addSelectboxButton" class="btn">Ajouter</button>
 </div>
-</form>
+<hr>
+        <button type="submit" class="btn" value="exporter">Exporter</button>
+    </form>
+</div>
 <script>
 // data parsed on server side containing all column on all table on the db
 var datas = <?php echo $tables ?>;
@@ -19,33 +24,65 @@ var currentSelectBoxId = 0;
  */
 function buildSelectBox(id){
     var selectBox = $(document.createElement('select'));
-    if(id) selectBox.attr('value',"column["+ id+"]");
+    selectBox.attr('name',"column["+ id+"]");
+    selectBox.attr('id',"column["+ id+"]");
     for(var table in datas){
         var optionGroupTmp = $(document.createElement('optgroup'));
         optionGroupTmp.attr('label',table);
         for(var index in datas[table]){
             var optionTmp = $(document.createElement('option'));
-            optionTmp.attr('value',datas[table][index]);
+            optionTmp.attr('value',table + ':' +datas[table][index]);
             optionTmp.html(datas[table][index]);
             optionGroupTmp.append(optionTmp);
         }
-
         selectBox.append(optionGroupTmp);
     }
     return selectBox;
 }
 
 /**
+ * build a delete button for a specified selectBox
+ * @param (integer) current id of the newly created delete button
+ * @return (jquery element) new button
+ */
+function createDeleteButton(id){
+    var deleteButton = $(document.createElement('button'));
+    deleteButton.html('X');
+    deleteButton.attr('class','btn')
+    deleteButton.click(function(){ $('#column'+id).remove(); });
+    return deleteButton;
+}
+
+/**
+ * Build container div for column select and delet button
+ * @param (integer) current id of the newly created div
+ * @return (jquery element) new div
+ */
+function createContainingDiv(id){
+    var containingDiv = $(document.createElement('div'));
+    containingDiv.attr('id','column'+id);
+    return containingDiv;
+}
+/**
  * Build a selection box and append it inside the form
  */
 function addSelectBox(){
-    $("form").append(buildSelectBox(currentSelectBoxId));
+    var container = createContainingDiv(currentSelectBoxId);
+    container.append(buildSelectBox(currentSelectBoxId));
+    container.append(createDeleteButton(currentSelectBoxId++));
+    $("#selectBox").before(container);
 }
 
 function initBaseSelectBox(){
    $("#addSelectboxButton").before(buildSelectBox());
 }
+
+// default initionalisation
 initBaseSelectBox();
+$('#addSelectboxButton').click(function(event){
+event.preventDefault();
+    addSelectBox();
+});
 </script>
     </div>
 </div>
