@@ -41,7 +41,9 @@ class Admin extends MY_Controller {
             $fields = $this->db->list_fields($table);
             $tables_array[$table] = $fields;
         }
-        $export_data = array('tables'=>$tables_array);
+
+        $json_export = json_encode($tables_array);
+        $export_data = array('tables'=>$json_export);
         $this->load->view('export_bdd/test.php', $export_data);
         $this->load->view('base/footer');
 
