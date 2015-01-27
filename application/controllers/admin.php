@@ -52,9 +52,51 @@ class Admin extends MY_Controller {
      * Recupere les donnees envoyees depuis le client pour exporter les colonnes de la table
      */
     public function recupereCSV(){
-        var_dump($_POST);
-	}
 
+        // on verifie que le formulaire a bien ete envoye
+        $post_form = $this->input->post('is_form_sent');
+        if ($post_form) {
+            // on recupere les infromations envoyees
+            $post_valeur = $this->input->post('column');
+
+            // on cree le tableau qui contiendra toutes les donnees a mettre dans le csv
+            $csv_dump = array();
+            // creation de la ligne d'en tete
+            $csv_dump[0] = array();
+            foreach($post_valeur as $index => $column){
+                if($index > 0){
+                    // ajout de la colonne courante dans la ligne d'en tete
+                    array_push($csv_dump[0],$column);
+                    // separationdu nom de table et du nom de colonne
+                    $elements = explode(':',$column);
+                    $this->db->select($elements[1]);
+                    $query = $this->db->get($elements[0]);
+                    // execution de la requete
+                    foreach($query->result_array() as $index_row => $row) {
+                        // si la ligne est nulle on la cree
+                        if(is_null($csv_dump[$index+1])) $csv_dump[$index+1] = array();
+                        $csv_dump[$index_row+1][$index] =$row[$elements[1]];
+                    }
+                }
+            }
+
+            // ajout de '' dans les trous du tableau por bien formater le csv
+            $column_count = count($csv_dump[0]);
+            foreach($csv_dump as &$row){
+                for($i = 0; $i < $column_count; $i ++){
+                    if(is_null($row[$i])) $row[$i] = '';
+                }
+            }
+            unset($row);
+
+            // envoie du fichier csv au client
+            $out = fopen('php://output', 'w');
+            header('Content-type: application/csv');
+            header('Content-Disposition: attachment; filename=data.csv');
+            foreach ($csv_dump as $row) { fputcsv($out, $row); }
+            fclose($out);
+        }
+    }
     /*
      *  Appelle les vues permettant d'afficher les criteres de segments deja crees.
      */
