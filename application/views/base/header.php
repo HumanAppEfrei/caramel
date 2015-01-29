@@ -10,6 +10,7 @@
 		<script src="<?php echo js_url('flot/jquery'); ?>"></script>
 		<script src="<?php echo js_url('flot/jquery.flot'); ?>"></script>
 		<script src="<?php echo js_url('flot/jquery.flot.pie.min'); ?>"></script>
+		<script src="<?php echo js_url('highcharts'); ?>"></script>
 	</head>
 	<body>
 		<div id="page">

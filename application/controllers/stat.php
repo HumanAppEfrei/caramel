@@ -192,4 +192,30 @@ class Stat extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    public function test(){
+        // donnees de navigation, a inclure dans toute fonction des controlleurs
+        $nav_data = array();
+        $nav_data['username'] = $this->session->userdata('username');
+
+        // on charge la table 'don' via le model 'don_model'
+        $this->load->model('don_model');
+        // on appelle la methode de ce model
+        // voir models/don_model.php
+        $this->don_model->read_all_montant_with_date();
+
+        // creation d'un nouveau tableau pour contenir les resultats
+        $list_data = array();
+        // ajout des resultats dans le tableau
+        $list_data['dons'] = $this->don_model->get_results();
+
+        //Chargement des vues de navigation standard.
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $nav_data);
+        $this->load->view('stat/menu');
+
+        // appel de la page base.php dans le repertoire de vues stat/test
+        $this->load->view('stat/test/base', $list_data);
+
+        $this->load->view('base/footer');
+    }
 }
