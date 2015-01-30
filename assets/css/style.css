@@ -391,3 +391,27 @@ label {
     font-size: 1.5em;
     text-align:center;
 }
+/*
+ * Formulaire d'export de db vers csv
+ */
+form#exportForm {
+    width: 40%;
+    margin: auto;
+    text-align: right;
+}
+
+form#exportForm button.delete-btn {
+    margin-left: 4em;
+}
+
+button#addSelectboxButton {
+    margin-left: 1.3em;
+}
+
+form#exportForm>div {
+    margin-top: 0.5em;
+    margin-right: 1.5em;
+}
+#exporter-bouton {
+    margin-right: 1.5em;
+}
