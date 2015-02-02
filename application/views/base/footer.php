@@ -1,6 +1,7 @@
 </main> <!-- Closes the tag opened in <controller>/base.php -->
         <footer>
-            <b>CaRaMel Prototype v8.4-dev</b> - Efrei - <em>Contact :  pa8-club-du-don@googlegroups.com</em>
+			<a class="btn btn-large btn-success" href="javascript:void(0);" onclick="javascript:introJs().start();">Premiers pas</a>
         </footer>
+		<script>$("#aide_button").popup();</script>
 	</body>
 </html>
