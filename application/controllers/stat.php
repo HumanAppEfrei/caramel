@@ -218,4 +218,39 @@ class Stat extends MY_Controller {
 
         $this->load->view('base/footer');
     }
+
+    public function profile(){
+        // donnees de navigation, a inclure dans toute fonction des controlleurs
+        $nav_data = array();
+        $nav_data['username'] = $this->session->userdata('username');
+
+        // on recupere les donnees une fois pour toutes les utilisations
+        $this->db->select('DON_DATE');
+        $this->db->select('DON_MODE');
+        $this->db->select('DON_MONTANT');
+        $this->db->select('contacts.CON_LASTNAME');
+        $this->db->from('dons');
+        $this->db->join('contacts', 'dons.CON_ID = contacts.CON_ID');
+
+        $query = $this->db->get();
+
+        $profil_periode = array(); // analyse des profiles par periode de versement
+        $profil_type = array(); // analyse des profiles par type de versement
+        $profil_montant = array(); // analyse des profiles par montant de versement
+        foreach ($query->result() as $row)
+        {
+            // add to period profile
+            if(!isset($profil_periode[$row->DON_DATE])) $profil_periode[$row->DON_DATE] = array();
+            $profil_periode[$row->DON_DATE][] = $row->CON_LASTNAME;
+            // var_dump($row);
+        }
+        var_dump($profil_periode);
+
+        // creation d'un nouveau tableau pour contenir les resultats
+        // $list_data = array();
+        // // ajout des resultats dans le tableau
+        // $list_data['dons'] = $this->don_model->get_results();
+        // var_dump($list_data);
+
+    }
 }
