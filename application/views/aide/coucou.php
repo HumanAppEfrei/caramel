@@ -54,15 +54,15 @@
 	
 	<h4 id="campagnes" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Campagnes </h4>
 	<a> L'onglet "campagnes" permet de visualiser les campagnes déjà effectuées ou en cours. Les campagnes sont des évènements définis par un nom (ex: Don du Sang), un code (ex: DonSang), une date de début et de fin ainsi qu'un type de campagne (ex: prospection, fidélisation, etc..). Cet onglet permet de : </a><br>
-	<a><br> <U>Rechercher une campagne</U><br></a>
-	<a><br> <U>Créer une nouvelle campagne</U><br></a>
-	<a><br> <U>Editer ou supprimer un campagne</U><br></a>
+	<a><br> <U>Rechercher une campagne</U><br></a><a>Pour rechercher une campagne cliquez sur l'onglet campagne dans la barre de navigation de la page d'accueil. Vous pouvez rechercher une campagne avec la fonction rapide ou avancée.<br/><br/>Recherche rapide :<br/>Chaque campagne possède un nom et un code. Inscrivez l'un ou l'autre dans l'encadré prévu à cette effet puis cliquez sur "recherche rapide" pour afficher les résultats.<br><br><B>A noter :</B> Il est essentiel de rentrer le nom complet d'un code pour que la recherche aboutisse.<br><br>Recherche avancée :<br>Pour effectuer une recherche avancée cliquez sur l'icône "recherche avancée".Un formulaire vierge apparaît, renseignez un ou plusieurs critères et cliquez sur "rechercher" en bas à droite. La liste des campagnes en fonction de vos critères apparaît.<br><br><B>A noter : </B>Cliquer sur le bouton "recherche rapide" en laissant la case vide pour afficher toute la liste. </a><br/>
+	<a><br> <U>Créer une nouvelle campagne</U><br></a>Pour créer une nouvelle campagne, cliquez sur l'onglet campagne dans la barre de navigation puis sur le bouton "Créer une nouvelle campagne".Un formulaire vierge apparaît, remplissez le et cliquer sur le bouton "sauvegarder" en bas à droite.<br> 
+	<a><br> <U>Editer ou supprimer un campagne</U><br></a>Afin d'éditer ou supprimer une campagne, cliquez sur l'onglet "campagnes" dans la barre de navigation puis recherchez une campagne comme vu précédemment.<br><br>Editer :<br>Cliquer sur le crayon à côté du non de la campagne, un formulaire avec les informations apparaît, vous pouvez alors les modifier et appuyer sur "sauvegarder".<br><br>Supprimer :<br>Pour supprimer une campagne, appuyer sur la croix rouge à côté de son nom après l'avoir recherché. 
 	
 	<h4 id="offres" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Offres </h4>
 	<a> L'onglet "offres" permet d'accéder aux offres mises en place. Les offres sont définies par un code (ex: OFF1), un titre (ex: Relance téléphonique) et une date de fin. Cet onglet offre les possibilités suivantes : </a><br>
 	<a><br> <U>Rechercher une offre existante</U><br></a>
 	<a><br> <U>Enregistrer une nouvelle offre</U><br></a>
-	<a><br> <U>Editer ou supprimer une offre</U><br></a>
+	<a><br> <U>Editer ou supprimer une offre</U><br></a>Comme pour d’autres rubriques il est possible d’éditer ou supprimer une ou plusieurs offres. Pour cela il faut d’abord afficher les offres qu’on souhaite supprimer ou éditer (voir la rubrique « rechercher une offre »). La croix rouge permet de supprimer une offre. Le crayon permet d’éditer une offre. Lorsque vous cliquez sur le bouton d’édition, un formulaire avec les données correspondantes à l’offre apparait. Il est possible de modifier toutes les données sauf le code de l’offre. Une fois l’édition terminée, cliquez sur « sauvegarder » pour valider vos modifications. 
 	
 	<h4 id="segments" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Segments </h4>
 	<a>L'onglet "segments" permet d'accéder à une liste de segments. Un segment permet de lier des contacts entre eux en fonction d'une ou plusieurs caractéristiques telles que leur âge, leur allergie, leur adresse, etc. Un segment est représenté par un code (ex: Parisiens) ainsi qu'un libellé (ex: Habitants de paris). Cet onglet permet de : </a><br>
@@ -73,7 +73,7 @@
 	<h3 id="fonctionnalites_supplementaires" style="display: table; border: 6px solid rgb(250,120,40); background: rgb(250,120,40); border-radius: 7px; color: white;">III/ Fonctionnalités supplémentaires</h3>
 	
 	<h4 id="manuel" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Manuel d'aide </h4>
-	<a>Le manuel d'aide permet d'ouvrir cette fenêtre. Lorsque vous cliquez sur l'icône, le logiciel analyse ce qui est actuellement présent sur votre écran et vous affiche la partie du manuel la plus susceptible de vous aider. L'ensemble de l'aide est cependant toujours accessible, pour cela il suffit d'utiliser la molette de votre souris. <br><B>A noter :</B> En laissant votre souris sur un élément dans caramel vous ferez apparaître une boîte de dialogue expliquant sa fonction.</a>
+	<a>Le manuel d'aide permet d'ouvrir cette fenêtre. Lorsque vous cliquez sur l'icône, le logiciel analyse ce qui est actuellement présent sur votre écran et vous affiche la partie du manuel la plus susceptible de vous aider. L'ensemble de l'aide est cependant toujours accessible, pour cela il suffit d'utiliser la molette de votre souris. <br><br><B>A noter :</B> En laissant votre souris sur un élément dans caramel vous ferez apparaître une boîte de dialogue expliquant sa fonction.</a>
 	
 	<h4 id="statistiques" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Statistiques </h4>
 	<a>L'outil statistique permet de visualiser un ensemble d'information permettant la mesure de performances et l'aide à la prise de décision. </a>
