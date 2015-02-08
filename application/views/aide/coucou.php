@@ -1,4 +1,4 @@
-<div id="content">
+﻿<div id="content">
 	<h1 name="manuel" align="center"> Manuel d'aide utilisateur </h1>
 	
 	<h2 name="introduction"> Introduction </h2>
@@ -26,10 +26,10 @@
 	
 	<h4 name="versements"> Versements </h4>
 	<a> L'onglet "versements" permet de consulter les versements déjà effectués et d'en créer de nouveaux. Ils sont définis par un code unique, l'identifiant du contact associé, un montant, un type de versement (ex: cotisation, don, etc.), une date de saisie et un reçu fiscal. Cet onglet donne accès aux fonctionnalités suivantes : </a><br>
-	<a><br> <U>Rechercher un versement</U><br></a>
-	<a><br> <U>Enregistrer un nouveau versement</U><br></a>
-	<a><br> <U>Supprimer ou éditer un versement</U><br></a>
-	<a><br> <U>Editer un reçu fiscal ou voir le duplicata</U><br></a>
+	<a><br> <U>Rechercher un versement</U><br>Depuis la page d'accueil, cliquez sur l'onglet "Versements" dans la barre de navigation. Vous pouvez alors effectuer une recherche rapide ou avancée.<br><br>Recherche rapide :<br>Pour rechercher rapidement une campagne, entrez son code dans le champ vide prévu à cet effet .Il est possible de renseigner le numéro d’adhérent de la personnes ayant fait le versement. La liste des versemtenss correspondant à votre recherche apparaît.<br><br>Recherche avancée :<br>Pour rechercher un versement en fonction d'un critère spécifique, il possible d'effectuer une recherche avancée disponible en appuyant sur l'icône suivant "recherche avancée" .Un formulaire vide apparaît. Il suffit de remplir un des différents champ et d'appuyer sur le bouton "rechercher" en bas à droite pour afficher les versements répondant au(x) critère(s) de la recherche.<br><br><B>A noter :</B> Cliquer sur le bouton "recherche rapide" en laissant la case vide pour afficher toute la liste. </a><br>
+	<a><br> <U>Créer un nouveau versement</U><br>Depuis la page d'accueil, cliquez sur l'onglet "Versements" dans la barre de navigation. Vous pouvez alors créer un nouveau versement en appuyant sur le bouton bleu "créer un nouveau versement". Un formulaire vide est généré, il permet de renseigner les informations essentielles concernant le versement. Une fois le formulaire rempli, cliquez sur "sauvegarder" en bas à droite. </a><br>
+	<a><br> <U>Supprimer ou éditer un versement</U><br>Pour éditer un versement vous devez d'abord le rechercher dans le logiciel. Pour cela référez vous à la rubrique "rechercher un versement". Une fois votre (vos) versement(s) affiché(s) à l'écran, cliquez sur l'icône d'édition tout à gauche représenté par un feuille et un crayon.<br>La suppression du versement correspond à l’icône en forme de croix rouge.</a><br>
+	<a><br> <U>Editer un reçu fiscal ou voir le supplicata</U><br>Pour ce faire, vous devez d'abord le rechercher dans le logiciel. Pour cela référez vous à la rubrique "rechercher un versement". Une fois votre (vos) versement(s) affiché(s) à l'écran, cliquez sur le bouton sur la droite de la ligne afin d’éditer le reçu ou voir le duplicata si l’édition a déjà été faite<br></a>
 	
 	<h4 name="campagnes"> Campagnes </h4>
 	<a> L'onglet "campagnes" permet de visualiser les campagnes déjà effectuées ou en cours. Les campagnes sont des évènements définis par un nom (ex: Don du Sang), un code (ex: DonSang), une date de début et de fin ainsi qu'un type de campagne (ex: prospection, fidélisation, etc..). Cet onglet permet de : </a><br>
@@ -45,9 +45,10 @@
 	
 	<h4 name="segments"> Segments </h4>
 	<a>L'onglet "segments" permet d'accéder à une liste de segments. Un segment permet de lier des contacts entre eux en fonction d'une ou plusieurs caractéristiques telles que leur âge, leur allergie, leur adresse, etc. Un segment est représenté par un code (ex: Parisiens) ainsi qu'un libellé (ex: Habitants de paris). Cet onglet permet de : </a><br>
-	<a><br> <U>Rechercher un segment existant</U><br></a>
-	<a><br> <U>Créer un nouveau segment</U><br></a>
-	<a><br> <U>Editer ou supprimer un segment</U><br></a>
+	<a><br> <U>Rechercher un segment</U><br>Depuis la page d'accueil, cliquez sur l'onglet "Segments" dans la barre de navigation. Vous pouvez alors effectuer une recherche rapide ou avancée.<br><br>Recherche rapide :<br>Pour rechercher rapidement un segment, entrez son code dans le champ vide prévu à cet effet .Il est possible de renseigner son libéllé. La liste des segments correspondant à votre recherche apparaît.<br><br>Recherche avancée :<br>Pour rechercher un segment en fonction d'un critère spécifique, il possible d'effectuer une recherche avancée disponible en appuyant sur l'icône suivant "recherche avancée" .Un formulaire vide apparaît. Il suffit de remplir un des différents champ et d'appuyer sur le bouton "rechercher" en bas à droite pour afficher les segments répondant au(x) critère(s) de la recherche.<br><br><B>A noter :</B> Cliquer sur le bouton "recherche rapide" en laissant la case vide pour afficher toute la liste. </a><br>
+	<a><br> <U>Créer un nouveau segment</U><br>Depuis la page d'accueil, cliquez sur l'onglet "Segments" dans la barre de navigation. Vous pouvez alors créer un nouveau segment en appuyant sur le bouton bleu "créer un nouveau segment". Un formulaire vide est généré, il permet de renseigner les informations essentielles concernant le segment. Une fois le formulaire rempli, cliquez sur "valider" en bas à gauche sous les champs à remplir. </a><br>
+	<a><br> <U>Supprimer ou éditer un segment</U><br>Pour éditer un segment vous devez d'abord le rechercher dans le logiciel. Pour cela référez vous à la rubrique "rechercher un segment". Une fois votre (vos) segment(s) affiché(s) à l'écran, cliquez sur l'icône d'édition tout à gauche représenté par un feuille et un crayon.<br>La suppression du segment correspond à l’icône en forme de croix rouge.</a><br>
+
 	
 	<h3 name="fonctionnalites_supplementaires"> Focntionnalités supplémentaires</h3>
 	
