@@ -1,18 +1,21 @@
 <div>
 <?php
 
-// tri des periodes par dates pour affichage
-ksort($periodes);
+// on verifie que lon a au moins un don
+if(sizeof($periodes) > 1){
 
-// tri des types pour aller avec highchart
-$types_formates = array();
-foreach ($types as $type => $value) {
-    $arrayTmp = array();
-    array_push($arrayTmp, $type, $value);
-    array_push($types_formates,$arrayTmp);
-}
-// tri des montants pour aller avec highchart
-ksort($montants);
+    // tri des periodes par dates pour affichage
+    ksort($periodes);
+
+    // tri des types pour aller avec highchart
+    $types_formates = array();
+    foreach ($types as $type => $value) {
+        $arrayTmp = array();
+        array_push($arrayTmp, $type, $value);
+        array_push($types_formates,$arrayTmp);
+    }
+    // tri des montants pour aller avec highchart
+    ksort($montants);
 
 ?>
 
@@ -88,5 +91,8 @@ $('#stats-montants').highcharts({
     });
 });
 </script>
+<?php } else { ?>
+    <h4>Cette personne n'a pas encore fait de don.</h4>
+<?php } ?>
 </div>
 </div>
