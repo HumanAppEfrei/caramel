@@ -1,7 +1,7 @@
 <div id="content_man">
-	<h1 id="manuel_utilisateur" style="border: 6px solid rgb(250,80,0); text-align: center; background: rgb(250,80,0); border-radius: 7px; color: white;"> Manuel d'aide utilisateur </h1>
+	<h1 id="manuel_utilisateur" style="border: 6px solid rgb(250,140,70); text-align: center; background: rgb(250,140,70); border-radius: 7px; color: white;"> Manuel d'aide utilisateur </h1>
 	
-	<div id="summary" style="display: table; border: 10px double rgb(250,80,0); background: rgb(250,80,0); border-radius: 7px; color: white;">
+	<div id="summary" style="display: table; border: 10px double rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;">
 		<a id="sommaire" style="font-size: 28px"> Sommaire </a><br/>
 		<a href="#introduction" style="color: white;">Introduction</a><br/>
 		<a href="#demarrage" style="color: white;">Démarrage</a><br/>
@@ -10,15 +10,15 @@
 		<a>&nbsp;&nbsp;&nbsp;<a/><a href="#fonctionnalites_principales" style="color: white;">II/ Fonctionnalités principales</a><br/>
 		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#accueil" style="color: white;">Accueil</a><br/>
 		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#contact" style="color: white;">Contacts</a><br/>
-		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#versements" style="color: white;">Versements</a><br/>
-		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#campagnes" style="color: white;">Campagnes</a><br/>
-		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#offres" style="color: white;">Offres</a><br/>
-		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#segments" style="color: white;">Segments</a><br/>
+		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#don" style="color: white;">Versements</a><br/>
+		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#campagne" style="color: white;">Campagnes</a><br/>
+		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#offre" style="color: white;">Offres</a><br/>
+		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#segment" style="color: white;">Segments</a><br/>
 		<a>&nbsp;&nbsp;&nbsp;<a/><a href="#foncitonnalites_spplémentaires" style="color: white;">III/ Fonctionnalités avancées</a><br/>
 		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#manuel" style="color: white;">Manuel d'aide</a><br/>
-		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#statistiques" style="color: white;">Statistiques</a><br/>
-		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#documents" style="color: white;">Documents</a><br/>
-		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#reglages" style="color: white;">Réglages</a><br/>
+		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#stat" style="color: white;">Statistiques</a><br/>
+		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#document" style="color: white;">Documents</a><br/>
+		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#admin" style="color: white;">Réglages</a><br/>
 		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a/><a href="#deconnecter" style="color: white;">Déconnecter</a><br/>
 	</div>
 	
@@ -46,26 +46,26 @@
 	<a><br> <U>Editer un contact</U><br>Pour éditer un contact vous devez d'abord le rechercher dans le logiciel. Pour cela référez vous à la rubrique "rechercher un contact". Une fois votre contact affiché à l'écran, cliquez sur l'icône d'édition tout à gauche représenté par un feuille et un crayon.</a><br>
 	<a><br> <U>Supprimer un contact</U><br>Afin de supprimer un contact, recherchez-le comme vu précédemment puis appuyez sur la croix à droite du logo d'édition.</a>
 	
-	<h4 id="versements" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Versements </h4>
+	<h4 id="don" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Versements </h4>
 	<a> L'onglet "versements" permet de consulter les versements déjà effectués et d'en créer de nouveaux. Ils sont définis par un code unique, l'identifiant du contact associé, un montant, un type de versement (ex: cotisation, don, etc.), une date de saisie et un reçu fiscal. Cet onglet donne accès aux fonctionnalités suivantes : </a><br>
 	<a><br> <U>Rechercher un versement</U><br>Depuis la page d'accueil, cliquez sur l'onglet "Versements" dans la barre de navigation. Vous pouvez alors effectuer une recherche rapide ou avancée.<br><br>Recherche rapide :<br>Pour rechercher rapidement une campagne, entrez son code dans le champ vide prévu à cet effet .Il est possible de renseigner le numéro d’adhérent de la personnes ayant fait le versement. La liste des versemtenss correspondant à votre recherche apparaît.<br><br>Recherche avancée :<br>Pour rechercher un versement en fonction d'un critère spécifique, il possible d'effectuer une recherche avancée disponible en appuyant sur l'icône suivant "recherche avancée" .Un formulaire vide apparaît. Il suffit de remplir un des différents champ et d'appuyer sur le bouton "rechercher" en bas à droite pour afficher les versements répondant au(x) critère(s) de la recherche.<br><br><B>A noter :</B> Cliquer sur le bouton "recherche rapide" en laissant la case vide pour afficher toute la liste. </a><br>
 	<a><br> <U>Créer un nouveau versement</U><br>Depuis la page d'accueil, cliquez sur l'onglet "Versements" dans la barre de navigation. Vous pouvez alors créer un nouveau versement en appuyant sur le bouton bleu "créer un nouveau versement". Un formulaire vide est généré, il permet de renseigner les informations essentielles concernant le versement. Une fois le formulaire rempli, cliquez sur "sauvegarder" en bas à droite. </a><br>
 	<a><br> <U>Supprimer ou éditer un versement</U><br>Pour éditer un versement vous devez d'abord le rechercher dans le logiciel. Pour cela référez vous à la rubrique "rechercher un versement". Une fois votre (vos) versement(s) affiché(s) à l'écran, cliquez sur l'icône d'édition tout à gauche représenté par un feuille et un crayon.<br>La suppression du versement correspond à l’icône en forme de croix rouge.</a><br>
 	<a><br> <U>Editer un reçu fiscal ou voir le supplicata</U><br>Pour ce faire, vous devez d'abord le rechercher dans le logiciel. Pour cela référez vous à la rubrique "rechercher un versement". Une fois votre (vos) versement(s) affiché(s) à l'écran, cliquez sur le bouton sur la droite de la ligne afin d’éditer le reçu ou voir le duplicata si l’édition a déjà été faite<br></a>
 	
-	<h4 id="campagnes" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Campagnes </h4>
+	<h4 id="campagne" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Campagnes </h4>
 	<a> L'onglet "campagnes" permet de visualiser les campagnes déjà effectuées ou en cours. Les campagnes sont des évènements définis par un nom (ex: Don du Sang), un code (ex: DonSang), une date de début et de fin ainsi qu'un type de campagne (ex: prospection, fidélisation, etc..). Cet onglet permet de : </a><br>
 	<a><br> <U>Rechercher une campagne</U><br></a><a>Pour rechercher une campagne cliquez sur l'onglet campagne dans la barre de navigation de la page d'accueil. Vous pouvez rechercher une campagne avec la fonction rapide ou avancée.<br/><br/>Recherche rapide :<br/>Chaque campagne possède un nom et un code. Inscrivez l'un ou l'autre dans l'encadré prévu à cette effet puis cliquez sur "recherche rapide" pour afficher les résultats.<br><br><B>A noter :</B> Il est essentiel de rentrer le nom complet d'un code pour que la recherche aboutisse.<br><br>Recherche avancée :<br>Pour effectuer une recherche avancée cliquez sur l'icône "recherche avancée".Un formulaire vierge apparaît, renseignez un ou plusieurs critères et cliquez sur "rechercher" en bas à droite. La liste des campagnes en fonction de vos critères apparaît.<br><br><B>A noter : </B>Cliquer sur le bouton "recherche rapide" en laissant la case vide pour afficher toute la liste. </a><br/>
 	<a><br> <U>Créer une nouvelle campagne</U><br></a>Pour créer une nouvelle campagne, cliquez sur l'onglet campagne dans la barre de navigation puis sur le bouton "Créer une nouvelle campagne".Un formulaire vierge apparaît, remplissez le et cliquer sur le bouton "sauvegarder" en bas à droite.<br> 
 	<a><br> <U>Editer ou supprimer un campagne</U><br></a>Afin d'éditer ou supprimer une campagne, cliquez sur l'onglet "campagnes" dans la barre de navigation puis recherchez une campagne comme vu précédemment.<br><br>Editer :<br>Cliquer sur le crayon à côté du non de la campagne, un formulaire avec les informations apparaît, vous pouvez alors les modifier et appuyer sur "sauvegarder".<br><br>Supprimer :<br>Pour supprimer une campagne, appuyer sur la croix rouge à côté de son nom après l'avoir recherché. 
 	
-	<h4 id="offres" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Offres </h4>
+	<h4 id="offre" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Offres </h4>
 	<a> L'onglet "offres" permet d'accéder aux offres mises en place. Les offres sont définies par un code (ex: OFF1), un titre (ex: Relance téléphonique) et une date de fin. Cet onglet offre les possibilités suivantes : </a><br>
 	<a><br> <U>Rechercher une offre existante</U><br></a><br>Recherche rapide :<br>Il est possible d’effectuer une recherche rapide, en renseignant soit le code soit le libellé d’une offre. Pour cela sélectionnez dans le menu déroulant entre code et libellé et entrez votre recherche dans le champ à gauche de recherche rapide.<br><br>Code : Le code doit être rentré dans sa totalité et sans fautes d’orthographe, il correspond à une abréviation/immatriculation permettant d’identifier rapidement une offre.<br><br>Libellé : Le libellé permet de définir une offre, afin que ça fonction soit claire pour tous les utilisateurs.<br><br>Recherche avancée :<br>Pour effectuer une recherche avancée cliquez sur l'icône "recherche avancée".Un formulaire vierge apparaît, renseignez un ou plusieurs critères et cliquez sur "rechercher" en bas à droite. La liste des offres en fonction de vos critères apparaît.<br> 
 	<a><br> <U>Enregistrer une nouvelle offre</U><br></a>Afin d’enregistrer une nouvelle offre, il faut appuyer sur le bouton « Créer une nouvelle offre », un formulaire vierge apparait. Il est alors possible de donner à une offre un nom, une description, des dates de début et fin, etc. Apres avoir renseigné les champs désirés (les champs marqués d’une étoile sont obligatoires), cliquez sur le bouton « sauvegarder » en bas à droite.<br><br><B>A noter :</B> une fois l’offre enregistrée, il sera impossible de modifier le code.<br>
 	<a><br> <U>Editer ou supprimer une offre</U><br></a>Comme pour d’autres rubriques il est possible d’éditer ou supprimer une ou plusieurs offres. Pour cela il faut d’abord afficher les offres qu’on souhaite supprimer ou éditer (voir la rubrique « rechercher une offre »). La croix rouge permet de supprimer une offre. Le crayon permet d’éditer une offre. Lorsque vous cliquez sur le bouton d’édition, un formulaire avec les données correspondantes à l’offre apparait. Il est possible de modifier toutes les données sauf le code de l’offre. Une fois l’édition terminée, cliquez sur « sauvegarder » pour valider vos modifications. 
 	
-	<h4 id="segments" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Segments </h4>
+	<h4 id="segment" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Segments </h4>
 	<a>L'onglet "segments" permet d'accéder à une liste de segments. Un segment permet de lier des contacts entre eux en fonction d'une ou plusieurs caractéristiques telles que leur âge, leur allergie, leur adresse, etc. Un segment est représenté par un code (ex: Parisiens) ainsi qu'un libellé (ex: Habitants de paris). Cet onglet permet de : </a><br>
 	<a><br> <U>Rechercher un segment</U><br>Depuis la page d'accueil, cliquez sur l'onglet "Segments" dans la barre de navigation. Vous pouvez alors effectuer une recherche rapide ou avancée.<br><br>Recherche rapide :<br>Pour rechercher rapidement un segment, entrez son code dans le champ vide prévu à cet effet .Il est possible de renseigner son libéllé. La liste des segments correspondant à votre recherche apparaît.<br><br>Recherche avancée :<br>Pour rechercher un segment en fonction d'un critère spécifique, il possible d'effectuer une recherche avancée disponible en appuyant sur l'icône suivant "recherche avancée" .Un formulaire vide apparaît. Il suffit de remplir un des différents champ et d'appuyer sur le bouton "rechercher" en bas à droite pour afficher les segments répondant au(x) critère(s) de la recherche.<br><br><B>A noter :</B> Cliquer sur le bouton "recherche rapide" en laissant la case vide pour afficher toute la liste. </a><br>
 	<a><br> <U>Créer un nouveau segment</U><br>Depuis la page d'accueil, cliquez sur l'onglet "Segments" dans la barre de navigation. Vous pouvez alors créer un nouveau segment en appuyant sur le bouton bleu "créer un nouveau segment". Un formulaire vide est généré, il permet de renseigner les informations essentielles concernant le segment. Une fois le formulaire rempli, cliquez sur "valider" en bas à gauche sous les champs à remplir. </a><br>
@@ -77,13 +77,13 @@
 	<h4 id="manuel" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Manuel d'aide </h4>
 	<a>Le manuel d'aide permet d'ouvrir cette fenêtre. Lorsque vous cliquez sur l'icône, le logiciel analyse ce qui est actuellement présent sur votre écran et vous affiche la partie du manuel la plus susceptible de vous aider. L'ensemble de l'aide est cependant toujours accessible, pour cela il suffit d'utiliser la molette de votre souris. <br><br><B>A noter :</B> En laissant votre souris sur un élément dans caramel vous ferez apparaître une boîte de dialogue expliquant sa fonction.</a>
 	
-	<h4 id="statistiques" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Statistiques </h4>
+	<h4 id="stat" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Statistiques </h4>
 	<a>L'outil statistique permet de visualiser un ensemble d'information permettant la mesure de performances et l'aide à la prise de décision. </a>
 	
-	<h4 id="documents" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Documents </h4>
+	<h4 id="document" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Documents </h4>
 	<a>L'onglet documents, représenté par un fichier, permet d'éditer des reçus fiscaux et des lettres types. </a>
 	
-	<h4 id="reglages" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Réglages </h4>
+	<h4 id="admin" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Réglages </h4>
 	<a>L'onglet réglage permet de paramétrer les fonctions suivantes :<br>-Réglage de critères<br>-Informations supplémentaires sur les contacts<br>-Dédoublage manuel d'un contact<br>-Inscription d'un utilisateur<br>-Gestion de la base de données</a>
 	
 	<h4 id="deconnecter" style="display: table; border: 6px solid rgb(250,140,70); background: rgb(250,140,70); border-radius: 7px; color: white;"> Déconnecter </h4>
