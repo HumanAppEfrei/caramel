@@ -79,6 +79,15 @@ class Don_model extends MY_Model
     }
 
     /**
+     * Selectionne les montants des dons en fonction d'un mode de paiement (carte bleu, cheque, espece, virement)
+     * @param (Varchar) le mode selectionne
+     * @return (Mixed[]) les dons avec le meme mode
+     **/
+    public function read_montant_from_mode($mode) {
+        return $this->db->select('DON_MONTANT')->select('DON_DATE')->where('DON_MODE', (string) $mode)->from($this->table);
+    }
+
+    /**
      * Selectionne les dons en fonction d'un type (de versement : nature forcément...)
      * @param (Varchar) le type defini
      * @return (Mixed[]) les dons avec le meme type
@@ -102,7 +111,7 @@ class Don_model extends MY_Model
      * @return (Mixed[]) les dons avec le meme prenom donateur
      **/
     public function read_firstnameAd($firstnameAd) {
-        return $this->db->join('contacts as cF', 'cF.CON_ID = DONS.CON_ID')->like('cF.CON_FIRSTNAME', (string) $firstnameAd, 'after');
+        return $this->db->join('contacts as cF', 'cF.CON_ID = dons.CON_ID')->like('cF.CON_FIRSTNAME', (string) $firstnameAd, 'after');
     }
 
     /**
@@ -111,7 +120,7 @@ class Don_model extends MY_Model
      * @return (Mixed[]) les dons avec le meme nom donateur
      **/
     public function read_lastnameAd($lastnameAd) {
-        return $this->db->join('contacts as cL', 'cL.CON_ID = DONS.CON_ID')->like('cL.CON_LASTNAME', (string) $lastnameAd, 'after');
+        return $this->db->join('contacts as cL', 'cL.CON_ID = dons.CON_ID')->like('cL.CON_LASTNAME', (string) $lastnameAd, 'after');
     }
 
     /**
@@ -167,7 +176,7 @@ class Don_model extends MY_Model
      * @return (Mixed[]) les dons avec la campagne associee
      **/
     public function read_campagne($campagne) {
-        return $this->db->join('offres', 'offres.OFF_ID = DONS.OFF_ID')->where('offres.CAM_ID', (string) $campagne);
+        return $this->db->join('offres', 'offres.OFF_ID = dons.OFF_ID')->where('offres.CAM_ID', (string) $campagne);
     }
 
     /**
@@ -218,7 +227,7 @@ class Don_model extends MY_Model
      **/
     public function get_user_state($id, $annee){
         $sql=" SELECT SUM(DON_MONTANT) as don
-            FROM DONS
+            FROM dons
             WHERE CON_ID=".$id.
             " AND YEAR(DON_DATE)=".$annee;
 
@@ -252,7 +261,7 @@ class Don_model extends MY_Model
      **/
     public function last_don(){
         $sql = "SELECT MAX(DON_ID) as id
-            FROM DONS ";
+            FROM dons ";
 
         $query = $this->db->query($sql);
 

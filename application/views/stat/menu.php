@@ -7,6 +7,7 @@
             <!--<li><a href="<?php echo(site_url('stat/campagnes'));?>" >Statistiques Segments</a></li> -->
 			<li><a href="<?php echo(site_url('stat/top'));?>" >Top</a></li>
 			<li><a href="<?php echo(site_url('stat/test'));?>" >Test</a></li>
+			<li><a href="<?php echo(site_url('stat/versements_par_mode'));?>" >Versements</a></li>
 		</ul>
 	</div>
 </div>

@@ -218,4 +218,51 @@ class Stat extends MY_Controller {
 
         $this->load->view('base/footer');
     }
+
+    /*
+     *  répartition des dons en fonction de leur mode de paiement
+     */
+    public function versements_par_mode(){
+        //donnees de navigation, a inclure dans toute fonction des controlleurs
+        $nav_data = array();
+        $nav_data['username'] = $this->session->userdata('username');
+
+        // on charge la table 'don' via le model 'don_model'
+        $this->load->model('don_model');
+
+        // creation d'un nouveau tableau pour contenir les resultats
+        $list_data = array();
+
+        // recupération des dons de type virement
+        $researched_mode = (string) virement;
+        $this->don_model->read_montant_from_mode($researched_mode);
+        $list_data['virements'] = $this->don_model->get_results();  // ajout des resultats dans le tableau
+
+        // recuperation des dons de type cheque
+        $researched_mode = (string) cheque;
+        $this->don_model->read_montant_from_mode($researched_mode);
+        $list_data['cheques'] = $this->don_model->get_results();
+
+        // recuperation des dons de type cotisation
+        $researched_mode = (string) cotisation;
+        $this->don_model->read_montant_from_mode($researched_mode);
+        $list_data['cotisations'] = $this->don_model->get_results();
+
+        // recuperation des dons de type carte
+        $researched_mode = (string) carte;
+        $this->don_model->read_montant_from_mode($researched_mode);
+        $list_data['cartes'] = $this->don_model->get_results();
+
+
+        //Chargement des vues de navigation standard.
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $nav_data);
+        $this->load->view('stat/menu');
+
+        // appel de la page base.php dans le repertoire de vues stat/test
+        $this->load->view('stat/dons_par_mode', $list_data);
+
+        $this->load->view('base/footer');
+
+    }
 }
