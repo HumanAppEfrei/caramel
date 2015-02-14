@@ -80,11 +80,19 @@ class Don_model extends MY_Model
 
     /**
      * Selectionne les montants des dons en fonction d'un mode de paiement (carte bleu, cheque, espece, virement)
+     * et entre deux dates.
      * @param (Varchar) le mode selectionne
+     * @param date de debut de selection
+     * @param date de fin de selection
      * @return (Mixed[]) les dons avec le meme mode
      **/
-    public function read_montant_from_mode($mode) {
-        return $this->db->select('DON_MONTANT')->select('DON_DATE')->where('DON_MODE', (string) $mode)->from($this->table);
+    public function read_montant_from_mode($mode, $debut, $fin) {
+        return $this->db->select('DON_MONTANT')
+                        ->select('DON_DATE')
+                        ->where('DON_MODE', (string) $mode)
+                        ->where('DON_DATE >=', date('Y-m-d', strtotime($debut)))
+                        ->where('DON_DATE <=', date('Y-m-d', strtotime($fin)))
+                        ->from($this->table);
     }
 
     /**

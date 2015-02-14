@@ -1,6 +1,16 @@
 <!-- HTML -->
-<div id="example-section4">
+<div id="content">
 
+<!-- saisie des dates pour la selection des dons -->
+    <div id="content">
+        <form method="post" name="select_dates" <?php echo ('action="'.site_url('stat/versements_par_mode').'"'); ?>>
+            date de debut:
+            <input type="date" name="debut" min="1900-01-01" max="2100-08-01">
+            date de fin:
+            <input type="date" name="fin" min="1900-01-01" max="2100-01-01">
+            <button type="submit" class="btn" value="trier">Trier</button>
+        </form>
+    </div>
 
 <?php
 
@@ -65,16 +75,30 @@ ksort($sommes_cartes);
 //$sommes_virements = array_slice($sommes_virements, 0, 20);
 
 /////////////////////////////////////////////
-// creation du graphe
+// recupération du nombre de dons dans chaque mode
+/////////////////////////////////////////////
+$nb_cheques = count($sommes_cheques);
+$nb_cartes = count($sommes_cartes);
+$nb_virements = count($sommes_virements);
+$nb_cotisations = count($sommes_cotisations);
+//var_dump($nb_cheques);
+//var_dump($nb_cotisations);
+//var_dump($nb_cartes);
+//var_dump($nb_virements);
+
+/////////////////////////////////////////////
+// creation des graphes
 /////////////////////////////////////////////
 ?>
-<div id="container" style="width:100%; height:400px;"></div>
+<div id="container1" style="width:100%; height:400px;"></div>
+<div id="pie" style="width:100%; height:400px;"></div>
+
 <script>
 $(function () {
     // Ici on a besoin d'installer StockChart.js pour pouvoir utiliser la ligne
     // suivante et surtout la fonctionnalité "navigator" dans le graphe
     //$("#container").highcharts("StockChart", {
-    $("#container").highcharts({
+    $("#container1").highcharts({
         chart: {
             type: 'line'
         },
@@ -113,6 +137,30 @@ $(function () {
             }
     ]
     });
+
+
+    $("#pie").highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+
+        },
+        title: {
+            text: 'repartition des dons en fonction du mode de paiment'
+        },
+        series: [{
+            type: 'pie',
+            name: 'nombre de versements',
+            data: [
+                ['virements',   <?php echo $nb_virements; ?>],
+                ['cotisations',   <?php echo $nb_cotisations; ?>],
+                ['cartes',   <?php echo $nb_cartes; ?>],
+                ['cheques',   <?php echo $nb_cheques; ?>],
+            ]
+        }]
+    });
+
 });
 </script>
 </div>

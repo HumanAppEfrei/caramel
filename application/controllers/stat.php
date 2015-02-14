@@ -233,24 +233,31 @@ class Stat extends MY_Controller {
         // creation d'un nouveau tableau pour contenir les resultats
         $list_data = array();
 
+        // recupération des dates entre lesquelles on veut voir les dates
+        $debut = $this->input->post('debut');
+        $fin = $this->input->post('fin');
+
+        //var_dump($debut);
+        //var_dump($fin);
+
         // recupération des dons de type virement
         $researched_mode = (string) virement;
-        $this->don_model->read_montant_from_mode($researched_mode);
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
         $list_data['virements'] = $this->don_model->get_results();  // ajout des resultats dans le tableau
 
         // recuperation des dons de type cheque
         $researched_mode = (string) cheque;
-        $this->don_model->read_montant_from_mode($researched_mode);
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
         $list_data['cheques'] = $this->don_model->get_results();
 
         // recuperation des dons de type cotisation
         $researched_mode = (string) cotisation;
-        $this->don_model->read_montant_from_mode($researched_mode);
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
         $list_data['cotisations'] = $this->don_model->get_results();
 
         // recuperation des dons de type carte
         $researched_mode = (string) carte;
-        $this->don_model->read_montant_from_mode($researched_mode);
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
         $list_data['cartes'] = $this->don_model->get_results();
 
 
@@ -259,7 +266,7 @@ class Stat extends MY_Controller {
         $this->load->view('base/navigation', $nav_data);
         $this->load->view('stat/menu');
 
-        // appel de la page base.php dans le repertoire de vues stat/test
+        // appel de la vue affichant les courbes pour chaque mode
         $this->load->view('stat/dons_par_mode', $list_data);
 
         $this->load->view('base/footer');
