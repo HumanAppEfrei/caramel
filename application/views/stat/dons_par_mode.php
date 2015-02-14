@@ -5,7 +5,7 @@
     <div id="content">
         <form method="post" name="select_dates" <?php echo ('action="'.site_url('stat/versements_par_mode').'"'); ?>>
             date de debut:
-            <input type="date" name="debut" value="2015-01-01" min="1900-01-01" max="2100-08-01">
+            <input type="date" name="debut" value="2013-01-01" min="1900-01-01" max="2100-08-01">
             date de fin:
             <input type="date" name="fin" value="2015-03-01" min="1900-01-01" max="2100-01-01">
             <button type="submit" class="btn" value="trier">Trier</button>
@@ -127,23 +127,19 @@ $(function () {
     //$("#container").highcharts("StockChart", {
     $("#container1").highcharts({
         chart: {
-            type: 'line'
+            type: 'line',
+            zoomType: 'x'
         },
         title: {
             text: 'Evolution des modes de versements au cours du temps'
         },
-        /*navigator: {
-            enabled: true
-        },*/
         yAxis: {
             title: { text : 'Montant' }
         },
         xAxis: {
             title: { text: 'Date' },
             categories : <?php
-                // on ajoute dans les categories toutes les dates
-                // on recupere les cles du tableau cree et on les encodes en json qui sera lu par le javascript
-                //echo json_encode(array_keys($sommes_virements));
+                // on ajoute dans les categories toutes les dates et on les encodes en json qui sera lu par le javascript
                 echo json_encode(array_values($dates));
                 ?>
         },
