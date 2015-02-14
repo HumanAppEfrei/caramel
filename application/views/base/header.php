@@ -11,7 +11,6 @@
 		<script src="<?php echo js_url('flot/jquery.flot'); ?>"></script>
 		<script src="<?php echo js_url('flot/jquery.flot.pie.min'); ?>"></script>
 		<script src="<?php echo js_url('highcharts'); ?>"></script>
-		<script src="<?php echo js_url('highstock/highstock'); ?>"></script>
 	</head>
     <body>
 		<div id="page">
