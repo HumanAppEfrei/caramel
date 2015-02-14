@@ -250,10 +250,10 @@ class Stat extends MY_Controller {
         $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
         $list_data['cheques'] = $this->don_model->get_results();
 
-        // recuperation des dons de type cotisation
-        $researched_mode = (string) cotisation;
+        // recuperation des dons de type especes
+        $researched_mode = (string) espece;
         $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
-        $list_data['cotisations'] = $this->don_model->get_results();
+        $list_data['especes'] = $this->don_model->get_results();
 
         // recuperation des dons de type carte
         $researched_mode = (string) carte;

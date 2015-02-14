@@ -5,9 +5,9 @@
     <div id="content">
         <form method="post" name="select_dates" <?php echo ('action="'.site_url('stat/versements_par_mode').'"'); ?>>
             date de debut:
-            <input type="date" name="debut" min="1900-01-01" max="2100-08-01">
+            <input type="date" name="debut" value="2015-01-01" min="1900-01-01" max="2100-08-01">
             date de fin:
-            <input type="date" name="fin" min="1900-01-01" max="2100-01-01">
+            <input type="date" name="fin" value="2015-03-01" min="1900-01-01" max="2100-01-01">
             <button type="submit" class="btn" value="trier">Trier</button>
         </form>
     </div>
@@ -20,7 +20,7 @@
 $sommes_virements = array();
 $sommes_cheques = array();
 $sommes_cartes = array();
-$sommes_cotisations = array();
+$sommes_especes = array();
 
 /////////////////////////////////////////////
 // Remplissage des tableaux via les variables passées par le controleur
@@ -54,25 +54,15 @@ foreach($cartes as $don){
     // on ajoute la valeur du don a cette date
     $sommes_cartes[$don->DON_DATE] += intVal($don->DON_MONTANT);
 }
-// on parcours toute les cotisations
-foreach($cotisations as $don){
+// on parcours toute les especes
+foreach($especes as $don){
     // si la date n'est pas deja dans le tableau on ajoute une nouvelle date et une nouvelle valeur nulle
-    if(!isset($sommes_cotisations[$don->DON_DATE])){
-        $sommes_cotisationss[$don->DON_DATE] = 0;
+    if(!isset($sommes_especes[$don->DON_DATE])){
+        $sommes_especess[$don->DON_DATE] = 0;
     }
     // on ajoute la valeur du don a cette date
-    $sommes_cotisations[$don->DON_DATE] += intVal($don->DON_MONTANT);
+    $sommes_especes[$don->DON_DATE] += intVal($don->DON_MONTANT);
 }
-/////////////////////////////////////////////
-//trie des valeurs par les cles (les dates)
-/////////////////////////////////////////////
-ksort($sommes_virements);
-ksort($sommes_cheques);
-ksort($sommes_cotisations);
-ksort($sommes_cartes);
-
-// on ne garde que 20 dates
-//$sommes_virements = array_slice($sommes_virements, 0, 20);
 
 /////////////////////////////////////////////
 // recupération du nombre de dons dans chaque mode
@@ -80,11 +70,47 @@ ksort($sommes_cartes);
 $nb_cheques = count($sommes_cheques);
 $nb_cartes = count($sommes_cartes);
 $nb_virements = count($sommes_virements);
-$nb_cotisations = count($sommes_cotisations);
+$nb_especes = count($sommes_especes);
 //var_dump($nb_cheques);
-//var_dump($nb_cotisations);
+//var_dump($nb_especes);
 //var_dump($nb_cartes);
 //var_dump($nb_virements);
+
+
+/////////////////////////////////////////////
+// Harmonisation des tableaux
+/////////////////////////////////////////////
+// cette partie sert à harmoniser les tableaux en faisant en sorte que toutes
+// les dates apparaissent dans tous les tableaux (sinon l'affichage est faussé)
+
+// on récupère l'ensemble des dates de tous les versements
+$dates = array_unique(array_merge(array_keys($sommes_virements), array_keys($sommes_cartes), array_keys($sommes_cheques), array_keys($sommes_especes)));
+sort($dates);
+
+// puis on rajoute les dates qui n'existaient pas en leur donnant une valeur de 0
+foreach($dates as $date){
+    if(!isset($sommes_especes[$date])){
+        $sommes_especes[$date] = 0;
+    }
+    if(!isset($sommes_virements[$date])){
+        $sommes_virements[$date] = 0;
+    }
+    if(!isset($sommes_cartes[$date])){
+        $sommes_cartes[$date] = 0;
+    }
+    if(!isset($sommes_cheques[$date])){
+        $sommes_cheques[$date] = 0;
+    }
+}
+
+/////////////////////////////////////////////
+//tri des valeurs par les cles (les dates)
+/////////////////////////////////////////////
+ksort($sommes_virements);
+ksort($sommes_cheques);
+ksort($sommes_especes);
+ksort($sommes_cartes);
+
 
 /////////////////////////////////////////////
 // creation des graphes
@@ -92,6 +118,7 @@ $nb_cotisations = count($sommes_cotisations);
 ?>
 <div id="container1" style="width:100%; height:400px;"></div>
 <div id="pie" style="width:100%; height:400px;"></div>
+
 
 <script>
 $(function () {
@@ -103,20 +130,22 @@ $(function () {
             type: 'line'
         },
         title: {
-            text: 'Tous les dons'
+            text: 'Evolution des modes de versements au cours du temps'
         },
         /*navigator: {
             enabled: true
         },*/
         yAxis: {
-            title: { text : 'Montant journalier' }
+            title: { text : 'Montant' }
         },
         xAxis: {
             title: { text: 'Date' },
             categories : <?php
                 // on ajoute dans les categories toutes les dates
                 // on recupere les cles du tableau cree et on les encodes en json qui sera lu par le javascript
-                echo json_encode(array_keys($sommes_virements)); ?>
+                //echo json_encode(array_keys($sommes_virements));
+                echo json_encode(array_values($dates));
+                ?>
         },
         series: [
             {
@@ -132,8 +161,8 @@ $(function () {
                 data: <?php echo json_encode(array_values($sommes_cartes)); ?>
             },
             {
-                name: 'cotisations',
-                data: <?php echo json_encode(array_values($sommes_cotisations)); ?>
+                name: 'especes',
+                data: <?php echo json_encode(array_values($sommes_especes)); ?>
             }
     ]
     });
@@ -143,7 +172,7 @@ $(function () {
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
-            plotShadow: false
+            plotShadow: true
 
         },
         title: {
@@ -154,9 +183,9 @@ $(function () {
             name: 'nombre de versements',
             data: [
                 ['virements',   <?php echo $nb_virements; ?>],
-                ['cotisations',   <?php echo $nb_cotisations; ?>],
-                ['cartes',   <?php echo $nb_cartes; ?>],
                 ['cheques',   <?php echo $nb_cheques; ?>],
+                ['cartes',   <?php echo $nb_cartes; ?>],
+                ['especes',   <?php echo $nb_especes; ?>],
             ]
         }]
     });
