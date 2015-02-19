@@ -126,15 +126,47 @@ class Campagne_model extends MY_Model
 	}
 
 	/**
+     	*  Selectionne les objectifs fixés pour une campagne donnée
+     	*  @param (String) le nom de la campagne (vide ou coche)
+	*  @return (int) l'objectif fixé pour la campagne donnée
+        **/
+	public function read_objectif($campagneID){
+		return $this->db->select('CAM_OBJECTIF')
+						->from('campagnes')
+						->where('CAM_ID', $campagneID);	
+	}
+
+	/**
      	*  Selectionne le montant global reçu (dons, offres) pour chaque campagne
 	*  @return (Mixed[]) les campagnes avec leur montant global reçu ainsi que leur nom et leurs dates debut/fin
         **/
-	public function read_montant_global(){
-		return $this->db->query("SELECT C.CAM_NOM AS NOM, SUM( D.`DON_MONTANT` ) AS NUMBER , C.CAM_DEBUT AS DEBUT, C.CAM_FIN AS FIN
-			FROM  `dons` D,  `offres` O,  `campagnes` C
-				WHERE C.`CAM_ID` = O.`CAM_ID` 
-					AND O.`OFF_ID` = D.`OFF_ID` 
-						GROUP BY C.`CAM_ID` 
-							ORDER BY SUM( D.`DON_MONTANT` ) DESC");
+	public function read_montant_global($campagneID){
+		return $this->db->select_sum('DON_MONTANT')
+						->from('campagnes')
+						->join('offres' , 'campagnes.CAM_ID = offres.CAM_ID')
+						->join('dons', 'offres.OFF_ID = dons.OFF_ID')
+						->where('campagnes.CAM_ID', $campagneID);
+	}
+
+	/**
+     	*  Retourne le nom de chaque campagne
+	*  @return (Mixed[]) le nom de toutes les campagnes
+        **/
+	public function read_all_campagne_name(){
+		//var_dump($this->db->select('CAM_NOM')->from($this->table));
+		//return null;
+		return $this->db->select('CAM_NOM')
+						->select('CAM_ID')
+						->from($this->table);
+	}
+
+	public function read_resultat_par_mois($campagneID){
+		//select DON_ID from dons where OFF_ID in (select OFF_ID from offres where CAM_ID = 4)
+
+		var_dump($campagneID);
+		return $this->db->select('DON_MONTANT')
+						->select('DON_DATE')
+						->from('dons')
+						->where('OFF_ID in (select OFF_ID from offres where CAM_ID = \'' .$campagneID. '\')');
 	}
 }

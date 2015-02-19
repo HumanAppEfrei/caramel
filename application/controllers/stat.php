@@ -219,6 +219,71 @@ class Stat extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    public function stat_campagne(){
+        // Donnees de navigation, a inclure dans toute fonction des controlleurs
+        $nav_data = array();
+        $nav_data['username'] = $this->session->userdata('username');
+
+        // On charge la table 'don' via le model 'don_model'
+        $this->load->model('campagne_model');
+
+        // Creation d'un nouveau tableau pour contenir les resultats
+        $list_data = array();
+
+        // on récupère les noms et les ids de toutes les campagnes
+        $this->campagne_model->read_all_campagne_name();
+        $list_data['campagne_name'] = $this->campagne_model->get_results();
+        
+        //var_dump($list_data);
+
+        // on recupere la campagne selectionnee dans la vue
+        $search = $this->input->post('campagne_select');
+        
+        if (! ($search==null)) {
+
+            $list_data['campagne_choisie_id'] = $search;
+
+            $this->campagne_model->read_montant_global($search);
+            $list_data['montant'] = $this->campagne_model->get_results();        
+
+            // On récupère l'objectif fixé
+            $this->campagne_model->read_objectif($search);
+            $list_data['objectif'] = $this->campagne_model->get_results();
+
+            // on récupère l'ensemble des dons de la campagne
+            $this->campagne_model->read_resultat_par_mois($search);
+            $tab_dons = $this->campagne_model->get_results();
+
+            // puis on regroupe ces dons par mois et on calcule le montant total par mois
+            $sommes_dons =  array();
+            foreach ($tab_dons as $don) {
+                $date=explode("-", $don->DON_DATE);
+                $key=$date[0]."-".$date[1];
+                if (!isset($sommes_dons[$key]))
+                {
+                    $sommes_dons[$key]=(int)$don->DON_MONTANT;
+                }else{
+                    $sommes_dons[$key]+=(int)$don->DON_MONTANT;
+                }
+
+            }
+            // on trie les mois par ordre croissant
+            ksort($sommes_dons);
+
+            $list_data['historique']=$sommes_dons;
+        }
+
+        // Chargement des vues de navigation standard
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $nav_data);
+        $this->load->view('stat/menu');
+
+        // appel de la page base.php dans le repertoire de vues stat/test
+        $this->load->view('stat/stats_campagnes', $list_data);
+
+        $this->load->view('base/footer');
+    }
+
     /*
      *  répartition des dons en fonction de leur mode de paiement
      */
