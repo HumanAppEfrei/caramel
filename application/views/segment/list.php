@@ -14,7 +14,7 @@
                 <tr>
                     <td>
 						<a href="<?php echo site_url('segment/edit').'/'.$segment->SEG_CODE; ?>" class='icon-edit'></a>
-						<a href="<?php echo site_url('segment/edit').'/'.$segment->SEG_CODE; ?>" class='icon-remove'  onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce segment ?\')) {return true;}else{return false;}"></a>
+						<a href="<?php echo site_url('segment/remove').'/'.$segment->SEG_CODE; ?>" class='icon-remove'  onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce segment ?\')) {return true;}else{return false;}"></a>
 					</td>
                     <td><?php echo $segment->SEG_CODE; ?></td>
                     <td><?php echo $segment->SEG_LIBELLE; ?></td>
