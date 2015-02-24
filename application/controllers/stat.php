@@ -233,18 +233,18 @@ class Stat extends MY_Controller {
         // on récupère les noms et les ids de toutes les campagnes
         $this->campagne_model->read_all_campagne_name();
         $list_data['campagne_name'] = $this->campagne_model->get_results();
-        
+
         //var_dump($list_data);
 
         // on recupere la campagne selectionnee dans la vue
         $search = $this->input->post('campagne_select');
-        
+
         if (! ($search==null)) {
 
             $list_data['campagne_choisie_id'] = $search;
 
             $this->campagne_model->read_montant_global($search);
-            $list_data['montant'] = $this->campagne_model->get_results();        
+            $list_data['montant'] = $this->campagne_model->get_results();
 
             // On récupère l'objectif fixé
             $this->campagne_model->read_objectif($search);
