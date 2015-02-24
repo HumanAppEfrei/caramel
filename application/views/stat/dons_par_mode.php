@@ -116,16 +116,13 @@ ksort($sommes_cartes);
 // creation des graphes
 /////////////////////////////////////////////
 ?>
-<div id="container1" style="width:100%; height:400px;"></div>
+<div id="lines" style="width:100%; height:400px;"></div>
 <div id="pie" style="width:100%; height:400px;"></div>
 
 
 <script>
 $(function () {
-    // Ici on a besoin d'installer StockChart.js pour pouvoir utiliser la ligne
-    // suivante et surtout la fonctionnalité "navigator" dans le graphe
-    //$("#container").highcharts("StockChart", {
-    $("#container1").highcharts({
+    $("#lines").highcharts({
         chart: {
             type: 'line',
             zoomType: 'x'
@@ -187,5 +184,6 @@ $(function () {
     });
 
 });
+
 </script>
 </div>
