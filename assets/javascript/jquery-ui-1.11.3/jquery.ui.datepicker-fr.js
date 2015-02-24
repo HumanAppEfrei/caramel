@@ -1,30 +1,35 @@
 ﻿/* French initialisation for the jQuery UI date picker plugin. */
-/* Written by Stéphane Nahmani (sholby@sholby.net). */
-(function($) {
-	$.ui.datepicker.regional['fr'] = {
-		renderer: $.ui.datepicker.defaultRenderer,
-		monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
-		'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-		monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
-		'Jul','Aoû','Sep','Oct','Nov','Déc'],
-		dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-		dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
-		dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
-		dateFormat: 'dd/mm/yyyy',
+/* Written by Keith Wood (kbwood{at}iinet.com.au),
+	 Stéphane Nahmani (sholby@sholby.net),
+	 Stéphane Raimbault <stephane.raimbault@gmail.com> */
+(function( factory ) {
+ if ( typeof define === "function" && define.amd ) {
+
+// AMD. Register as an anonymous module.
+define([ "../datepicker" ], factory );
+	} else {
+
+		// Browser globals
+		factory( jQuery.datepicker );
+	}
+}(function( datepicker ) {
+
+	datepicker.regional['fr'] = {
+		closeText: 'Fermer',
+		prevText: 'Précédent',
+		nextText: 'Suivant',
+		currentText: 'Aujourd\'hui',
+		monthNames: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+		monthNamesShort: ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'],
+		dayNames: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+		dayNamesShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
+		dayNamesMin: ['D','L','M','M','J','V','S'],
+		weekHeader: 'Sem.',
+		dateFormat: 'dd/mm/yy',
 		firstDay: 1,
-		prevText: '&#x3c;Préc', prevStatus: 'Voir le mois précédent',
-		prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: 'Voir l\'année précédent',
-		nextText: 'Suiv&#x3e;', nextStatus: 'Voir le mois suivant',
-		nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: 'Voir l\'année suivant',
-		currentText: 'Courant', currentStatus: 'Voir le mois courant',
-		todayText: 'Aujourd\'hui', todayStatus: 'Voir aujourd\'hui',
-		clearText: 'Effacer', clearStatus: 'Effacer la date sélectionnée',
-		closeText: 'Fermer', closeStatus: 'Fermer sans modifier',
-		yearStatus: 'Voir une autre année', monthStatus: 'Voir un autre mois',
-		weekText: 'Sm', weekStatus: 'Semaine de l\'année',
-		dayStatus: '\'Choisir\' le DD d MM',
-		defaultStatus: 'Choisir la date',
-		isRTL: false
-	};
-	$.extend($.ui.datepicker.defaults, $.ui.datepicker.regional['fr']);
-})(jQuery);
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''};
+		datepicker.setDefaults(datepicker.regional['fr']);
+		return datepicker.regional['fr'];
+}));

@@ -185,18 +185,9 @@ $(function () {
         }]
     });
 
-});
+    $( '#datepicker1'  ).datepicker({ dateFormat: "yy-mm-dd" },$.datepicker.regional['fr']);
+    $( '#datepicker2'  ).datepicker({ dateFormat: "yy-mm-dd" },$.datepicker.regional['fr']);
 
-$(function(){
-    $( '#datepicker1'  ).datepicker({
-        dateFormat: "yy-mm-dd"
-    });
-});
-
-$(function(){
-    $( '#datepicker2'  ).datepicker({
-        dateFormat: "yy-mm-dd",
-    });
 });
 
 
