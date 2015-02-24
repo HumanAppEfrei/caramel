@@ -8,10 +8,30 @@ class Segment extends MY_Controller {
         $nav_data = array();
         $nav_data['username'] = $this->session->userdata('username');
 
-        $this->load->view('base/header');
-        $this->load->view('base/navigation', $nav_data);
-        $this->load->view('segment/quicksearch');
-        $this->load->view('base/footer');
+        $this->load->model('segment_model');
+        $post_form = $this->input->post('is_form_sent');
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+
+            //Récupération des données
+            $post_recherche = mysql_real_escape_string($this->input->post('recherche'));
+
+            // Vérifications des données
+
+            $items = $this->segment_model->select();
+            $items = $this->segment_model->get_results();
+
+            $list_data = array();
+            $list_data['items'] = $items;
+
+            $nav_data = array();
+            $nav_data['username'] = $this->session->userdata('username');
+
+            $this->load->view('base/header');
+            $this->load->view('base/navigation', $nav_data);
+            $this->load->view('segment/quicksearch');
+            $this->load->view('segment/list', $list_data);
+            $this->load->view('base/footer');
     }
 
     public function create() {
@@ -468,7 +488,7 @@ class Segment extends MY_Controller {
 
             if ($this->form_validation->run() && !$erreur) {
 
-                //recherche d'un id critere libre (pas d'auto incrémente pour pouvoir créer un lien après -> besoin de l'id)					
+                //recherche d'un id critere libre (pas d'auto incrémente pour pouvoir créer un lien après -> besoin de l'id)
                 $critereID = $this->critere_model->Generate_CritereID($segCode);
 
                 // Envoie dans la BDD
@@ -627,18 +647,18 @@ class Segment extends MY_Controller {
         $this->load->model('segment_model');
         $option = $this->input->post("option");
         $code = $this->input->post("code");
-       
+
         $datas = array();
         array_push($datas,"c.CON_ID");
         array_push($datas,"CON_TYPE");
         array_push($datas,"CON_TYPEC");
-        
+
         foreach ($option as $value) {
-            
+
             if($value == "nom"){
                 array_push($datas, "CON_CIVILITE");
                 array_push($datas, "CON_FIRSTNAME");
-                
+
             }
             else if ($value == "prenom"){
                 array_push($datas, "CON_LASTNAME");
@@ -653,7 +673,7 @@ class Segment extends MY_Controller {
                 array_push($datas, "CON_TELFIXE");
                 array_push($datas, "CON_TELPORT");
             }
-            
+
             else if ($value == "adresse"){
                 array_push($datas, "CON_COMPL");
                 array_push($datas, "CON_VOIE_NUM");
@@ -664,19 +684,19 @@ class Segment extends MY_Controller {
                 array_push($datas, "CON_CITY");
                 array_push($datas, "CON_COUNTRY");
             }
-            
+
             else if ($value == "date_ajout"){
                 array_push($datas, "CON_DATEADDED");
             }
             else if ($value == "date_modif"){
                 array_push($datas, "CON_DATEMODIF");
             }
-            
+
         }
         array_push($datas, "CON_RF_ENVOI");
         array_push($datas, "CON_SOLICITATION");
         array_push($datas, "CON_COMMENTAIRE");
-        
+
         if ($value == "dons"){
             array_push($datas, "DON_ID");
             array_push($datas, "DON_MONTANT");
@@ -685,16 +705,16 @@ class Segment extends MY_Controller {
             array_push($datas, "DON_DATEADDED");
             array_push($datas, "DON_TYPE");
             array_push($datas, "OFF_ID");
-            array_push($datas, "DON_DATE");      
+            array_push($datas, "DON_DATE");
         }
         $query = $this->segment_model->createRequest($code,$datas);
-        
+
         $this->load->dbutil();
         $csv = $this->dbutil->csv_from_result($query,";");
 
         header('Content-Type: application/csv');
         header('Content-Disposition: attachement; filename="export_contact.CSV"');
-        echo $csv; 
+        echo $csv;
     }
 
 }
