@@ -20,7 +20,35 @@ class Contact extends MY_Controller {
         $this->load->view('base/header');
         $this->load->view('base/navigation', $nav_data);
         $this->load->view('contact/quicksearch');
-        $this->load->view('base/footer');
+
+		$this->load->model("pagination_model");
+        $this->load->model('contact_model');
+
+			$post_recherche = $this->input->get('search', TRUE);
+
+		//configuration de la pagination
+				$url = "index.php/contact/quicksearch?search=";
+		$config = array();
+		$config = $this->pagination_model->template($url,$post_recherche);
+
+		$this->contact_model->select();
+		$this->contact_model->read_quicksearch($post_recherche);
+        //pagination
+		$config['total_rows'] = $this->db->count_all_results();
+        $this->pagination->initialize($config);
+			$items = $this->contact_model->select();
+			$items = $this->contact_model->read_quicksearch($post_recherche);
+			$items = $this->contact_model->fetch_contact($config["per_page"],$this->input->get("per_page"));
+
+			$list_data = array();
+			$list_data['items'] = $items;
+			$list_data['div'] = "oui";
+			$list_data['pagination'] = $this->pagination->create_links();
+			$nav_data = array();
+			$nav_data['username'] = $this->session->userdata('username');
+
+			$this->load->view('contact/list', $list_data);
+			$this->load->view('base/footer');
     }
 
     /**
