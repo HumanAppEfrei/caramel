@@ -177,26 +177,6 @@ class Contact_model extends MY_Model {
     }
 
     /**
-     * Selectionne des contacts avec une date d'ajout inferieur ou egal a celle selectionnee
-     * @param string $date11 La date d'ajout du contact selectionnee
-     * @return mixed[] Retourne le(s) contact(s) avec la date selectionnee
-     */
-    public function read_date11($date11) {
-        $sql_2 = "YEAR(CON_DATEADDED) = '{$date11}' ";
-        return $this->db->where($sql_2, null, false);
-    }
-
-    /**
-     * Selectionne des contacts avec une date d'ajout superieur a celle selectionnee
-     * @param string $date12 La date d'ajout du contact selectionnee
-     * @return mixed[] Retourne le(s) contact(s) avec la date selectionnee
-     */
-    public function read_date12($date12) {
-        $sql_3 = "YEAR(CON_DATEADDED) >= '{$date12}' ";
-        return $this->db->where($sql_3, null, false);
-    }
-
-    /**
      * Selectionne des contacts en fonction d'un email
      * @param string $mail L'email selectionnee
      * @return mixed[] Retourne le(s) contact(s) selectionnes

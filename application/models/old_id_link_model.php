@@ -55,23 +55,4 @@ class old_id_link_model extends MY_Model
 		$this->db->set('OLD_PAST_ID',$past_id);
 		$this->db->insert($this->table);
 	}
-
-    /**
-     * Supprime un element base sur son id
-     * @param string $current_id L'id de l'element
-     */
-	public function delete_with_current_id($current_id)
-	{
-		$this->db->delete($this->table,array('OLD_CURRENT_ID'=> $current_id));
-	}
-
-    /**
-     * Supprime un element base sur son precedent id
-     * @param string $past_id L'id de l'element
-     */
-	public function delete_with_past_id($past_id)
-	{
-		$this->db->delete($this->table,array('OLD_PAST_ID'=> $past_id));
-	}
-
 }
