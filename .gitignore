@@ -54,3 +54,7 @@ Thumbs.db
 application/config/config.php
 application/config/database.php
 index.php
+
+# DB creation script #
+######################
+*/caramel.sql
