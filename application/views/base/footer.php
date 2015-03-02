@@ -8,6 +8,10 @@
         </footer>
         <script>
 
+// auto start intro js if requested
+        if (RegExp('multipage', 'gi').test(window.location.search)) {
+            introJs().start();
+        }
             $("#aide_button").popup({
                 width:window.innerWidth*0.7,
                 height:window.innerHeight*0.9
