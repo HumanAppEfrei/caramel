@@ -84,15 +84,30 @@ class Don_model extends MY_Model
      * @param (Varchar) le mode selectionne
      * @param date de debut de selection
      * @param date de fin de selection
+     * @param
      * @return (Mixed[]) les dons avec le meme mode
      **/
-    public function read_montant_from_mode($mode, $debut, $fin) {
-        return $this->db->select('DON_MONTANT')
-                        ->select('DON_DATE')
-                        ->where('DON_MODE', (string) $mode)
-                        ->where('DON_DATE >=', date('Y-m-d', strtotime($debut)))
-                        ->where('DON_DATE <=', date('Y-m-d', strtotime($fin)))
-                        ->from($this->table);
+    public function read_montant_from_mode($mode, $debut, $fin, $campagne) {
+        // select from all campagnes
+        if($campagne == 'all'){
+            return $this->db->select('DON_MONTANT')
+                ->select('DON_DATE')
+                ->where('DON_MODE', (string) $mode)
+                ->where('DON_DATE >=', date('Y-m-d', strtotime($debut)))
+                ->where('DON_DATE <=', date('Y-m-d', strtotime($fin)))
+                ->from($this->table);
+        } else {
+            $offreId = $this->db->select('OFF_ID')
+                ->where('CAM_ID', $campagne )
+                ->from('offres')->get()->result()[0]->OFF_ID;
+            return $this->db->select('DON_MONTANT')
+                ->select('DON_DATE')
+                ->where('DON_MODE', (string) $mode)
+                ->where('DON_DATE >=', date('Y-m-d', strtotime($debut)))
+                ->where('DON_DATE <=', date('Y-m-d', strtotime($fin)))
+                ->where('OFF_ID', $offreId)
+                ->from($this->table);
+        }
     }
 
     /**

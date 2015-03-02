@@ -48,6 +48,7 @@ class Stat extends MY_Controller {
         $this->contact_model->select();
         $list_data['stat_evolution_donateurs'] =$this->contact_model->read_evolution_donateurs()->result();
 
+
         //Chargement des vues de navigation standard.
         $this->load->view('base/header');
         $this->load->view('base/navigation', $nav_data);
@@ -301,31 +302,40 @@ class Stat extends MY_Controller {
         // recupération des dates entre lesquelles on veut voir les dates
         $debut = $this->input->post('debut');
         $fin = $this->input->post('fin');
+        $campagne = $this->input->post('campagne-select');
 
         //var_dump($debut);
         //var_dump($fin);
 
         // recupération des dons de type virement
         $researched_mode = (string) virement;
-        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin, $campagne);
         $list_data['virements'] = $this->don_model->get_results();  // ajout des resultats dans le tableau
 
         // recuperation des dons de type cheque
         $researched_mode = (string) cheque;
-        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin, $campagne);
         $list_data['cheques'] = $this->don_model->get_results();
 
         // recuperation des dons de type especes
         $researched_mode = (string) espece;
-        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin,$campagne);
         $list_data['especes'] = $this->don_model->get_results();
 
         // recuperation des dons de type carte
         $researched_mode = (string) carte;
-        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin,$campagne);
         $list_data['cartes'] = $this->don_model->get_results();
 
+        $this->load->model('campagne_model');
+        $this->campagne_model->select();
+        $campagnes = array();
+        foreach ($this->campagne_model->get_results() as $campagne)
+        {
+            $campagnes[$campagne->CAM_ID] = $campagne->CAM_NOM;
+        }
 
+        $list_data['campagnes'] = $campagnes;
         //Chargement des vues de navigation standard.
         $this->load->view('base/header');
         $this->load->view('base/navigation', $nav_data);
