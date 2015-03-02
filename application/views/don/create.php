@@ -12,12 +12,12 @@
                             <input type="text" name="codeCon" id="codeCon" title="champ obligatoire" value="<?php if(isset($contact->CON_ID)) echo $contact->CON_ID; else echo set_value('codeCon'); ?>" />
                             <div id="msg_codeCon" class="error"></div>
                         </div>
-                        <?php echo form_error('codeCon'); if(isset($check_contact) && (!$check_contact)) 
+                        <?php echo form_error('codeCon'); if(isset($check_contact) && (!$check_contact))
                             echo '<div class="error">Ce code donateur est inexistant</div>'
                         ?>
                     </div>
                 </pretty> <!-- /Donateur -->
-                
+
                 <pretty> <!-- Type et montant -->
                     <div class="control-group">
                         <label class="control-label" for="type_versement">Type de Versement</label>
@@ -97,7 +97,7 @@
                 </pretty> <!-- /Mode de paiement -->
             </div>
         </div>
-        
+
         <div class="inline-block">
             <div class="inner-block"> <!-- Date -->
                 <pretty>
@@ -110,7 +110,7 @@
                         </div>
                         <?php if(isset($message_date)) echo('<div class="error">'.$message_date.'</div>'); ?>
                     </div>
-                </pretty>   
+                </pretty>
             </div> <!-- /Date -->
             <div class="inner-block">
                 <pretty> <!-- Offre -->
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                 </pretty> <!-- /Offre -->
-                
+
                 <pretty> <!-- Commentaire -->
                     <div class="control-group">
                         <label class="control-label" for="commentaire">Commentaires</label>
@@ -152,7 +152,7 @@
             <div class="well">
                 <h3>Fléchage du versement</h3>
                 <?php if(isset($message_flech)) echo('<div class="error">'.$message_flech.'</div>'); ?>
-                
+
                 <!--Generation dynamique-->
                 <div class="inner-block" id="addFlechBlock">
                     <input type="hidden" id="flech_valide" name="flech_valide" value="false"/>
@@ -192,6 +192,5 @@
         <?php endforeach; ?>
     </table>
     <?php endif; ?>
-</div> 
+</div>
 <script language="Javascript" src="<?php echo base_url().'assets/javascript/don_view.js'?>" ></script>
-<script language="Javascript" src="<?php echo base_url().'assets/javascript/jquery.js'?>" ></script>
