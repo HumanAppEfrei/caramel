@@ -192,4 +192,149 @@ class Stat extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    public function test(){
+        // donnees de navigation, a inclure dans toute fonction des controlleurs
+        $nav_data = array();
+        $nav_data['username'] = $this->session->userdata('username');
+
+        // on charge la table 'don' via le model 'don_model'
+        $this->load->model('don_model');
+        // on appelle la methode de ce model
+        // voir models/don_model.php
+        $this->don_model->read_all_montant_with_date();
+
+        // creation d'un nouveau tableau pour contenir les resultats
+        $list_data = array();
+        // ajout des resultats dans le tableau
+        $list_data['dons'] = $this->don_model->get_results();
+
+        //Chargement des vues de navigation standard.
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $nav_data);
+        $this->load->view('stat/menu');
+
+        // appel de la page base.php dans le repertoire de vues stat/test
+        $this->load->view('stat/test/base', $list_data);
+
+        $this->load->view('base/footer');
+    }
+
+    public function stat_campagne(){
+        // Donnees de navigation, a inclure dans toute fonction des controlleurs
+        $nav_data = array();
+        $nav_data['username'] = $this->session->userdata('username');
+
+        // On charge la table 'don' via le model 'don_model'
+        $this->load->model('campagne_model');
+
+        // Creation d'un nouveau tableau pour contenir les resultats
+        $list_data = array();
+
+        // on récupère les noms et les ids de toutes les campagnes
+        $this->campagne_model->read_all_campagne_name();
+        $list_data['campagne_name'] = $this->campagne_model->get_results();
+
+        //var_dump($list_data);
+
+        // on recupere la campagne selectionnee dans la vue
+        $search = $this->input->post('campagne_select');
+
+        if (! ($search==null)) {
+
+            $list_data['campagne_choisie_id'] = $search;
+
+            $this->campagne_model->read_montant_global($search);
+            $list_data['montant'] = $this->campagne_model->get_results();
+
+            // On récupère l'objectif fixé
+            $this->campagne_model->read_objectif($search);
+            $list_data['objectif'] = $this->campagne_model->get_results();
+
+            // on récupère l'ensemble des dons de la campagne
+            $this->campagne_model->read_resultat_par_mois($search);
+            $tab_dons = $this->campagne_model->get_results();
+
+            // puis on regroupe ces dons par mois et on calcule le montant total par mois
+            $sommes_dons =  array();
+            foreach ($tab_dons as $don) {
+                $date=explode("-", $don->DON_DATE);
+                $key=$date[0]."-".$date[1];
+                if (!isset($sommes_dons[$key]))
+                {
+                    $sommes_dons[$key]=(int)$don->DON_MONTANT;
+                }else{
+                    $sommes_dons[$key]+=(int)$don->DON_MONTANT;
+                }
+
+            }
+            // on trie les mois par ordre croissant
+            ksort($sommes_dons);
+
+            $list_data['historique']=$sommes_dons;
+        }
+
+        // Chargement des vues de navigation standard
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $nav_data);
+        $this->load->view('stat/menu');
+
+        // appel de la page base.php dans le repertoire de vues stat/test
+        $this->load->view('stat/stats_campagnes', $list_data);
+
+        $this->load->view('base/footer');
+    }
+
+    /*
+     *  répartition des dons en fonction de leur mode de paiement
+     */
+    public function versements_par_mode(){
+        //donnees de navigation, a inclure dans toute fonction des controlleurs
+        $nav_data = array();
+        $nav_data['username'] = $this->session->userdata('username');
+
+        // on charge la table 'don' via le model 'don_model'
+        $this->load->model('don_model');
+
+        // creation d'un nouveau tableau pour contenir les resultats
+        $list_data = array();
+
+        // recupération des dates entre lesquelles on veut voir les dates
+        $debut = $this->input->post('debut');
+        $fin = $this->input->post('fin');
+
+        //var_dump($debut);
+        //var_dump($fin);
+
+        // recupération des dons de type virement
+        $researched_mode = (string) virement;
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
+        $list_data['virements'] = $this->don_model->get_results();  // ajout des resultats dans le tableau
+
+        // recuperation des dons de type cheque
+        $researched_mode = (string) cheque;
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
+        $list_data['cheques'] = $this->don_model->get_results();
+
+        // recuperation des dons de type especes
+        $researched_mode = (string) espece;
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
+        $list_data['especes'] = $this->don_model->get_results();
+
+        // recuperation des dons de type carte
+        $researched_mode = (string) carte;
+        $this->don_model->read_montant_from_mode($researched_mode, $debut, $fin);
+        $list_data['cartes'] = $this->don_model->get_results();
+
+
+        //Chargement des vues de navigation standard.
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $nav_data);
+        $this->load->view('stat/menu');
+
+        // appel de la vue affichant les courbes pour chaque mode
+        $this->load->view('stat/dons_par_mode', $list_data);
+
+        $this->load->view('base/footer');
+
+    }
 }

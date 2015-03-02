@@ -7,6 +7,7 @@
             <li><a href="<?php echo site_url('contact/list_offres') . '/' . $contact[0]->CON_ID; ?>" >Offres</a></li>
             <li><a href="<?php echo site_url('contact/infos_comp') . '/' . $contact[0]->CON_ID; ?>" >Informations complémentaires</a></li>
             <li><a href="<?php echo site_url('contact/historique') . '/' . $contact[0]->CON_ID; ?>" >Historique</a></li>
+            <li><a href="<?php echo site_url('contact/statistiques') . '/' . $contact[0]->CON_ID; ?>" >Statistiques</a></li>
         </ul>
     </div>
 

@@ -225,57 +225,57 @@ class Contact extends MY_Controller {
      * Rechercher rapide
      */
     public function quicksearch() {
-		$this->load->model("pagination_model");
+        $this->load->model("pagination_model");
         $this->load->model('contact_model');
         $post_form = $this->input->post('is_form_sent');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
-		if ($post_form){
-			$post_recherche = mysql_real_escape_string($this->input->post('recherche'));
-		}
-		else {
-			$post_recherche = $this->input->get('search', TRUE);
-		}
+        if ($post_form){
+            $post_recherche = mysql_real_escape_string($this->input->post('recherche'));
+        }
+        else {
+            $post_recherche = $this->input->get('search', TRUE);
+        }
 
-		//configuration de la pagination
+        //configuration de la pagination
         $url = "index.php/contact/quicksearch?search=";
-		$config = array();
-		$config = $this->pagination_model->template($url,$post_recherche);
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $config = array();
+        $config = $this->pagination_model->template($url,$post_recherche);
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
 
-		//Récupération des données
-		// $post_selection = $this->input->post('selection');
+        //Récupération des données
+        // $post_selection = $this->input->post('selection');
 
-		$this->contact_model->select();
-		$this->contact_model->read_quicksearch($post_recherche);
+        $this->contact_model->select();
+        $this->contact_model->read_quicksearch($post_recherche);
         //pagination
-		$config['total_rows'] = $this->db->count_all_results();
+        $config['total_rows'] = $this->db->count_all_results();
         $this->pagination->initialize($config);
-		// Vérifications des données
-		if ($this->input->get("per_page") > ($config['total_rows'])){
-			$this->index();
-		}
-		else {
-			$items = $this->contact_model->select();
-			//$items = $this->contact_model->read_contact($post_recherche);
-			$items = $this->contact_model->read_quicksearch($post_recherche);
-			$items = $this->contact_model->fetch_contact($config["per_page"],$this->input->get("per_page"));
+        // Vérifications des données
+        if ($this->input->get("per_page") > ($config['total_rows'])){
+            $this->index();
+        }
+        else {
+            $items = $this->contact_model->select();
+            //$items = $this->contact_model->read_contact($post_recherche);
+            $items = $this->contact_model->read_quicksearch($post_recherche);
+            $items = $this->contact_model->fetch_contact($config["per_page"],$this->input->get("per_page"));
 
-			$list_data = array();
-			$list_data['items'] = $items;
-			$list_data['div'] = "oui";
-			$list_data['pagination'] = $this->pagination->create_links();
-			$nav_data = array();
-			$nav_data['username'] = $this->session->userdata('username');
+            $list_data = array();
+            $list_data['items'] = $items;
+            $list_data['div'] = "oui";
+            $list_data['pagination'] = $this->pagination->create_links();
+            $nav_data = array();
+            $nav_data['username'] = $this->session->userdata('username');
 
-			$this->load->view('base/header');
-			$this->load->view('base/navigation', $nav_data);
-			$this->load->view('contact/quicksearch');
-			$this->load->view('contact/list', $list_data);
-			$this->load->view('base/footer');
-			}
+            $this->load->view('base/header');
+            $this->load->view('base/navigation', $nav_data);
+            $this->load->view('contact/quicksearch');
+            $this->load->view('contact/list', $list_data);
+            $this->load->view('base/footer');
+        }
     }
 
     /**
@@ -760,6 +760,55 @@ class Contact extends MY_Controller {
         $this->load->view('contact/quicksearch');
         $this->load->view('contact/menu', $data);
         $this->load->view('contact/history', $history_array);
+        $this->load->view('base/footer');
+    }
+
+    /**
+     * Affiche l'historique des actions d'un contact
+     * @param string $id_con L'id du contact selectionne
+     */
+    public function statistiques($id_con) {
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $this->session->userdata('username'));
+        $this->load->view('contact/quicksearch');
+        $this->load->view('contact/menu', $data);
+        // donnees de navigation, a inclure dans toute fonction des controlleurs
+        $nav_data = array();
+        $nav_data['username'] = $this->session->userdata('username');
+
+        // on recupere les donnees une fois pour toutes les utilisations
+        $this->db->select('DON_DATE');
+        $this->db->select('DON_MODE');
+        $this->db->select('DON_MONTANT');
+        $this->db->from('dons');
+        $this->db->where('CON_ID', $id_con);
+
+        $query = $this->db->get();
+
+        $profil_periode = array(); // analyse des profiles par periode de versement
+        $profil_type = array(); // analyse des profiles par type de versement
+        $profil_montant = array(); // analyse des profiles par montant de versement
+
+        foreach ($query->result() as $row)
+        {
+            // add to period stat
+            if(!isset($profil_periode[$row->DON_DATE])) $profil_periode[$row->DON_DATE] = 0;
+            $profil_periode[$row->DON_DATE] += 1 ;
+            // add to type stat
+            if(!isset($profil_type[$row->DON_MODE])) $profil_type[$row->DON_MODE] = 0;
+            $profil_type[$row->DON_MODE] += 1 ;
+            // add to montant stat
+            if(!isset($profil_montant[$row->DON_MONTANT])) $profil_montant[$row->DON_MONTANT] = 0;
+            $profil_montant[$row->DON_MONTANT] += 1 ;
+        }
+        // var_dump($profil_montant);
+        // var_dump($profil_type);
+        // var_dump($profil_periode);
+        $stats_array = array("montants" => $profil_montant,
+            "types" => $profil_type,
+            "periodes" => $profil_periode);
+
+        $this->load->view('contact/statistiques', $stats_array);
         $this->load->view('base/footer');
     }
 

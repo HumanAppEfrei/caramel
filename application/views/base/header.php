@@ -10,6 +10,12 @@
 		<script src="<?php echo js_url('flot/jquery'); ?>"></script>
 		<script src="<?php echo js_url('flot/jquery.flot'); ?>"></script>
 		<script src="<?php echo js_url('flot/jquery.flot.pie.min'); ?>"></script>
-	</head>
-	<body>
+		<script src="<?php echo js_url('highcharts'); ?>"></script>
+
+		<link href="<?php echo css_url('jquery-ui-1.11.3/jquery-ui.min'); ?>" type="text/css" rel="stylesheet" />
+		<script src="<?php echo js_url('jquery-ui-1.11.3/jquery-ui'); ?>"></script>
+		<script src="<?php echo js_url('jquery-ui-1.11.3/jquery.ui.datepicker-fr'); ?>"></script>
+
+    </head>
+    <body>
 		<div id="page">
