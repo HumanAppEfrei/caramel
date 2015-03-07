@@ -1,6 +1,7 @@
 <?php
 foreach ($contact as $contact) {
-    $split = explode("-", $contact->CON_DATE);
+    $datenaissance = $contact->CON_DATE;
+    /*$split = explode("-", $contact->CON_DATE);
     if (count($split) > 1) {
         $annee = $split[0];
         $mois = $split[1];
@@ -17,7 +18,7 @@ foreach ($contact as $contact) {
             $mois = "";
         if ($annee[0] == '0' && $annee[1] == '0' && $annee[2] == '0' && $annee[3] == '0')
             $annee = "";
-    } ?>
+    } */ ?>
 
     <div class="well"><h3>Edition du contact : <?php echo($contact->CON_FIRSTNAME . " " . $contact->CON_LASTNAME) ?> </h3>
         <div class="pull-right">
@@ -108,14 +109,14 @@ foreach ($contact as $contact) {
                     <div class="control-group">
                         <label id="nom" class="control-label" for="surname">Date de naissance</label>
                         <div class="controls">
-                            <input class="input-mini" type="text" name="jour" value="<?php if (isset($jour)) echo $jour; ?>" maxlength="2" placeholder="dd" > /
-                            <input class="input-mini" type="text" name="mois" value="<?php if (isset($mois)) echo $mois; ?>" maxlength="2" placeholder="mm" > /
-                            <input class="input-mini" type="text" name="annee" value="<?php if (isset($annee)) echo $annee; ?>" maxlength="4" placeholder="aaaa" >
+                            <input class="datepicker" type="text" name="edatenaissance" value="<?php if (isset($datenaissance)) echo $datenaissance; ?>">
                         </div>
                     </div>
-                    <?php echo form_error('jour'); ?>
+
+                    <!-- <?php echo form_error('jour'); ?>
                     <?php echo form_error('mois'); ?>
-                    <?php echo form_error('annee'); ?>
+                    <?php echo form_error('annee'); ?> -->
+                    <?php echo form_error('datenaissance'); ?>
                     <?php if (isset($message_date)) echo('<div class="error">' . $message_date . '</div>'); ?>
 
                 </pretty>

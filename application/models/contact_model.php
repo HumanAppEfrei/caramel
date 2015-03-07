@@ -181,9 +181,12 @@ class Contact_model extends MY_Model {
      * @param string $date11 La date d'ajout du contact selectionnee
      * @return mixed[] Retourne le(s) contact(s) avec la date selectionnee
      */
-    public function read_date11($date11) {
-        $sql_2 = "YEAR(CON_DATEADDED) = '{$date11}' ";
-        return $this->db->where($sql_2, null, false);
+    public function read_by_date($date) {
+        //$sql_2 = "YEAR(CON_DATEADDED) = '{$date}' ";
+        //return $this->db->where($sql_2, null, false);
+        var_dump($this->db->where("DATE_FORMAT(CON_DATEADDED, %Y %m)", $date));
+        return null;
+        //return $this->db->where("YEAR(CON_DATEADDED)", "YEAR({$date})");
     }
 
     /**

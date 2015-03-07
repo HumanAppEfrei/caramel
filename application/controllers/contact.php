@@ -77,7 +77,8 @@ class Contact extends MY_Controller {
             $post_firstname = implode('-', $arraytemp);
             $post_lastname = $this->input->post('lastname');
             $post_lastname = strtoupper($post_lastname);
-            $post_date = $this->input->post('annee') . "-" . $this->input->post('mois') . "-" . $this->input->post('jour');
+            //$post_date = $this->input->post('annee') . "-" . $this->input->post('mois') . "-" . $this->input->post('jour');
+            $post_date = $this->input->post('datenaissance');
             $post_email = $this->input->post('email');
             $post_telFixe = $this->input->post('telFixe');
             $post_telPort = $this->input->post('telPort');
@@ -301,6 +302,7 @@ class Contact extends MY_Controller {
             $post_telFixe = $this->input->post('telFixe');
             $post_telPort = $this->input->post('telPort');
             $post_complement = $this->input->post('complement');
+            $post_date = $this->input->post('dateEn');
             //$post_complement2 = $this->input->post('complement2');
             $post_voie = $this->input->post('voie');
             $post_bp = $this->input->post('bp');
@@ -377,6 +379,11 @@ class Contact extends MY_Controller {
             if ($post_commentaire != "")
                 $items = $this->contact_model->read_commentaire($post_commentaire);
             $items = $this->contact_model->get_results();
+            if($post_date != "-") {
+                $items = $this->contact_model->read_by_date($post_date);
+                //var_dump($items);
+            }
+            
 
             if ($this->form_validation->run() && $msg_alert == "") {
                 //	Le formulaire est valide
@@ -446,7 +453,8 @@ class Contact extends MY_Controller {
             if (strlen($this->input->post('cp')) + strlen($this->input->post('city')) + 1 > 38)
                 $message_localite = "Le champ Localité (CP + Ville) ne peut contenir plus de 38 caractères.";
 
-            $post_date = $this->input->post('annee') . "-" . $this->input->post('mois') . "-" . $this->input->post('jour');
+            $post_date = $this->input->post('datenaissance'); 
+            //$post_date = $this->input->post('annee') . "-" . $this->input->post('mois') . "-" . $this->input->post('jour');
             if ($post_date != "--" && isValidDate(date_usfr($post_date)) == false)
                 $message_date = "La date saisie est incorecte";
 
@@ -459,9 +467,11 @@ class Contact extends MY_Controller {
             $this->form_validation->set_rules('city', 'Ville', 'trim|max_length[38]|alpha_dash_spaces|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('country', 'Country', 'trim|max_length[38]|alpha_dash_spaces|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('email', 'EMail', 'trim|valid_email|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('jour', 'Jour', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('mois', 'Mois', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('annee', 'Année', 'trim|max_length[4]|numeric|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('datenaissance', 'DateNaissance', 'trim|alpha_dash_spaces|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('jour', 'Jour', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('mois', 'Mois', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('annee', 'Année', 'trim|max_length[4]|numeric|encode_php_tags|xss_clean');
+            
             $this->form_validation->set_rules('telFixe', 'Téléphone fixe', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('telPort', 'Téléphone portable', 'trim|numeric|encode_php_tags|xss_clean');
         }

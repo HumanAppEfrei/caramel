@@ -45,17 +45,14 @@
 				<div class="control-group">
 				<label class="control-label" for="description">Date de début</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourd" value="<?php echo set_value('jourd',date("d")); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisd" value="<?php echo set_value('moisd',date("m")); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneed" value="<?php echo set_value('anneed',date("Y")); ?>" maxlength="4" placeholder="aaaa" >
+					<input class="datepicker" type="text" name="datedebut" />
 				</div>
 				</div>
 				<div class="control-group">
 				<label class="control-label" for="description">Date de fin</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourf" value="<?php echo set_value('jourf',date("d",$date)); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisf" value="<?php echo set_value('moisf',date("m",$date)); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneef" value="<?php echo set_value('anneef',date("Y",$date)); ?>" maxlength="4" placeholder="aaaa" >
+					<input class="datepicker" type="text" name="datefin" />
+
 				</div>
 				</div>
 				<?php echo form_error('jourd'); ?>

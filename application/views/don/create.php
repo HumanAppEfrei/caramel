@@ -84,10 +84,7 @@
                             <div class="control-group">
                     <label class="control-label" for="cheq_depot_jour">Date de dépôt</label>
                         <div class="controls">
-                            <input type="text" name="cheq_depot_jour" maxlength="2" placeholder="jj" class="input-mini" value="<?php echo set_value('cheq_depot_jour'); ?>"/> /
-                            <input type="text" name="cheq_depot_mois" maxlength="2" placeholder="mm" class="input-mini" value="<?php echo set_value('cheq_depot_mois'); ?>"/> /
-                            <input type="text" name="cheq_depot_annee" maxlength="4" placeholder="aaaa" class="input-mini" value="<?php echo set_value('cheq_depot_annee'); ?>"/>
-                        </div>
+                            <input class="datepicker" type="text" name="datedepot" /></div>
                         <?php if (isset($message_cheq_date)) {
                             echo $message_cheq_date;
                         }?>
@@ -104,9 +101,7 @@
                     <div class="control-group">
                         <label class="control-label" for="jour">Date* </label>
                         <div class="controls">
-                            <input type="text" style="width:40px;" name="jour" value="<?php echo set_value('jour') == '' ? date('d') : set_value('jour'); ?>" maxlength="2" placeholder="jj" > /
-                            <input type="text" style="width:40px;" name="mois" value="<?php echo set_value('mois') == '' ? date('m') : set_value('mois'); ?>" maxlength="2" placeholder="mm" > /
-                            <input type="text" style="width:50px;" name="annee" value="<?php echo set_value('annee') == '' ? date('Y') : set_value('annee'); ?>" maxlength="4" placeholder="aaaa" >
+                            <input class="datepicker" type="text" name="date" />
                         </div>
                         <?php if(isset($message_date)) echo('<div class="error">'.$message_date.'</div>'); ?>
                     </div>

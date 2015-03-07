@@ -30,25 +30,21 @@
 				<div class="control-group">
 				<label class="control-label" for="description">Date de début</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourd" value="<?php echo set_value('jourd'); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisd" value="<?php echo set_value('moisd'); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneed" value="<?php echo set_value('anneed'); ?>" maxlength="4" placeholder="aaaa" >
+					<input class="datepicker" type="text" name="datedebut" />
 				</div>
 				</div>
 				<div class="control-group">
 				<label class="control-label" for="description">Date de fin</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourf" value="<?php echo set_value('jourf'); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisf" value="<?php echo set_value('moisf'); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneef" value="<?php echo set_value('anneef'); ?>" maxlength="4" placeholder="aaaa" >
-				<?php echo form_error('jourd'); ?>
+					<input class="datepicker" type="text" name="datedebut" />
+				<!-- <?php echo form_error('jourd'); ?>
 				<?php echo form_error('moisd'); ?>
 				<?php echo form_error('anneed'); ?>
 				<?php if(isset($message_debut)) echo('<div class="error">'.$message_debut.'</div>'); ?>
 				<?php echo form_error('jourf'); ?>
 				<?php echo form_error('moisf'); ?>
 				<?php echo form_error('anneef'); ?>
-				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?>
+				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?> -->
 				</div>
 				</div>
 			</pretty>
