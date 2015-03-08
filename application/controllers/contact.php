@@ -380,9 +380,9 @@ class Contact extends MY_Controller {
                 $items = $this->contact_model->read_commentaire($post_commentaire);
             $items = $this->contact_model->get_results();
             if($post_date != "-") {
-                $this->contact_model->read_by_date($post_date);
-                $items = $this->contact_model->get_results();
-                var_dump($items);
+                $this->contact_model->read_by_month($post_date);
+                $dump = $this->contact_model->get_results();
+                var_dump($dump);
             }
             
 

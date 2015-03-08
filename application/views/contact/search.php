@@ -89,21 +89,21 @@
 				<div class="control-group">
 					<label class="control-label" for="Complément">Né(e) entre</label>
 					<div class="controls">
-						<input class="datepicker input-small" type="text" name="datenaissance1">
+						<input class="datepicker input-small" type="text" name="datenaissance1" readonly>
 						 et 
-						<input class="datepicker input-small" type="text" name="datenaissance2">
+						<input class="datepicker input-small" type="text" name="datenaissance2" readonly>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="Complément">Contact créé en</label>
 					<div class="controls">
-						<input type="text" class="monthpicker" name="dateEn" value="<?php echo set_value('dateEn'); ?>" maxlength="4" >
+						<input type="text" class="monthpicker" name="dateEn" readonly>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="Complément">Contact créé depuis</label>
 					<div class="controls">
-						<input type="text" class="datepicker" name="dateDepuis" value="<?php echo set_value('dateDepuis'); ?>" maxlength="4" >
+						<input type="text" class="datepicker" name="dateDepuis" readonly >
 					</div>
 				</div>			
 			

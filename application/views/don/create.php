@@ -103,6 +103,7 @@
                         <div class="controls">
                             <input class="datepicker" type="text" name="date" />
                         </div>
+                        <?php echo form_error('date'); ?>
                         <?php if(isset($message_date)) echo('<div class="error">'.$message_date.'</div>'); ?>
                     </div>
                 </pretty>   
@@ -188,5 +189,5 @@
     </table>
     <?php endif; ?>
 </div> 
-<script language="Javascript" src="<?php echo base_url().'assets/javascript/don_view.js'?>" ></script>
 <script language="Javascript" src="<?php echo base_url().'assets/javascript/jquery.js'?>" ></script>
+<script language="Javascript" src="<?php echo base_url().'assets/javascript/don_view.js'?>" ></script>

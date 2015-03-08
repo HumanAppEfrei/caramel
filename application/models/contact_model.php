@@ -177,15 +177,17 @@ class Contact_model extends MY_Model {
     }
 
     /**
-     * Selectionne des contacts avec une date d'ajout inferieur ou egal a celle selectionnee
-     * @param string $date11 La date d'ajout du contact selectionnee
+     * Selectionne des contacts avec une date d'ajout correspondant à un mois et une année donnée
+     * @param string $date La date d'ajout du contact selectionnee
      * @return mixed[] Retourne le(s) contact(s) avec la date selectionnee
      */
-    public function read_by_date($date) {
+    public function read_by_month($date) {
         //$sql_2 = "YEAR(CON_DATEADDED) = '{$date}' ";
         //return $this->db->where($sql_2, null, false);
+        
+        $where = "YEAR(CON_DATEADDED) = STR_TO_DATE({$date}, '%Y') AND MONTH(CON_DATEADDED) = STR_TO_DATE({$date}, '%m')";
         return $this->db->from('contacts')
-                        ->where("DATE_FORMAT(CON_DATEADDED, %Y-%m)", $date);
+                        ->where($where);
         
         //return $this->db->where("YEAR(CON_DATEADDED)", "YEAR({$date})");
     }

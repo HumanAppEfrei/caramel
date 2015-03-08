@@ -361,7 +361,9 @@ class Campagne extends MY_Controller {
 			if($pieces2[0]!="" && $pieces2[1]!="" && $pieces2[2]!="") $items = $this->campagne_model->read_date_fin($post_fin);
 			else if($post_fin=="0000-00-0") $message = "Date de fin incorrecte";*/
 
+			$dump = $this->campagne_model->read_date_debut($post_debut);
 			$items = $this->campagne_model->read_date_debut($post_debut);
+			var_dump($dump);
 			$items = $this->campagne_model->read_date_fin($post_fin);
 
 			if($post_type!="") $items = $this->campagne_model->read_type($post_type);

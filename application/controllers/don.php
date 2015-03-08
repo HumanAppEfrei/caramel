@@ -70,8 +70,10 @@ class Don extends MY_Controller {
             $post_cheq_compte = $this->input->post('cheq_compte');
             $post_cheq_banq_emission = $this->input->post('cheq_banq_emission');
             $post_cheq_banq_depot = $this->input->post('cheq_banq_depot');
-            $post_cheq_date_depot = $this->input->post('cheq_depot_annee')."-".$this->input->post('cheq_depot_mois')."-".$this->input->post('cheq_depot_jour');
-            $post_date = $this->input->post('annee')."-".$this->input->post('mois')."-".$this->input->post('jour');
+            //$post_cheq_date_depot = $this->input->post('cheq_depot_annee')."-".$this->input->post('cheq_depot_mois')."-".$this->input->post('cheq_depot_jour');
+            $post_cheq_date_depot = $this->input->post('datedepot');
+            //$post_date = $this->input->post('annee')."-".$this->input->post('mois')."-".$this->input->post('jour');
+            $post_date = $this->input->post('date');
             $post_offre = $this->input->post('offre');
             $post_commentaire = $this->input->post('commentaire');
             $post_montant_flechage = $this->input->post('montant_flechage');
@@ -84,10 +86,12 @@ class Don extends MY_Controller {
             $this->form_validation->set_rules('cheq_num', 'Numéro de chèque', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('cheq_compte', 'Numéro de compte', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('cheq_banq_emission', 'Banque d\'émission', 'trim|encode_php_tags|xss_clean');
+            $this->form_validation->set_rules('date', 'Date', 'trim|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('cheq_banq_depot', 'Banque de dépôt', 'trim|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('cheq_depot_jour', 'Jour de dépôt', 'integer|trim|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('cheq_depot_mois', 'Mois de dépôt', 'integer|trim|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('cheq_depot_annee', 'Année de dépôt', 'integer|trim|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('cheq_depot_jour', 'Jour de dépôt', 'integer|trim|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('cheq_depot_mois', 'Mois de dépôt', 'integer|trim|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('cheq_depot_annee', 'Année de dépôt', 'integer|trim|encode_php_tags|xss_clean');
+            $this->form_validation->set_rules('datedepot', 'Date de dépôt', 'trim|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('mode', 'mode de versement', 'trim|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('type', 'type de versement', 'trim|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('offre', 'offre liée au versement', 'trim|encode_php_tags|xss_clean');
