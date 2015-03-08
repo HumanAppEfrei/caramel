@@ -327,7 +327,7 @@ class Don_model extends MY_Model
     }
 
     /**
-     * Selectionne les dons repartis par nombre de types de dons (un don quoi.. INCOHERENCE DE CETTE FONCTION)
+     * Selectionne les dons repartis par nombre de types de dons
      * @return (Mixed[]) les dons repartis
      **/
     public function percent_type_versement(){
@@ -346,5 +346,16 @@ class Don_model extends MY_Model
             FROM  `dons`
             GROUP BY `DON_MODE`
             ORDER BY COUNT( `DON_MODE` ) DESC");
+    }
+
+    /**
+     * Selectionne la somme totale des dons de chaque donateur
+     **/
+    public function somme_des_dons_par_donateur(){
+        $res = $this->db->query("SELECT SUM(`DON_MONTANT`) AS TOTAL, CON_ID
+            FROM `dons`
+            GROUP BY `CON_ID`");
+
+        return $res;
     }
 }
