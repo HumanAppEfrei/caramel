@@ -30,28 +30,30 @@
 				<div class="control-group">
 				<label class="control-label" for="description">Date de début</label>
 				<div class="controls">
-					<input class="datepicker" type="text" name="datedebut" />
+					<input class="datepicker" type="text" name="datedebut" readonly/>
 				</div>
 				</div>
 				<div class="control-group">
 				<label class="control-label" for="description">Date de fin</label>
 				<div class="controls">
-					<input class="datepicker" type="text" name="datefin" />
+					<input class="datepicker" type="text" name="datefin" readonly/>
 				<!-- <?php echo form_error('jourd'); ?>
 				<?php echo form_error('moisd'); ?>
-				<?php echo form_error('anneed'); ?>
+				<?php echo form_error('anneed'); ?> -->
+				<?php echo form_error('datedebut'); ?>
 				<?php if(isset($message_debut)) echo('<div class="error">'.$message_debut.'</div>'); ?>
-				<?php echo form_error('jourf'); ?>
+				<!-- <?php echo form_error('jourf'); ?>
 				<?php echo form_error('moisf'); ?>
-				<?php echo form_error('anneef'); ?>
-				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?> -->
+				<?php echo form_error('anneef'); ?> -->
+				<?php echo form_error('datefin'); ?>
+				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?>
 				</div>
 				</div>
 			</pretty>
 			
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Relier à la campagne</label>
+				<label class="control-label" for="description">Campagne associée</label>
 				<div class="controls">
 				<select name="campagne" >
 				<?php foreach($list_campagnes as $list_campagne)

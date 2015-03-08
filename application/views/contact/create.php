@@ -76,7 +76,7 @@
 				<div class="control-group">
 					<label class="control-label" for="Civilite">Date de naissance</label>
 					<div class="controls">
-						<input class="datepicker" type="text" name="datenaissance" />
+						<input class="datepicker" type="text" name="datenaissance" readonly/>
 						
 						<!-- <?php echo form_error('jour'); ?>
 						<?php echo form_error('mois'); ?>

@@ -184,14 +184,15 @@ class Contact_model extends MY_Model {
     public function read_by_date($date) {
         //$sql_2 = "YEAR(CON_DATEADDED) = '{$date}' ";
         //return $this->db->where($sql_2, null, false);
-        var_dump($this->db->where("DATE_FORMAT(CON_DATEADDED, %Y %m)", $date));
-        return null;
+        return $this->db->from('contacts')
+                        ->where("DATE_FORMAT(CON_DATEADDED, %Y-%m)", $date);
+        
         //return $this->db->where("YEAR(CON_DATEADDED)", "YEAR({$date})");
     }
 
     /**
      * Selectionne des contacts avec une date d'ajout superieur a celle selectionnee
-     * @param string $date12 La date d'ajout du contact selectionnee
+     * @param string $date12 La date d'aut du contact selectionnee
      * @return mixed[] Retourne le(s) contact(s) avec la date selectionnee
      */
     public function read_date12($date12) {

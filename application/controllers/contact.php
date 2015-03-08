@@ -380,8 +380,9 @@ class Contact extends MY_Controller {
                 $items = $this->contact_model->read_commentaire($post_commentaire);
             $items = $this->contact_model->get_results();
             if($post_date != "-") {
-                $items = $this->contact_model->read_by_date($post_date);
-                //var_dump($items);
+                $this->contact_model->read_by_date($post_date);
+                $items = $this->contact_model->get_results();
+                var_dump($items);
             }
             
 
@@ -467,7 +468,7 @@ class Contact extends MY_Controller {
             $this->form_validation->set_rules('city', 'Ville', 'trim|max_length[38]|alpha_dash_spaces|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('country', 'Country', 'trim|max_length[38]|alpha_dash_spaces|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('email', 'EMail', 'trim|valid_email|encode_php_tags|xss_clean');
-            //$this->form_validation->set_rules('datenaissance', 'DateNaissance', 'trim|alpha_dash_spaces|encode_php_tags|xss_clean');
+            $this->form_validation->set_rules('datenaissance', 'Date de naissance', 'trim|encode_php_tags|xss_clean');
             //$this->form_validation->set_rules('jour', 'Jour', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
             //$this->form_validation->set_rules('mois', 'Mois', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
             //$this->form_validation->set_rules('annee', 'Année', 'trim|max_length[4]|numeric|encode_php_tags|xss_clean');
@@ -475,6 +476,8 @@ class Contact extends MY_Controller {
             $this->form_validation->set_rules('telFixe', 'Téléphone fixe', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('telPort', 'Téléphone portable', 'trim|numeric|encode_php_tags|xss_clean');
         }
+
+        var_dump($post_date);
 
         //Enregistrement en base de données
         if ($this->input->post('is_form_sent') && $this->form_validation->run() && $message_identification == "" && $message_date == "" && $message_localite == "") {
@@ -484,7 +487,7 @@ class Contact extends MY_Controller {
             $escaped_data['CON_CIVILITE'] = $this->input->post('civilite');
             $escaped_data['CON_FIRSTNAME'] = $this->input->post('firstname');
             $escaped_data['CON_LASTNAME'] = $this->input->post('lastname');
-            $escaped_data['CON_DATE'] = $this->input->post('date') == '--' ? null : $this->input->post('date');
+            $escaped_data['CON_DATE'] = $post_date;
             $escaped_data['CON_EMAIL'] = $this->input->post('email');
             $escaped_data['CON_TELFIXE'] = $this->input->post('telFixe');
             $escaped_data['CON_TELPORT'] = $this->input->post('telPort');

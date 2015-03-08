@@ -109,7 +109,7 @@ foreach ($contact as $contact) {
                     <div class="control-group">
                         <label id="nom" class="control-label" for="surname">Date de naissance</label>
                         <div class="controls">
-                            <input class="datepicker" type="text" name="edatenaissance" value="<?php if (isset($datenaissance)) echo $datenaissance; ?>">
+                            <input class="datepicker" type="text" name="datenaissance" value="<?php if (isset($datenaissance)) echo $datenaissance; ?>" readonly />
                         </div>
                     </div>
 

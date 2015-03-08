@@ -3,7 +3,9 @@
 <?php 
 	foreach($items as $offre)
 	{	
-		$split1 = @split("-",$offre->OFF_DEBUT); 
+		$debut = $offre->OFF_DEBUT;
+		$fin = $offre->OFF_FIN;
+		/*$split1 = @split("-",$offre->OFF_DEBUT); 
 		$anneed = $split1[0]; 
 		$moisd = $split1[1]; 
 		$jourTmpd = $split1[2];
@@ -25,7 +27,7 @@
 		
 		if($jourTmpf[0] =='0' && $jourTmpf[1] =='0') $jourf = "";
 		if($moisf[0] =='0' && $moisf[1] =='0') $moisf = "";
-		if($anneef[0] =='0' && $anneef[1] =='0' && $anneef[2] =='0' && $anneef[3] =='0')  $anneef = "";
+		if($anneef[0] =='0' && $anneef[1] =='0' && $anneef[2] =='0' && $anneef[3] =='0')  $anneef = "";*/
 ?>
 	
 	<div class="well"><h2>Edition de l'offre : <?php echo($offre->OFF_NOM)?> </h2></div>
@@ -59,28 +61,32 @@
 				<div class="control-group">
 					<label class="control-label" for="dateDebut">Date de début</label>
 					<div class="controls">
-						<input type="text" style="width:40px;" name="jourd" value="<?php echo($jourd); ?>" maxlength="2" placeholder="dd" > /
+						<!--<input type="text" style="width:40px;" name="jourd" value="<?php echo($jourd); ?>" maxlength="2" placeholder="dd" > /
 						<input type="text" style="width:40px;" name="moisd" value="<?php echo($moisd); ?>" maxlength="2" placeholder="mm" > /
-						<input type="text" style="width:50px;" name="anneed" value="<?php echo($anneed); ?>" maxlength="4" placeholder="aaaa" >
+						<input type="text" style="width:50px;" name="anneed" value="<?php echo($anneed); ?>" maxlength="4" placeholder="aaaa" > -->
+						<input class="datepicker" type="text" name="datedebut" value="<?php echo($debut); ?>" readonly/>
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="dateDebut">Date de fin</label>
 					<div class="controls">
-						<input type="text" style="width:40px;" name="jourf" value="<?php echo($jourf); ?>" maxlength="2" placeholder="dd" > /
+						<!-- <input type="text" style="width:40px;" name="jourf" value="<?php echo($jourf); ?>" maxlength="2" placeholder="dd" > /
 						<input type="text" style="width:40px;" name="moisf" value="<?php echo($moisf); ?>" maxlength="2" placeholder="mm" > /
-						<input type="text" style="width:50px;" name="anneef" value="<?php echo($anneef); ?>" maxlength="4" placeholder="aaaa" >
-						<?php echo form_error('jourd'); ?>
-						<?php echo form_error('moisd'); ?>
-						<?php echo form_error('anneed'); ?>
+						<input type="text" style="width:50px;" name="anneef" value="<?php echo($anneef); ?>" maxlength="4" placeholder="aaaa" > -->
+						<input class="datepicker" type="text" name="datefin" value="<?php echo($fin); ?>" readonly/>
 					</div>
 				</div>
 
+				<!-- <?php echo form_error('jourd'); ?>
+				<?php echo form_error('moisd'); ?>
+				<?php echo form_error('anneed'); ?> -->
+				<?php echo form_error('datedebut'); ?>
 				<?php if(isset($message_debut)) echo('<div class="error">'.$message_debut.'</div>'); ?>
-				<?php echo form_error('jourf'); ?>
+				<!-- <?php echo form_error('jourf'); ?>
 				<?php echo form_error('moisf'); ?>
-				<?php echo form_error('anneef'); ?>
+				<?php echo form_error('anneef'); ?> -->
+				<?php echo form_error('datefin'); ?>
 				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?>
 			</pretty>
 			
@@ -88,7 +94,7 @@
 			
 			<pretty>
 				<div class="control-group">
-					<label class="control-label">Reliée à la campagne</label>
+					<label class="control-label">Campagne associée</label>
 					<div class="controls">
 						<a href=<?php echo site_url('campagne/edit').'/'.$campagne->CAM_ID;?>><?php echo $campagne->CAM_ID." : ".$campagne->CAM_NOM;?> </a></p>
 					</div>

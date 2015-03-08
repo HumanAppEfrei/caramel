@@ -44,13 +44,13 @@
 				<div class="control-group">
 				<label class="control-label" for="description">Date de début</label>
 				<div class="controls">
-					<input class="datepicker" type="text" name="datedebut" />
+					<input class="datepicker" type="text" name="datedebut" readonly/>
 				</div>
 				</div>
 				<div class="control-group">
 				<label class="control-label" for="description">Date de fin</label>
 				<div class="controls">
-					<input class="datepicker" type="text" />
+					<input class="datepicker" type="text" readonly/>
 				</div>
 				</div>
 				<?php echo form_error('jourd'); ?>
