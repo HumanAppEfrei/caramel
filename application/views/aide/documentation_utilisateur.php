@@ -418,15 +418,20 @@
             <ul>
                 <li id="stat_campagne">Campagnes</li>
                 En sélectionnant une campagne,vous pouvez visualiser deux graphiques.
-                Le premier graphique permet de comparer les montants (en euro) de l'objectif et du résultat de la campagne sélectionnée.
-                Le second graphique permet de visualiser l'évolution du montant des dons au cours d'une période. Vous pouvez zoomer sur une période en sélectionnant l'intervalle avec la souris.
+                Le premier graphique permet de comparer les montants (en euro) de 
+				l'objectif et du résultat de la campagne sélectionnée.
+                Le second graphique permet de visualiser l'évolution du montant des 
+				dons au cours d'une période. Vous pouvez zoomer sur une période en 
+				sélectionnant l'interval avec la souris.
                 Le bouton "Reset zoom" permet de revenir à la vue globale de la campagne.
 
                 <li id="versements_par_mode">Versements</li>
-                En sélectionnant une période et une campagne, vous pouvez visualiser deux graphiques :
+                En sélectionnant une période et une campagne, vous pouvez visualiser 
+				deux graphiques :
                 l'évolution des modes de versements sur la période donnée,
                 la répartition des moyens de payement des dons effectués.
-                en plaçant le curseur sur les éléments des graphiques, vous obtiendrez des précisions sur les résultats.
+                en plaçant le curseur sur les éléments des graphiques, vous obtiendrez 
+				des précisions sur les résultats.
             </ul>
             </a>
 
