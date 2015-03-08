@@ -32,6 +32,7 @@ class Stat extends MY_Controller {
     public function adherents() {
 
         $this->load->model('contact_model');
+        $this->load->model('don_model');
 
         //je ne sais pas encore à quoi ca sert.
         $post_form = $this->input->post('is_form_sent');
@@ -48,6 +49,9 @@ class Stat extends MY_Controller {
         $this->contact_model->select();
         $list_data['stat_evolution_donateurs'] =$this->contact_model->read_evolution_donateurs()->result();
 
+        //requete répartition des dons en fonction de leur valeur
+        $this->don_model->select();
+        $list_data['dons_repartis_par_montant'] =  $this->don_model->somme_des_dons_par_donateur()->result();
 
         //Chargement des vues de navigation standard.
         $this->load->view('base/header');
