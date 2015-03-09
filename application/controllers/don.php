@@ -8,18 +8,45 @@ class Don extends MY_Controller {
      */
     public function index()
     {
-        // FUTURE Ajouter un listing des reçus à éditer
-
         $nav_data = array();
-        $nav_data['username'] = $this->session->userdata('username');
+		$nav_data['username'] = $this->session->userdata('username');
 
-        $this->load->view('base/header');
-        $this->load->view('base/navigation',$nav_data);
-        $this->load->view('don/quicksearch');
-        $this->load->view('base/footer');
+		$this->load->view('base/header');
+		$this->load->view('base/navigation',$nav_data);
+		$this->load->view('don/quicksearch');
+
+		$this->load->model('pagination_model');
+		$this->load->model('don_model');
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+		$post_form = $this->input->post('is_form_sent');
+
+		$post_search_value = $this->input->get('search', TRUE);
+		$url = "index.php/don/quicksearch?search=";
+		$config = array();
+		$config = $this->pagination_model->template($url,$post_search_value);
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+		$config['total_rows'] = $this->db->count_all_results();
+		$this->pagination_model->initialize($config);
+
+		$this->don_model->select();
+		$items = $this->don_model->fetch_don($config["per_page"],$this->input->get("per_page"));
+
+		$list_data = array();
+		$list_data['items'] = $items;
+		$list_data['not_for_contact'] = true;
+		$list_data['pagination'] = $this->pagination_model->create_links();
+		$nav_data = array();
+		$nav_data['username'] = $this->session->userdata('username');
+
+		$this->load->view('don/list', $list_data);
+		$this->load->view('base/footer');
+
     }
 
-    /**
+ /**
      * Creation d'un nouveau don
      * @param string $id_con L'id du contact donnateur
      */
@@ -188,7 +215,7 @@ class Don extends MY_Controller {
         }
     }
 
-    /**
+ /**
      * Fait une recherche rapide
      */
     public function quicksearch()
@@ -365,7 +392,7 @@ class Don extends MY_Controller {
         }
     }
 
-    /**
+ /**
      * Fait une recherche avancee
      */
     public function search()
@@ -509,7 +536,7 @@ class Don extends MY_Controller {
         redirect('don/edit/'.$id_don, 'refresh');
     } */
 
-    /**
+ /**
      * Creation d'un recu fiscal
      * @param string $id_don L'id du don selectionne
      */
@@ -679,3 +706,4 @@ class Don extends MY_Controller {
 
 /* End of file don.php */
 /* Location: ./application/controllers/don.php */
+
