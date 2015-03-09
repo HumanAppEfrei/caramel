@@ -9,12 +9,12 @@
             <a class="btn" href="<?php echo site_url('don/recu_fiscal').'/'.$urlDonsSansRecu; ?>">Générer un reçu pour tous ceux manquant (<?php echo "$nbDonsSansRecu"; ?>)</a>
             <?php endif; ?>
         </p>
-        
+
         <?php if(isset($stats) AND count($items) != 0) : ?>
-        <p>Nombre : <?php echo count($items); ?> don<?php echo (count($items) > 1) ? "s" : null ; ?> | 
-            Montant moyen : <?php echo $stats[0]->moyenne; ?> € | 
-            Montant maximum : <?php echo $stats[0]->maximum; ?> € | 
-            Montant minimum : <?php echo $stats[0]->minimum; ?> € | 
+        <p>Nombre : <?php echo count($items); ?> don<?php echo (count($items) > 1) ? "s" : null ; ?> |
+            Montant moyen : <?php echo $stats[0]->moyenne; ?> € |
+            Montant maximum : <?php echo $stats[0]->maximum; ?> € |
+            Montant minimum : <?php echo $stats[0]->minimum; ?> € |
             Total des dons : <?php echo $stats[0]->total; ?> €
         </p>
         <?php endif; ?>
@@ -34,12 +34,12 @@
                 <th>Date de saisie</th>
                 <th>Reçu fiscal</th>
             </tr>
-            
+
             <?php foreach($items as $don) :	?>
                 <tr>
                     <td>
-						<a href="<?php echo site_url('don/edit').'/'.$don->DON_ID; ?>" title="Editer"><img src="<?php echo img_url('icons/edit.png'); ?>"/></a>
-						<a href="<?php echo site_url('don/remove').'/'.$don->DON_ID; ?>" title="Supprimer" onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce don ?\')) {return true;}else{return false;}"><img src="<?php echo img_url('icons/drop.png'); ?>"/></a>
+						<a href="<?php echo site_url('don/edit').'/'.$don->DON_ID; ?>" class='icon-edit'></a>
+						<a href="<?php echo site_url('don/remove').'/'.$don->DON_ID; ?>"  class='icon-remove' onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce don ?\')) {return true;}else{return false;}"></a>
 					</td>
                     <td><a href="<?php echo site_url('don/edit').'/'.$don->DON_ID; ?>"><?php echo $don->DON_ID; ?></a></td>
                     <td><a href="<?php echo site_url('contact/edit').'/'.$don->CON_ID; ?>"><?php echo $don->CON_ID; ?></a></td>
@@ -52,7 +52,7 @@
         </table>
     <?php endif; ?>
 		<?php if (isset($pagination)){
-			
+
 			echo $pagination;
 		} ?>
     </div>

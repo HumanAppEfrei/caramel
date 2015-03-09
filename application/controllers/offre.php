@@ -15,10 +15,31 @@ class Offre extends MY_Controller {
 		$nav_data = array();
 		$nav_data['username'] = $this->session->userdata('username');
 
-		$this->load->view('base/header');
-		$this->load->view('base/navigation',$nav_data);
-		$this->load->view('offre/quicksearch');
-		$this->load->view('base/footer');
+		$this->load->model('offre_model');
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+
+			//Récupération des données
+			$post_selection = $this->input->post('selection');
+			$post_recherche = mysql_real_escape_string($this->input->post('recherche'));
+
+			// Vérifications des données
+
+			$items = $this->offre_model->select();
+			$items = $this->offre_model->get_results();
+
+			$list_data = array();
+			$list_data['items'] = $items;
+			$list_data['div'] = "oui";
+
+			$nav_data = array();
+			$nav_data['username'] = $this->session->userdata('username');
+
+			$this->load->view('base/header');
+			$this->load->view('base/navigation',$nav_data);
+			$this->load->view('offre/quicksearch');
+			$this->load->view('offre/list',$list_data);
+			$this->load->view('base/footer');
 	}
 
     /**

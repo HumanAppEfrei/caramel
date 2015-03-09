@@ -2,8 +2,8 @@
 <?php if (count($items) == 0 || !$items) : ?>
         <p class="no-result">Aucun résultat.</p>
     <?php else : ?>
-	
-<table class="table table-striped">			
+
+<table class="table table-striped">
 			<tr>
 				<th></th>
 				<th title="Reference un contact (unique)">Identifiant contact</th>
@@ -11,7 +11,7 @@
 				<th>Prénom</th>
 				<th>Type</th>
 			</tr>
-			
+
 			<?php foreach($items as $contact) : ?>
 				<tr>
 					<td>
@@ -26,7 +26,7 @@
 			<?php endforeach; ?>
 		</table>
 	<?php endif; ?>
-	<?php 
+	<?php
 		if (isset($pagination))
             echo $pagination; ?>
 </div>

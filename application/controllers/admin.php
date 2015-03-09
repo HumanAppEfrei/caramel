@@ -5,6 +5,17 @@ if (!defined('BASEPATH'))
 
 class Admin extends MY_Controller {
 
+    /*
+     *  Affichage de la page appelee par le bouton "engrenage".
+     *  Appelle les vues necessaires.
+     *
+     *  Cette page sert a traiter
+     *
+     *      - les critères personnalisés utilisés dans les segments
+     *      - les informations complementaires liees aux contacts
+     *      - le dedoublonnage de deux contacts (fusion de leurs informations)
+     *      - l'inscription de nouveaux utilisateurs
+     */
     public function index() {
         $nav_data = array('username' => $this->session->userdata('username'));
 		
@@ -14,6 +25,81 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+    /*
+     * En test: appelle les vue permettant d'afficher la page d'export de la base de données
+     */
+    public function exportBDD() {
+
+        $nav_data = array('username' => $this->session->userdata('username'));
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $nav_data);
+
+        $tables_array = array();
+        $tables = $this->db->list_tables();
+
+        foreach($tables as $table){
+            $fields = $this->db->list_fields($table);
+            $tables_array[$table] = $fields;
+        }
+
+        $json_export = json_encode($tables_array);
+        $export_data = array('tables'=>$json_export);
+        $this->load->view('export_bdd/index.php', $export_data);
+        $this->load->view('base/footer');
+    }
+
+    /**
+     * Recupere les donnees envoyees depuis le client pour exporter les colonnes de la table
+     */
+    public function recupereCSV(){
+
+        // on verifie que le formulaire a bien ete envoye
+        $post_form = $this->input->post('is_form_sent');
+        if ($post_form) {
+            // on recupere les infromations envoyees
+            $post_valeur = $this->input->post('column');
+
+            // on cree le tableau qui contiendra toutes les donnees a mettre dans le csv
+            $csv_dump = array();
+            // creation de la ligne d'en tete
+            $csv_dump[0] = array();
+            foreach($post_valeur as $index => $column){
+                if($index > 0){
+                    // ajout de la colonne courante dans la ligne d'en tete
+                    array_push($csv_dump[0],$column);
+                    // separationdu nom de table et du nom de colonne
+                    $elements = explode(':',$column);
+                    $this->db->select($elements[1]);
+                    $query = $this->db->get($elements[0]);
+                    // execution de la requete
+                    foreach($query->result_array() as $index_row => $row) {
+                        // si la ligne est nulle on la cree
+                        if(is_null($csv_dump[$index+1])) $csv_dump[$index+1] = array();
+                        $csv_dump[$index_row+1][$index] =$row[$elements[1]];
+                    }
+                }
+            }
+
+            // ajout de '' dans les trous du tableau por bien formater le csv
+            $column_count = count($csv_dump[0]);
+            foreach($csv_dump as &$row){
+                for($i = 0; $i < $column_count; $i ++){
+                    if(is_null($row[$i])) $row[$i] = '';
+                }
+            }
+            unset($row);
+
+            // envoie du fichier csv au client
+            $out = fopen('php://output', 'w');
+            header('Content-type: application/csv');
+            header('Content-Disposition: attachment; filename=data.csv');
+            foreach ($csv_dump as $row) { fputcsv($out, $row); }
+            fclose($out);
+        }
+    }
+    /*
+     *  Appelle les vues permettant d'afficher les criteres de segments deja crees.
+     */
     public function reglage() {
         $this->load->model('reglage_model');
 
@@ -26,7 +112,12 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  Fonction d'edition des criteres déjà crees.
+     *  Met à jour la BDD
+     *
+     *  @param string $reg code du critere a editer.
+     */
     public function editReg($reg) {
         $this->load->model('reglage_model');
         $this->load->library('form_validation');
@@ -34,7 +125,7 @@ class Admin extends MY_Controller {
 
         $post_form = $this->input->post('is_form_sent');
         if ($post_form) {
-            // Récupération des données			
+            // Récupération des données
             $post_valeur = $this->input->post('valeurAjoutee');
 
             // Vérifications des données
@@ -90,7 +181,12 @@ class Admin extends MY_Controller {
         }
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  Suppression d'un critere.
+     *  Met à jour la BDD
+     *  @param  string $RegCode code du reglage a supprimer
+     *          ?? $valeur à définir (voir application/view/reglage/edit.php)
+     */
     public function removeReg($RegCode, $valeur) {
         $this->load->model('reglage_model');
         $items = $this->reglage_model->read($RegCode);
@@ -105,6 +201,9 @@ class Admin extends MY_Controller {
         redirect('admin/editReg/' . $RegCode, 'refresh');
     }
 
+    /*
+     *  Liste les information supplementaires de contacts deja creees
+     */
     public function infoComplementaires() {
         $this->load->model('infos_comp_model');
 
@@ -117,7 +216,10 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  A VALIDER: cette fonction semble être obsolette.
+     *  Elle fait appel à la vue document_type/view qui n'existe pas
+     */
     public function document_type() {
         $nav_data = array();
         $nav_data['username'] = $this->session->userdata('username');
@@ -128,7 +230,10 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  Creation d'une nouvelle information complémentaire
+     *  Met à jour la BDD
+     */
     public function createIC() {
         $this->load->model('infos_comp_model');
         $this->load->model('contacts_ic_model');
@@ -195,7 +300,11 @@ class Admin extends MY_Controller {
         }
     }
 
-    //cette fonction ne semble pas être utilisée
+    /*
+     *  Suppression d'une information complementaire
+     *  Met à jour la BDD
+     *  @param  string IC_ID ID de l'information complementaire a supprimer
+     */
     public function removeIC($IC_ID) {
         $this->load->model('infos_comp_model');
         $this->load->model('contacts_ic_model');
@@ -206,6 +315,11 @@ class Admin extends MY_Controller {
         redirect('admin/infoComplementaires', 'refresh');
     }
 
+
+    /*
+     *  Fusion des informations de deux contacts, saisis a la main par leur identifiant.
+     *  Met à jour la BDD
+     */
     public function dedoublonnage() {
         $this->load->model('contact_model');
         $this->load->model('old_id_link_model');
@@ -444,6 +558,11 @@ class Admin extends MY_Controller {
         }
     }
 
+    /*
+     *  Incription d'un nouvel utilisateur a partir d'un formulaire.
+     *  Met a jour la BDD.
+     *  Refuse l'ajout en cas d'erreur dans le formulaire ou de nom d'utilisateur deja existant
+     */
     public function user_signup() {
         $this->load->helper('form');
 
@@ -497,7 +616,7 @@ class Admin extends MY_Controller {
             if ($this->form_validation->run()) {
                 $this->load->database();
 
-                // Vérification de l'existance du nom d'utilisateur
+            // Vérification de l'existance du nom d'utilisateur
                 $query = $this->db->query("SELECT user_id FROM users WHERE user_login='" . $post_inputs['username'] . "'");
                 if ($query->num_rows() == 0) {
                     $this->load->model('user_model');
@@ -526,6 +645,14 @@ class Admin extends MY_Controller {
         $this->load->view('base/footer');
     }
 
+
+    /*
+     *  Fonction d'édition de la BDD.
+     *  @param "all":   affiche toutes les tables, un bouton pour les modifier
+     *                  TODO: comprendre le fonctionnement du bouton "peupler"
+     *  @param nom d'un table:  affiche les champs de la table et permet de les renommer via un formulaire
+     *
+     */
     public function database($table) {
         $this->load->model('tables_names_model');
         $this->load->model('tables_fields_model');
