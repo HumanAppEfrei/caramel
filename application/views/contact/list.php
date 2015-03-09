@@ -6,7 +6,7 @@
 <table class="table table-striped">
 			<tr>
 				<th></th>
-				<th>Identifiant contact</th>
+				<th title="Reference un contact (unique)">Identifiant contact</th>
 				<th>Nom</th>
 				<th>Prénom</th>
 				<th>Type</th>
@@ -15,8 +15,8 @@
 			<?php foreach($items as $contact) : ?>
 				<tr>
 					<td>
-						<a href="<?php echo site_url('contact/edit').'/'.$contact->CON_ID; ?>" class ='icon-edit'></a>
-						<a href="<?php echo site_url('contact/remove').'/'.$contact->CON_ID; ?>" class="icon-remove" onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce segment ?\')) {return true;}else{return false;}"></a>
+						<a href="<?php echo site_url('contact/edit').'/'.$contact->CON_ID; ?>" title="Editer"><i class="icon-edit"></i></a>
+						<a href="<?php echo site_url('contact/remove').'/'.$contact->CON_ID; ?>" title ="Supprimer"onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce segment ?\')) {return true;}else{return false;}"><i class="icon-remove"></i></a>
 					</td>
 					<td><?php echo $contact->CON_ID; ?></td>
 					<td><?php echo $contact->CON_LASTNAME; ?></td>

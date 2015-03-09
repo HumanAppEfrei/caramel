@@ -27,8 +27,8 @@
         <table class="table table-striped">
             <tr>
                 <th></th>
-                <th>Code</th>
-                <th>Identifiant contact</th>
+                <th title="Référence un don (unique)">Code</th>
+                <th title="Référence un contact (unique)">Identifiant contact</th>
                 <th>Montant</th>
                 <th>Type de versement</th>
                 <th>Date de saisie</th>
@@ -46,7 +46,7 @@
                     <td><?php echo $don->DON_MONTANT; ?> €</td>
                     <td><?php echo $don->DON_TYPE; ?></td>
                     <td><?php echo date_usfr($don->DON_DATE, false); ?></td>
-                    <td><a class="btn btn-mini" href="<?php echo site_url('don/recu_fiscal').'/'.$don->DON_ID; ?>"><?php echo ($don->DON_RECU_ID != NULL) ? "Voir le duplicata (#".$don->DON_RECU_ID.")" :  "Éditer maintenant"; ?></a></td>
+                    <td><a class="btn btn-mini" href="<?php echo site_url('don/recu_fiscal').'/'.$don->DON_ID; ?>" title=" format PDF"><?php echo ($don->DON_RECU_ID != NULL) ? "Voir le duplicata (#".$don->DON_RECU_ID.")" :  "Éditer maintenant"; ?></a></td>
                 </tr>
             <?php endforeach; ?>
         </table>

@@ -11,14 +11,14 @@
 		
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Code de l'offre</label>
+				<label class="control-label" for="description" title="Identifiant de l'offre (unique)">Code de l'offre</label>
 				<div class="controls">
 				<input type="text" name="code" value="<?php echo set_value('code'); ?>" />
 				<?php echo form_error('code'); ?>
 				</div>
 				</div>
 				<div class="control-group">
-				<label class="control-label" for="description">Libélée de l'offre</label>
+				<label class="control-label" for="description" title="Description de l'offre">Libélée de l'offre</label>
 				<div class="controls">
 				<input type="text" name="libelle" value="<?php echo set_value('libelle'); ?>" />
 				<?php echo form_error('libelle'); ?>
@@ -55,7 +55,7 @@
 			
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Relié à la campagne</label>
+				<label class="control-label" for="description" title="Permet de rechercher les offres associées à une campagne particulière">Relié à la campagne</label>
 				<div class="controls">
 				<select name="campagne" >
 				<?php foreach($list_campagnes as $campagne)
