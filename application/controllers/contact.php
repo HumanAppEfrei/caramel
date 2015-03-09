@@ -20,7 +20,35 @@ class Contact extends MY_Controller {
         $this->load->view('base/header');
         $this->load->view('base/navigation', $nav_data);
         $this->load->view('contact/quicksearch');
-        $this->load->view('base/footer');
+
+		$this->load->model("pagination_model");
+        $this->load->model('contact_model');
+
+			$post_recherche = $this->input->get('search', TRUE);
+
+		//configuration de la pagination
+				$url = "index.php/contact/quicksearch?search=";
+		$config = array();
+		$config = $this->pagination_model->template($url,$post_recherche);
+
+		$this->contact_model->select();
+		$this->contact_model->read_quicksearch($post_recherche);
+        //pagination
+		$config['total_rows'] = $this->db->count_all_results();
+        $this->pagination->initialize($config);
+			$items = $this->contact_model->select();
+			$items = $this->contact_model->read_quicksearch($post_recherche);
+			$items = $this->contact_model->fetch_contact($config["per_page"],$this->input->get("per_page"));
+
+			$list_data = array();
+			$list_data['items'] = $items;
+			$list_data['div'] = "oui";
+			$list_data['pagination'] = $this->pagination->create_links();
+			$nav_data = array();
+			$nav_data['username'] = $this->session->userdata('username');
+
+			$this->load->view('contact/list', $list_data);
+			$this->load->view('base/footer');
     }
 
     /**
@@ -49,7 +77,8 @@ class Contact extends MY_Controller {
             $post_firstname = implode('-', $arraytemp);
             $post_lastname = $this->input->post('lastname');
             $post_lastname = strtoupper($post_lastname);
-            $post_date = $this->input->post('annee') . "-" . $this->input->post('mois') . "-" . $this->input->post('jour');
+            //$post_date = $this->input->post('annee') . "-" . $this->input->post('mois') . "-" . $this->input->post('jour');
+            $post_date = $this->input->post('datenaissance');
             $post_email = $this->input->post('email');
             $post_telFixe = $this->input->post('telFixe');
             $post_telPort = $this->input->post('telPort');
@@ -197,57 +226,57 @@ class Contact extends MY_Controller {
      * Rechercher rapide
      */
     public function quicksearch() {
-		$this->load->model("pagination_model");
+        $this->load->model("pagination_model");
         $this->load->model('contact_model');
         $post_form = $this->input->post('is_form_sent');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
-		if ($post_form){
-			$post_recherche = mysql_real_escape_string($this->input->post('recherche'));
-		}
-		else {
-			$post_recherche = $this->input->get('search', TRUE);
-		}
+        if ($post_form){
+            $post_recherche = mysql_real_escape_string($this->input->post('recherche'));
+        }
+        else {
+            $post_recherche = $this->input->get('search', TRUE);
+        }
 
-		//configuration de la pagination
+        //configuration de la pagination
         $url = "index.php/contact/quicksearch?search=";
-		$config = array();
-		$config = $this->pagination_model->template($url,$post_recherche);
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $config = array();
+        $config = $this->pagination_model->template($url,$post_recherche);
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
 
-		//Récupération des données
-		// $post_selection = $this->input->post('selection');
+        //Récupération des données
+        // $post_selection = $this->input->post('selection');
 
-		$this->contact_model->select();
-		$this->contact_model->read_quicksearch($post_recherche);
+        $this->contact_model->select();
+        $this->contact_model->read_quicksearch($post_recherche);
         //pagination
-		$config['total_rows'] = $this->db->count_all_results();
+        $config['total_rows'] = $this->db->count_all_results();
         $this->pagination->initialize($config);
-		// Vérifications des données
-		if ($this->input->get("per_page") > ($config['total_rows'])){
-			$this->index();
-		}
-		else {
-			$items = $this->contact_model->select();
-			//$items = $this->contact_model->read_contact($post_recherche);
-			$items = $this->contact_model->read_quicksearch($post_recherche);
-			$items = $this->contact_model->fetch_contact($config["per_page"],$this->input->get("per_page"));
+        // Vérifications des données
+        if ($this->input->get("per_page") > ($config['total_rows'])){
+            $this->index();
+        }
+        else {
+            $items = $this->contact_model->select();
+            //$items = $this->contact_model->read_contact($post_recherche);
+            $items = $this->contact_model->read_quicksearch($post_recherche);
+            $items = $this->contact_model->fetch_contact($config["per_page"],$this->input->get("per_page"));
 
-			$list_data = array();
-			$list_data['items'] = $items;
-			$list_data['div'] = "oui";
-			$list_data['pagination'] = $this->pagination->create_links();
-			$nav_data = array();
-			$nav_data['username'] = $this->session->userdata('username');
+            $list_data = array();
+            $list_data['items'] = $items;
+            $list_data['div'] = "oui";
+            $list_data['pagination'] = $this->pagination->create_links();
+            $nav_data = array();
+            $nav_data['username'] = $this->session->userdata('username');
 
-			$this->load->view('base/header');
-			$this->load->view('base/navigation', $nav_data);
-			$this->load->view('contact/quicksearch');
-			$this->load->view('contact/list', $list_data);
-			$this->load->view('base/footer');
-			}
+            $this->load->view('base/header');
+            $this->load->view('base/navigation', $nav_data);
+            $this->load->view('contact/quicksearch');
+            $this->load->view('contact/list', $list_data);
+            $this->load->view('base/footer');
+        }
     }
 
     /**
@@ -273,6 +302,7 @@ class Contact extends MY_Controller {
             $post_telFixe = $this->input->post('telFixe');
             $post_telPort = $this->input->post('telPort');
             $post_complement = $this->input->post('complement');
+            $post_date = $this->input->post('dateEn');
             //$post_complement2 = $this->input->post('complement2');
             $post_voie = $this->input->post('voie');
             $post_bp = $this->input->post('bp');
@@ -281,6 +311,7 @@ class Contact extends MY_Controller {
             $post_country = $this->input->post('country');
             $post_commentaire = $this->input->post('commentaire');
 
+            
             // Vérifications
             $this->form_validation->set_rules('numAd', '"Numéro d adhérent"', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('firstname', 'Prénom', 'trim|max_length[38]|alpha_dash_no_num|encode_php_tags|xss_clean');
@@ -349,6 +380,12 @@ class Contact extends MY_Controller {
             if ($post_commentaire != "")
                 $items = $this->contact_model->read_commentaire($post_commentaire);
             $items = $this->contact_model->get_results();
+            if($post_date != "") {
+                $this->contact_model->read_by_month($post_date);
+                $dump = $this->contact_model->get_results();
+                var_dump($dump);
+            }
+            
 
             if ($this->form_validation->run() && $msg_alert == "") {
                 //	Le formulaire est valide
@@ -418,7 +455,8 @@ class Contact extends MY_Controller {
             if (strlen($this->input->post('cp')) + strlen($this->input->post('city')) + 1 > 38)
                 $message_localite = "Le champ Localité (CP + Ville) ne peut contenir plus de 38 caractères.";
 
-            $post_date = $this->input->post('annee') . "-" . $this->input->post('mois') . "-" . $this->input->post('jour');
+            $post_date = $this->input->post('datenaissance'); 
+            //$post_date = $this->input->post('annee') . "-" . $this->input->post('mois') . "-" . $this->input->post('jour');
             if ($post_date != "--" && isValidDate(date_usfr($post_date)) == false)
                 $message_date = "La date saisie est incorecte";
 
@@ -431,12 +469,16 @@ class Contact extends MY_Controller {
             $this->form_validation->set_rules('city', 'Ville', 'trim|max_length[38]|alpha_dash_spaces|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('country', 'Country', 'trim|max_length[38]|alpha_dash_spaces|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('email', 'EMail', 'trim|valid_email|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('jour', 'Jour', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('mois', 'Mois', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('annee', 'Année', 'trim|max_length[4]|numeric|encode_php_tags|xss_clean');
+            $this->form_validation->set_rules('datenaissance', 'Date de naissance', 'trim|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('jour', 'Jour', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('mois', 'Mois', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('annee', 'Année', 'trim|max_length[4]|numeric|encode_php_tags|xss_clean');
+            
             $this->form_validation->set_rules('telFixe', 'Téléphone fixe', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('telPort', 'Téléphone portable', 'trim|numeric|encode_php_tags|xss_clean');
         }
+
+        var_dump($post_date);
 
         //Enregistrement en base de données
         if ($this->input->post('is_form_sent') && $this->form_validation->run() && $message_identification == "" && $message_date == "" && $message_localite == "") {
@@ -446,7 +488,7 @@ class Contact extends MY_Controller {
             $escaped_data['CON_CIVILITE'] = $this->input->post('civilite');
             $escaped_data['CON_FIRSTNAME'] = $this->input->post('firstname');
             $escaped_data['CON_LASTNAME'] = $this->input->post('lastname');
-            $escaped_data['CON_DATE'] = $this->input->post('date') == '--' ? null : $this->input->post('date');
+            $escaped_data['CON_DATE'] = $post_date;
             $escaped_data['CON_EMAIL'] = $this->input->post('email');
             $escaped_data['CON_TELFIXE'] = $this->input->post('telFixe');
             $escaped_data['CON_TELPORT'] = $this->input->post('telPort');
@@ -732,6 +774,55 @@ class Contact extends MY_Controller {
         $this->load->view('contact/quicksearch');
         $this->load->view('contact/menu', $data);
         $this->load->view('contact/history', $history_array);
+        $this->load->view('base/footer');
+    }
+
+    /**
+     * Affiche l'historique des actions d'un contact
+     * @param string $id_con L'id du contact selectionne
+     */
+    public function statistiques($id_con) {
+        $this->load->view('base/header');
+        $this->load->view('base/navigation', $this->session->userdata('username'));
+        $this->load->view('contact/quicksearch');
+        $this->load->view('contact/menu', $data);
+        // donnees de navigation, a inclure dans toute fonction des controlleurs
+        $nav_data = array();
+        $nav_data['username'] = $this->session->userdata('username');
+
+        // on recupere les donnees une fois pour toutes les utilisations
+        $this->db->select('DON_DATE');
+        $this->db->select('DON_MODE');
+        $this->db->select('DON_MONTANT');
+        $this->db->from('dons');
+        $this->db->where('CON_ID', $id_con);
+
+        $query = $this->db->get();
+
+        $profil_periode = array(); // analyse des profiles par periode de versement
+        $profil_type = array(); // analyse des profiles par type de versement
+        $profil_montant = array(); // analyse des profiles par montant de versement
+
+        foreach ($query->result() as $row)
+        {
+            // add to period stat
+            if(!isset($profil_periode[$row->DON_DATE])) $profil_periode[$row->DON_DATE] = 0;
+            $profil_periode[$row->DON_DATE] += 1 ;
+            // add to type stat
+            if(!isset($profil_type[$row->DON_MODE])) $profil_type[$row->DON_MODE] = 0;
+            $profil_type[$row->DON_MODE] += 1 ;
+            // add to montant stat
+            if(!isset($profil_montant[$row->DON_MONTANT])) $profil_montant[$row->DON_MONTANT] = 0;
+            $profil_montant[$row->DON_MONTANT] += 1 ;
+        }
+        // var_dump($profil_montant);
+        // var_dump($profil_type);
+        // var_dump($profil_periode);
+        $stats_array = array("montants" => $profil_montant,
+            "types" => $profil_type,
+            "periodes" => $profil_periode);
+
+        $this->load->view('contact/statistiques', $stats_array);
         $this->load->view('base/footer');
     }
 

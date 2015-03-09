@@ -8,18 +8,45 @@ class Don extends MY_Controller {
      */
     public function index()
     {
-        // FUTURE Ajouter un listing des reçus à éditer
-
         $nav_data = array();
-        $nav_data['username'] = $this->session->userdata('username');
+		$nav_data['username'] = $this->session->userdata('username');
 
-        $this->load->view('base/header');
-        $this->load->view('base/navigation',$nav_data);
-        $this->load->view('don/quicksearch');
-        $this->load->view('base/footer');
+		$this->load->view('base/header');
+		$this->load->view('base/navigation',$nav_data);
+		$this->load->view('don/quicksearch');
+
+		$this->load->model('pagination_model');
+		$this->load->model('don_model');
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+		$post_form = $this->input->post('is_form_sent');
+
+		$post_search_value = $this->input->get('search', TRUE);
+		$url = "index.php/don/quicksearch?search=";
+		$config = array();
+		$config = $this->pagination_model->template($url,$post_search_value);
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+		$config['total_rows'] = $this->db->count_all_results();
+		$this->pagination_model->initialize($config);
+
+		$this->don_model->select();
+		$items = $this->don_model->fetch_don($config["per_page"],$this->input->get("per_page"));
+
+		$list_data = array();
+		$list_data['items'] = $items;
+		$list_data['not_for_contact'] = true;
+		$list_data['pagination'] = $this->pagination_model->create_links();
+		$nav_data = array();
+		$nav_data['username'] = $this->session->userdata('username');
+
+		$this->load->view('don/list', $list_data);
+		$this->load->view('base/footer');
+
     }
 
-    /**
+ /**
      * Creation d'un nouveau don
      * @param string $id_con L'id du contact donnateur
      */
@@ -43,8 +70,10 @@ class Don extends MY_Controller {
             $post_cheq_compte = $this->input->post('cheq_compte');
             $post_cheq_banq_emission = $this->input->post('cheq_banq_emission');
             $post_cheq_banq_depot = $this->input->post('cheq_banq_depot');
-            $post_cheq_date_depot = $this->input->post('cheq_depot_annee')."-".$this->input->post('cheq_depot_mois')."-".$this->input->post('cheq_depot_jour');
-            $post_date = $this->input->post('annee')."-".$this->input->post('mois')."-".$this->input->post('jour');
+            //$post_cheq_date_depot = $this->input->post('cheq_depot_annee')."-".$this->input->post('cheq_depot_mois')."-".$this->input->post('cheq_depot_jour');
+            $post_cheq_date_depot = $this->input->post('datedepot');
+            //$post_date = $this->input->post('annee')."-".$this->input->post('mois')."-".$this->input->post('jour');
+            $post_date = $this->input->post('date');
             $post_offre = $this->input->post('offre');
             $post_commentaire = $this->input->post('commentaire');
             $post_montant_flechage = $this->input->post('montant_flechage');
@@ -57,10 +86,12 @@ class Don extends MY_Controller {
             $this->form_validation->set_rules('cheq_num', 'Numéro de chèque', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('cheq_compte', 'Numéro de compte', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('cheq_banq_emission', 'Banque d\'émission', 'trim|encode_php_tags|xss_clean');
+            $this->form_validation->set_rules('date', 'Date', 'trim|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('cheq_banq_depot', 'Banque de dépôt', 'trim|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('cheq_depot_jour', 'Jour de dépôt', 'integer|trim|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('cheq_depot_mois', 'Mois de dépôt', 'integer|trim|encode_php_tags|xss_clean');
-            $this->form_validation->set_rules('cheq_depot_annee', 'Année de dépôt', 'integer|trim|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('cheq_depot_jour', 'Jour de dépôt', 'integer|trim|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('cheq_depot_mois', 'Mois de dépôt', 'integer|trim|encode_php_tags|xss_clean');
+            //$this->form_validation->set_rules('cheq_depot_annee', 'Année de dépôt', 'integer|trim|encode_php_tags|xss_clean');
+            $this->form_validation->set_rules('datedepot', 'Date de dépôt', 'trim|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('mode', 'mode de versement', 'trim|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('type', 'type de versement', 'trim|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('offre', 'offre liée au versement', 'trim|encode_php_tags|xss_clean');
@@ -188,7 +219,7 @@ class Don extends MY_Controller {
         }
     }
 
-    /**
+ /**
      * Fait une recherche rapide
      */
     public function quicksearch()
@@ -365,7 +396,7 @@ class Don extends MY_Controller {
         }
     }
 
-    /**
+ /**
      * Fait une recherche avancee
      */
     public function search()
@@ -509,7 +540,7 @@ class Don extends MY_Controller {
         redirect('don/edit/'.$id_don, 'refresh');
     } */
 
-    /**
+ /**
      * Creation d'un recu fiscal
      * @param string $id_don L'id du don selectionne
      */
@@ -679,3 +710,4 @@ class Don extends MY_Controller {
 
 /* End of file don.php */
 /* Location: ./application/controllers/don.php */
+

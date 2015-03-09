@@ -76,13 +76,12 @@
 				<div class="control-group">
 					<label class="control-label" for="Civilite">Date de naissance</label>
 					<div class="controls">
-						<input class="input-mini" type="text" name="jour" value="<?php echo set_value('jour'); ?>" maxlength="2" placeholder="dd" > /
-						<input class="input-mini" type="text" name="mois" value="<?php echo set_value('mois'); ?>" maxlength="2" placeholder="mm" > /
-						<input class="input-mini" type="text" name="annee" value="<?php echo set_value('annee'); ?>" maxlength="4" placeholder="aaaa" >
-				
-						<?php echo form_error('jour'); ?>
+						<input class="datepicker" type="text" name="datenaissance" readonly/>
+						
+						<!-- <?php echo form_error('jour'); ?>
 						<?php echo form_error('mois'); ?>
-						<?php echo form_error('annee'); ?>
+						<?php echo form_error('annee'); ?> -->
+						<?php echo form_error('datenaissance'); ?>
 						<?php if(isset($message_date)) echo('<div class="error">'.$message_date.'</div>'); ?>
 					</div>
 				</div>

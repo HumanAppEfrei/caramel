@@ -177,18 +177,24 @@ class Contact_model extends MY_Model {
     }
 
     /**
-     * Selectionne des contacts avec une date d'ajout inferieur ou egal a celle selectionnee
-     * @param string $date11 La date d'ajout du contact selectionnee
+     * Selectionne des contacts avec une date d'ajout correspondant à un mois et une année donnée
+     * @param string $date La date d'ajout du contact selectionnee
      * @return mixed[] Retourne le(s) contact(s) avec la date selectionnee
      */
-    public function read_date11($date11) {
-        $sql_2 = "YEAR(CON_DATEADDED) = '{$date11}' ";
-        return $this->db->where($sql_2, null, false);
+    public function read_by_month($date) {
+        //$sql_2 = "YEAR(CON_DATEADDED) = '{$date}' ";
+        //return $this->db->where($sql_2, null, false);
+        
+        $where = "YEAR(CON_DATEADDED) = STR_TO_DATE({$date}, '%Y') AND MONTH(CON_DATEADDED) = STR_TO_DATE({$date}, '%m')";
+        return $this->db->from('contacts')
+                        ->where($where);
+        
+        //return $this->db->where("YEAR(CON_DATEADDED)", "YEAR({$date})");
     }
 
     /**
      * Selectionne des contacts avec une date d'ajout superieur a celle selectionnee
-     * @param string $date12 La date d'ajout du contact selectionnee
+     * @param string $date12 La date d'aut du contact selectionnee
      * @return mixed[] Retourne le(s) contact(s) avec la date selectionnee
      */
     public function read_date12($date12) {
@@ -378,16 +384,16 @@ class Contact_model extends MY_Model {
     public function read_evolution_nombre_adherents(){
         return $this->db->query("SELECT EXTRACT(YEAR FROM `CON_DATEADDED`) AS YEAR, COUNT(`CON_ID`) AS NOMBRE
             FROM `contacts`
-                GROUP BY EXTRACT(YEAR FROM `CON_DATEADDED`)
-                    ORDER BY EXTRACT(YEAR FROM `CON_DATEADDED`) LIMIT 0,10");
+            GROUP BY EXTRACT(YEAR FROM `CON_DATEADDED`)
+            ORDER BY EXTRACT(YEAR FROM `CON_DATEADDED`) LIMIT 0,10");
     }
 
     //requête évolution nombre de donateurs
     public function read_evolution_donateurs(){
         return $this->db->query("SELECT EXTRACT(YEAR FROM `CON_DATEADDED`) AS YEAR, COUNT(`CON_ID`) AS NOMBRE
             FROM `contacts`
-                WHERE CON_TYPEC =\"donateur\"
-                    GROUP BY EXTRACT(YEAR FROM `CON_DATEADDED`)
-                        ORDER BY EXTRACT(YEAR FROM `CON_DATEADDED`)");
+            WHERE CON_TYPEC =\"donateur\"
+            GROUP BY EXTRACT(YEAR FROM `CON_DATEADDED`)
+            ORDER BY EXTRACT(YEAR FROM `CON_DATEADDED`)");
     }
 }

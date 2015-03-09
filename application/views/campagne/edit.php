@@ -1,7 +1,9 @@
 <?php 
 	foreach($campagne as $campagne)
 	{	
-		$split1 = @split("-",$campagne->CAM_DEBUT); 
+		$debut = $campagne->CAM_DEBUT;
+		$fin = $campagne->CAM_FIN;
+		/*$split1 = @split("-",$campagne->CAM_DEBUT); 
 		$anneed = $split1[0]; 
 		$moisd = $split1[1]; 
 		$jourTmpd = $split1[2];
@@ -23,7 +25,7 @@
 		
 		if($jourTmpf[0] =='0' && $jourTmpf[1] =='0') $jourf = "";
 		if($moisf[0] =='0' && $moisf[1] =='0') $moisf = "";
-		if($anneef[0] =='0' && $anneef[1] =='0' && $anneef[2] =='0' && $anneef[3] =='0')  $anneef = "";
+		if($anneef[0] =='0' && $anneef[1] =='0' && $anneef[2] =='0' && $anneef[3] =='0')  $anneef = "";*/
 ?>
 		
 	<div class="well"><h2>Edition de la campagne : <?php echo($campagne->CAM_NOM)?> </h2></div>
@@ -39,14 +41,14 @@
 		<div class="inner-block">
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Code</label>
+				<label class="control-label" for="description" title="Référence de la campagne (unique)">Code</label>
 				<div class="controls">
 				<input type="text" value="<?php echo($campagne->CAM_ID);?>" readonly="readonly">
 				</div>
 				</div>
 				
 				<div class="control-group">
-				<label class="control-label" for="description">Nom*</label>
+				<label class="control-label" for="description" title="Champ obligatoire">Nom*</label>
 				<div class="controls">
 				<input type="text" name="nom" value="<?php echo($campagne->CAM_NOM);?>" >
 				<?php echo form_error('nom'); ?>
@@ -70,28 +72,32 @@
 				<div class="control-group">
 				<label class="control-label" for="description">Date de début</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourd" value="<?php echo($jourd); ?>" maxlength="2" placeholder="dd" > /
+				<!-- <input type="text" style="width:40px;" name="jourd" value="<?php echo($jourd); ?>" maxlength="2" placeholder="dd" > /
 				<input type="text" style="width:40px;" name="moisd" value="<?php echo($moisd); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneed" value="<?php echo($anneed); ?>" maxlength="4" placeholder="aaaa" >
+				<input type="text" style="width:50px;" name="anneed" value="<?php echo($anneed); ?>" maxlength="4" placeholder="aaaa" > -->
+				<input type="text" class="datepicker" name="datedebut" value="<?php echo($debut); ?>" readonly/> 
 				</div>
 				</div>
 				
 				<div class="control-group">
 				<label class="control-label" for="description">Date de fin</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourf" value="<?php echo($jourf); ?>" maxlength="2" placeholder="dd" > /
+				<!-- <input type="text" style="width:40px;" name="jourf" value="<?php echo($jourf); ?>" maxlength="2" placeholder="dd" > /
 				<input type="text" style="width:40px;" name="moisf" value="<?php echo($moisf); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneef" value="<?php echo($anneef); ?>" maxlength="4" placeholder="aaaa" >
+				<input type="text" style="width:50px;" name="anneef" value="<?php echo($anneef); ?>" maxlength="4" placeholder="aaaa" > -->
+				<input type="text" class="datepicker" name="datefin" value="<?php echo($fin); ?>" readonly/>
 				</div>
 				</div>
-				<?php echo form_error('jourd'); ?>
+				<!-- <?php echo form_error('jourd'); ?>
 				<?php echo form_error('moisd'); ?>
-				<?php echo form_error('anneed'); ?>
-				<?php if(isset($message_debut)) echo('<div class="error">'.$message_debut.'</div>'); ?>
-				<?php echo form_error('jourf'); ?>
+				<?php echo form_error('anneed'); ?> -->
+				<?php echo form_error('debut'); ?>
+				<?php if(isset($message_error)) echo('<div class="error">'.$message_error.'</div>'); ?>
+				<!-- <?php echo form_error('jourf'); ?>
 				<?php echo form_error('moisf'); ?>
-				<?php echo form_error('anneef'); ?>
-				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?>
+				<?php echo form_error('anneef'); ?> -->
+				<?php echo form_error('fin'); ?>
+				<?php if(isset($message_date_error)) echo('<div class="error">'.$message_date_error.'</div>'); ?>
 			</pretty>
 		
 			<pretty>

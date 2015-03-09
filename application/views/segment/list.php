@@ -5,16 +5,16 @@
 		<table class="table table-striped">
             <tr>
                 <th></th>
-                <th>Code</th>
-                <th>Libellé</th>
+                <th title="Référence un segment (unique)">Code</th>
+                <th title="Description du segment ">Libellé</th>
                 <th>Date d ajout</th>
             </tr>
-            
+
             <?php foreach($items as $segment) :	?>
                 <tr>
                     <td>
-						<a href="<?php echo site_url('segment/edit').'/'.$segment->SEG_CODE; ?>"><img src="<?php echo img_url('icons/edit.png'); ?>"/></a>
-						<a href="<?php echo site_url('segment/edit').'/'.$segment->SEG_CODE; ?>" onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce segment ?\')) {return true;}else{return false;}"><img src="<?php echo img_url('icons/drop.png'); ?>"/></a>
+						<a href="<?php echo site_url('segment/edit').'/'.$segment->SEG_CODE; ?>" class='icon-edit'></a>
+						<a href="<?php echo site_url('segment/remove').'/'.$segment->SEG_CODE; ?>" class='icon-remove'  onclick="if (window.confirm(\'Êtes-vous sûr de vouloir supprimer ce segment ?\')) {return true;}else{return false;}"></a>
 					</td>
                     <td><?php echo $segment->SEG_CODE; ?></td>
                     <td><?php echo $segment->SEG_LIBELLE; ?></td>

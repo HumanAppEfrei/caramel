@@ -25,4 +25,6 @@
     <a href="<?php echo (site_url('admin/user_signup')); ?>">Inscrire un utilisateur</a>
     <br/> <br/>
     <a href="<?php echo (site_url('admin/database/all')); ?>">Gestion base de données</a>
+    <br/> <br/>
+    <a href="<?php echo (site_url('admin/exportBDD')); ?>">Exporter les données vers un fichier</a>
 </div>
