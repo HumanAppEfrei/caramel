@@ -311,7 +311,7 @@ class Contact extends MY_Controller {
             $post_country = $this->input->post('country');
             $post_commentaire = $this->input->post('commentaire');
 
-            
+
             // Vérifications
             $this->form_validation->set_rules('numAd', '"Numéro d adhérent"', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('firstname', 'Prénom', 'trim|max_length[38]|alpha_dash_no_num|encode_php_tags|xss_clean');
@@ -383,9 +383,9 @@ class Contact extends MY_Controller {
             if($post_date != "") {
                 $this->contact_model->read_by_month($post_date);
                 $dump = $this->contact_model->get_results();
-                var_dump($dump);
+                //var_dump($dump);
             }
-            
+
 
             if ($this->form_validation->run() && $msg_alert == "") {
                 //	Le formulaire est valide
@@ -455,7 +455,7 @@ class Contact extends MY_Controller {
             if (strlen($this->input->post('cp')) + strlen($this->input->post('city')) + 1 > 38)
                 $message_localite = "Le champ Localité (CP + Ville) ne peut contenir plus de 38 caractères.";
 
-            $post_date = $this->input->post('datenaissance'); 
+            $post_date = $this->input->post('datenaissance');
             //$post_date = $this->input->post('annee') . "-" . $this->input->post('mois') . "-" . $this->input->post('jour');
             if ($post_date != "--" && isValidDate(date_usfr($post_date)) == false)
                 $message_date = "La date saisie est incorecte";
@@ -473,12 +473,12 @@ class Contact extends MY_Controller {
             //$this->form_validation->set_rules('jour', 'Jour', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
             //$this->form_validation->set_rules('mois', 'Mois', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
             //$this->form_validation->set_rules('annee', 'Année', 'trim|max_length[4]|numeric|encode_php_tags|xss_clean');
-            
+
             $this->form_validation->set_rules('telFixe', 'Téléphone fixe', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('telPort', 'Téléphone portable', 'trim|numeric|encode_php_tags|xss_clean');
         }
 
-        var_dump($post_date);
+        //var_dump($post_date);
 
         //Enregistrement en base de données
         if ($this->input->post('is_form_sent') && $this->form_validation->run() && $message_identification == "" && $message_date == "" && $message_localite == "") {
