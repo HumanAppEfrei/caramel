@@ -1,14 +1,12 @@
 </main> <!-- Closes the tag opened in <controller>/base.php -->
-        <?php
-            var_dump($this->router->uri->rsegments[1]);
-        ?>
-
-		<footer>
-            <a class="btn btn-large btn-success" href="javascript:void(0);" onclick="javascript:introJs().start();">Premiers pas</a>
+        <footer>
+            <B>CaRaMel</B> - version en développement - Human App - contact: <a href="mailto:
+humanapp-support.asso@groupe-efrei.net?Subject=CaRaMel" target="_top">
+humanapp-support.asso@groupe-efrei.net</a>
         </footer>
         <script>
 
-// auto start intro js if requested
+        // auto start intro js if requested
         if (RegExp('multipage', 'gi').test(window.location.search)) {
             introJs().start();
         }
