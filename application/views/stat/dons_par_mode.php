@@ -5,8 +5,7 @@
     <div id="content">
         <form method="post" name="select_dates" <?php echo ('action="'.site_url('stat/versements_par_mode').'"'); ?>>
             date de debut:
-            <!-- <input type="date" name="debut" value="2013-01-01" min="1900-01-01" max="2100-08-01"> -->
-            <input type="text" id="datepicker1" name="debut" />
+            <input type="text" class="datepicker" name="debut" />
             date de fin:
             <!-- <input type="date" name="fin" value="2015-03-01" min="1900-01-01" max="2100-01-01"> -->
             <input type="text" id="datepicker2" name="fin" />

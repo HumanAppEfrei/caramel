@@ -89,31 +89,31 @@
 				<div class="control-group">
 					<label class="control-label" for="Complément">Né(e) entre</label>
 					<div class="controls">
-						<input class="input-small" type="text" name="annee1" value="<?php echo set_value('annee1'); ?>" maxlength="4" >
+						<input class="datepicker input-small" type="text" name="datenaissance1" readonly>
 						 et 
-						<input class="input-small" type="text" name="annee2" value="<?php echo set_value('annee2'); ?>" maxlength="4" >
+						<input class="datepicker input-small" type="text" name="datenaissance2" readonly>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="Complément">Contact créé en</label>
 					<div class="controls">
-						<input type="text" name="date11" value="<?php echo set_value('date11'); ?>" maxlength="4" >
+						<input type="text" class="monthpicker" name="dateEn" readonly>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="Complément">Contact créé depuis</label>
 					<div class="controls">
-						<input type="text" name="date12" value="<?php echo set_value('date12'); ?>" maxlength="4" >
+						<input type="text" class="datepicker" name="dateDepuis" readonly >
 					</div>
 				</div>			
 			
 			<?php echo form_error('age1'); ?>
 			<?php echo form_error('age2'); ?>
 			<?php if(isset($msg_alert)) echo('<div class="error">'.$msg_alert.'</div>'); ?>
-			<?php echo form_error('annee1'); ?>
-			<?php echo form_error('annee2'); ?>
-			<?php echo form_error('date11'); ?>
-			<?php echo form_error('date12'); ?>
+			<?php echo form_error('datenaissance1'); ?>
+			<?php echo form_error('datenaissance2'); ?>
+			<?php echo form_error('dateEn'); ?>
+			<?php echo form_error('dateDepuis'); ?>
 			
 			</pretty>
 			

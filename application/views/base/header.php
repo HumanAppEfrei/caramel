@@ -20,6 +20,13 @@
 		<script src="<?php echo js_url('intro'); ?>"></script>
 		<script src="<?php echo js_url('jquery.popup.min'); ?>"></script>
 
+		<style>
+			input:read-only {
+				background-color: white;
+				border-color: lightgrey;
+				cursor: default;
+			}
+		</style>
     </head>
     <body>
 		<div id="page">

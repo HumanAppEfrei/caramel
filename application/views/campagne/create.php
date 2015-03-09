@@ -45,27 +45,29 @@
 				<div class="control-group">
 				<label class="control-label" for="description">Date de début</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourd" value="<?php echo set_value('jourd',date("d")); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisd" value="<?php echo set_value('moisd',date("m")); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneed" value="<?php echo set_value('anneed',date("Y")); ?>" maxlength="4" placeholder="aaaa" >
+					<input class="datepicker" type="text" name="datedebut" />
 				</div>
 				</div>
 				<div class="control-group">
 				<label class="control-label" for="description">Date de fin</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourf" value="<?php echo set_value('jourf',date("d",$date)); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisf" value="<?php echo set_value('moisf',date("m",$date)); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneef" value="<?php echo set_value('anneef',date("Y",$date)); ?>" maxlength="4" placeholder="aaaa" >
+					<input class="datepicker" type="text" name="datefin" />
+
 				</div>
 				</div>
-				<?php echo form_error('jourd'); ?>
+				<br>
+				<!--<?php echo form_error('jourd'); ?>
 				<?php echo form_error('moisd'); ?>
-				<?php echo form_error('anneed'); ?>
-				<?php if(isset($message_debut)) echo('<div class="error">'.$message_debut.'</div>'); ?>
-				<?php echo form_error('jourf'); ?>
+				<?php echo form_error('anneed'); ?> -->
+				<?php echo form_error('datedebut'); ?>
+				<!-- <?php echo form_error('jourf'); ?>
 				<?php echo form_error('moisf'); ?>
-				<?php echo form_error('anneef'); ?>
-				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?>
+				<?php echo form_error('anneef'); ?> -->
+				<?php echo form_error('datefin'); ?>
+				<?php 
+					if(isset($message_error)) echo('<div class="error">'.$message_error.'</div>'); 
+					if(isset($message_date_error)) echo('<div class="error">'.$message_date_error.'</div>'); 
+				?>
 			</pretty>
 			
 			<pretty>

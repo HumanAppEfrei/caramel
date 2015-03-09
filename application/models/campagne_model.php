@@ -52,7 +52,7 @@ class Campagne_model extends MY_Model
 	*  @return (Mixed[]) les campagnes avec une date de debut posterieure a la date saisie
         **/
 	public function read_date_debut($first_date){
-		return $this->db->where('CAM_DEBUT >=', $first_date);
+		return $this->db->where("CAM_DEBUT >= STR_TO_DATE({$first_date})");
 	}
 
 	/**
@@ -61,7 +61,7 @@ class Campagne_model extends MY_Model
 	*  @return (Mixed[]) les campagnes avec une date de fin anterieure a la date saisie
         **/
 	public function read_date_fin($second_date){
-		return $this->db->where('CAM_FIN <=', $second_date);
+		return $this->db->where("CAM_FIN <= STR_TO_DATE({$second_date})");
 	}
 
 	/**
