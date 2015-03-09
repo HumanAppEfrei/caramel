@@ -84,15 +84,30 @@ class Don_model extends MY_Model
      * @param (Varchar) le mode selectionne
      * @param date de debut de selection
      * @param date de fin de selection
+     * @param
      * @return (Mixed[]) les dons avec le meme mode
      **/
-    public function read_montant_from_mode($mode, $debut, $fin) {
-        return $this->db->select('DON_MONTANT')
-                        ->select('DON_DATE')
-                        ->where('DON_MODE', (string) $mode)
-                        ->where('DON_DATE >=', date('Y-m-d', strtotime($debut)))
-                        ->where('DON_DATE <=', date('Y-m-d', strtotime($fin)))
-                        ->from($this->table);
+    public function read_montant_from_mode($mode, $debut, $fin, $campagne) {
+        // select from all campagnes
+        if($campagne == 'all'){
+            return $this->db->select('DON_MONTANT')
+                ->select('DON_DATE')
+                ->where('DON_MODE', (string) $mode)
+                ->where('DON_DATE >=', date('Y-m-d', strtotime($debut)))
+                ->where('DON_DATE <=', date('Y-m-d', strtotime($fin)))
+                ->from($this->table);
+        } else {
+            $offreId = $this->db->select('OFF_ID')
+                ->where('CAM_ID', $campagne )
+                ->from('offres')->get()->result()[0]->OFF_ID;
+            return $this->db->select('DON_MONTANT')
+                ->select('DON_DATE')
+                ->where('DON_MODE', (string) $mode)
+                ->where('DON_DATE >=', date('Y-m-d', strtotime($debut)))
+                ->where('DON_DATE <=', date('Y-m-d', strtotime($fin)))
+                ->where('OFF_ID', $offreId)
+                ->from($this->table);
+        }
     }
 
     /**
@@ -312,7 +327,7 @@ class Don_model extends MY_Model
     }
 
     /**
-     * Selectionne les dons repartis par nombre de types de dons (un don quoi.. INCOHERENCE DE CETTE FONCTION)
+     * Selectionne les dons repartis par nombre de types de dons
      * @return (Mixed[]) les dons repartis
      **/
     public function percent_type_versement(){
@@ -331,5 +346,16 @@ class Don_model extends MY_Model
             FROM  `dons`
             GROUP BY `DON_MODE`
             ORDER BY COUNT( `DON_MODE` ) DESC");
+    }
+
+    /**
+     * Selectionne la somme totale des dons de chaque donateur
+     **/
+    public function somme_des_dons_par_donateur(){
+        $res = $this->db->query("SELECT SUM(`DON_MONTANT`) AS TOTAL, CON_ID
+            FROM `dons`
+            GROUP BY `CON_ID`");
+
+        return $res;
     }
 }
