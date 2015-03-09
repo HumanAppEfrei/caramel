@@ -5,8 +5,8 @@
 		<table class="table table-striped">
             <tr>
                 <th></th>
-                <th>Code</th>
-                <th>Libellé</th>
+                <th title="Référence un segment (unique)">Code</th>
+                <th title="Description du segment ">Libellé</th>
                 <th>Date d ajout</th>
             </tr>
 

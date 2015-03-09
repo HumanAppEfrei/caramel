@@ -6,7 +6,7 @@
 		<table class="table table-striped">
 			<tr>
 				<th></th>
-				<th>Code</th>
+				<th title="Référence de la campagne (unique)">Code</th>
 				<th>Nom</th>
 				<th>Date de début</th>
 				<th>Date de fin</th>

@@ -7,17 +7,17 @@
 	<input name= "is_form_sent" type="hidden" value="true">
 	
 		<div class="control-group">
-		<label class="control-label" for="description">Code</label>
+		<label class="control-label" for="description" title="Identifiant d'un segment (unique)">Code</label>
 		<div class="controls">
-		<input type="text" name="code" value="<?php echo set_value('code');?>" required/> *
+		<input type="text" name="code" value="<?php echo set_value('code');?>" title="champ obligatoire" required/> *
 		<?php echo form_error('code'); ?>
 		</div>
 		</div>
 		
 		<div class="control-group">
-		<label class="control-label" for="description">Libellé</label>
+		<label class="control-label" for="description" title="Description d'un segment">Libellé</label>
 		<div class="controls">
-		<input type="text" name="libelle" value="<?php echo set_value('libelle');?>" required/> *
+		<input type="text" name="libelle" value="<?php echo set_value('libelle');?>" title="champ obligatoire" required/> *
 		<?php echo form_error('libelle'); ?>
 		</div>
 		</div>

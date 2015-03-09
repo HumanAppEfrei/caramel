@@ -2,10 +2,11 @@
     font-family: Verdana;
 }
 
-body, html
+html, body
 {
 	background : rgb(220,85,0);
 	margin: 0;
+	height: 100%;
 }
 
 #page

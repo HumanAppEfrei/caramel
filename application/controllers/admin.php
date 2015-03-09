@@ -18,7 +18,7 @@ class Admin extends MY_Controller {
      */
     public function index() {
         $nav_data = array('username' => $this->session->userdata('username'));
-
+		
         $this->load->view('base/header');
         $this->load->view('base/navigation', $nav_data);
         $this->load->view('base/reglages');
