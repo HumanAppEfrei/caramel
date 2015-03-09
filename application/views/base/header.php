@@ -16,6 +16,13 @@
 		<script src="<?php echo js_url('jquery-ui-1.11.3/jquery-ui'); ?>"></script>
 		<script src="<?php echo js_url('jquery-ui-1.11.3/jquery.ui.datepicker-fr'); ?>"></script>
 
+		<style>
+			input:read-only {
+				background-color: white;
+				border-color: lightgrey;
+				cursor: default;
+			}
+		</style>
     </head>
     <body>
 		<div id="page">

@@ -60,12 +60,10 @@ class Campagne extends MY_Controller {
 			//$post_fin = $this->input->post('anneef')."-".$this->input->post('moisf')."-".$this->input->post('jourf');
 			$post_fin = $this->input->post('datefin');
 
-			// Si la date de fin est antérieur à celle du début on swap
+			// Si la date de fin est antérieur à celle du début on affiche un message d'erreur
 			if(strtotime($post_fin) < strtotime($post_debut)) 
 			{
-				$post_temp = $post_debut;
-				$post_debut = $post_fin;
-				$post_fin = $post_temp;
+				$message_date_error = "La date de début est postérieur à la date de fin";
 			}
 
 			$post_type = $this->input->post('type');
@@ -75,26 +73,20 @@ class Campagne extends MY_Controller {
 			$post_courrier = $this->input->post('courrier');
 			$post_email = $this->input->post('email');
 
-			$message_debut = "";
-			$message_fin = "";
+			$message_error = "";
 
 			// Vérification
 			$this->form_validation->set_rules('code', 'Code', 'trim|required|max_length[10]|is_unique[campagnes.CAM_ID]|alpha_dash|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('nom', 'Nom', 'trim|required|encode_php_tags|xss_clean');
-			//$this->form_validation->set_rules('jourd', 'Jour de début', 'trim|required|max_length[2]|numeric|encode_php_tags|xss_clean');
-			//$this->form_validation->set_rules('moisd', 'Mois de début', 'trim|required|max_length[2]|numeric|encode_php_tags|xss_clean');
-			//$this->form_validation->set_rules('anneed', 'Année de début', 'trim|required|max_length[4]|numeric|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('datedebut', 'Date de début', 'trim|required|encode_php_tags|xss_clean');
-			if($post_debut != "--" && isValidDate(date_usfr($post_debut)) == false) $message_debut = "La date de début saisie est incorecte";
-			//$this->form_validation->set_rules('jourf', 'Jour de fin', 'trim|required|max_length[2]|numeric|encode_php_tags|xss_clean');
-			//$this->form_validation->set_rules('moisf', 'Mois de fin', 'trim|required|max_length[2]|numeric|encode_php_tags|xss_clean');
-			//$this->form_validation->set_rules('anneef', 'Année de fin', 'trim|required|max_length[4]|numeric|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('datefin', 'Date de fin', 'trim|required|encode_php_tags|xss_clean');
-			if($post_fin != "--" && isValidDate(date_usfr($post_fin)) == false) $message_fin = "La date de fin saisie est incorecte";
 			$this->form_validation->set_rules('description', 'Description', 'trim|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('objectif', 'Objectif', 'trim|encode_php_tags|numeric|xss_clean');
 
-			if($this->form_validation->run() && $message_debut=="" && $message_fin=="")
+			if(($post_debut != "--" && isValidDate(date_usfr($post_debut)) == false) || ($post_fin != "--" && isValidDate(date_usfr($post_fin)) == false)) 
+				$message_error = "Les dates saisies sont incorectes";
+
+			if($this->form_validation->run() && $message_error=="" && $message_date_error=="")
 			{
 				//var_dump($post_debut);
 				//var_dump($post_fin);
@@ -128,8 +120,10 @@ class Campagne extends MY_Controller {
 				$nav_data['username'] = $this->session->userdata('username');
 
 				$list_data = array();
-				$list_data['message_debut'] = $message_debut;
-				$list_data['message_fin'] = $message_fin;
+				//$list_data['message_debut'] = $message_debut;
+				//$list_data['message_fin'] = $message_fin;
+				$list_data['message_error'] = $message_error;
+				$list_data['message_date_error'] = $message_date_error;
 
 				$this->load->view('base/header');
 				$this->load->view('base/navigation',$nav_data);
@@ -217,13 +211,12 @@ class Campagne extends MY_Controller {
 			//$post_fin = $this->input->post('anneef')."-".$this->input->post('moisf')."-".$this->input->post('jourf');
 			$post_fin = $this->input->post('datefin');
 
-			// Si la date de fin est antérieur à celle du début on swap
+			// Si la date de fin est antérieur à celle du début on affiche un message d'erreur
 			if(strtotime($post_fin) < strtotime($post_debut)) 
 			{
-				$post_temp = $post_debut;
-				$post_debut = $post_fin;
-				$post_fin = $post_temp;
+				$message_date_error = "La date de début est postérieur à la date de fin";
 			}
+
 
 			$post_type = $this->input->post('type');
 			$post_description = $this->input->post('description');
@@ -232,23 +225,23 @@ class Campagne extends MY_Controller {
 			$post_courrier = $this->input->post('courrier');
 			$post_email = $this->input->post('email');
 
-			$message_debut = "";
-			$message_fin = "";
+			$message_error = "";
 
 			//vérification
 			$this->form_validation->set_rules('nom', 'Nom', 'trim|required|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('jourd', 'Jour de début', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('moisd', 'Mois de début', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('anneed', 'Année de début', 'trim|max_length[4]|numeric|encode_php_tags|xss_clean');
-			if($post_debut != "--" && isValidDate(date_usfr($post_debut)) == false) $message_debut = "La date de début saisie est incorecte";
 			$this->form_validation->set_rules('jourf', 'Jour de fin', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('moisf', 'Mois de fin', 'trim|max_length[2]|numeric|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('anneef', 'Année de fin', 'trim|max_length[4]|numeric|encode_php_tags|xss_clean');
-			if($post_fin != "--" && isValidDate(date_usfr($post_fin)) == false) $message_fin = "La date de fin saisie est incorecte";
 			$this->form_validation->set_rules('description', 'Description', 'trim|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('objectif', 'Objectif', 'trim|encode_php_tags|xss_clean');
 
-			if($this->form_validation->run() && $message_debut=="" && $message_fin=="")
+			if($post_fin != "--" && isValidDate(date_usfr($post_fin)) == false) $message_error = "La date de fin saisie est incorecte";
+
+
+			if($this->form_validation->run() && $message_error=="" && $message_date_error=="")
 			{
 				// Envoie dans la BDD
 				$options_echappees = array();
@@ -276,8 +269,8 @@ class Campagne extends MY_Controller {
 
 				$list_data = array();
 				$list_data['campagne'] = $campagne;
-				$list_data['message_debut'] = $message_debut;
-				$list_data['message_fin'] = $message_fin;
+				$list_data['message_error'] = $message_error;
+				$list_data['message_date_error'] = $message_date_error;
 
 				$nav_data = array();
 				$nav_data['username'] = $this->session->userdata('username');
@@ -361,10 +354,14 @@ class Campagne extends MY_Controller {
 			if($pieces2[0]!="" && $pieces2[1]!="" && $pieces2[2]!="") $items = $this->campagne_model->read_date_fin($post_fin);
 			else if($post_fin=="0000-00-0") $message = "Date de fin incorrecte";*/
 
-			$dump = $this->campagne_model->read_date_debut($post_debut);
-			$items = $this->campagne_model->read_date_debut($post_debut);
+
+			var_dump($post_debut);
+			var_dump($post_fin);
+			$this->campagne_model->read_date_debut($post_debut);
+			$dump = $this->campagne_model->get_results();
+			$this->campagne_model->read_date_fin($post_fin);
+			$dump = $this->campagne_model->get_results();
 			var_dump($dump);
-			$items = $this->campagne_model->read_date_fin($post_fin);
 
 			if($post_type!="") $items = $this->campagne_model->read_type($post_type);
 

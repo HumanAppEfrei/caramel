@@ -47,16 +47,18 @@
                     <?php echo form_error('cheq_banq_depot'); ?>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="cheq_depot_jour">Date de dépôt</label>
+                    <label class="control-label" for="cheq_depot_date">Date de dépôt</label>
                     <div class="controls">
                         <?php $date = ($don->DON_C_DATE_DEPOT != null) ? explode('-', date_usfr($don->DON_C_DATE_DEPOT)) : null; ?>
-                        <input type="text" name="cheq_depot_jour" value="<?php echo $date[0] ;?>" maxlength="2" placeholder="jj" class="input-mini"/> /
+                        <!-- <input type="text" name="cheq_depot_jour" value="<?php echo $date[0] ;?>" maxlength="2" placeholder="jj" class="input-mini"/> /
                         <input type="text" name="cheq_depot_mois" value="<?php echo $date[1] ;?>" maxlength="2" placeholder="mm" class="input-mini"/> /
-                        <input type="text" name="cheq_depot_annee" value="<?php echo $date[2] ;?>" maxlength="4" placeholder="aaaa" class="input-mini"/>
+                        <input type="text" name="cheq_depot_annee" value="<?php echo $date[2] ;?>" maxlength="4" placeholder="aaaa" class="input-mini"/> -->
+                        <input type="text" class="datepicker" name="cheq_depot_date" value="<?php echo($datedepot); ?>" readonly>
                     </div>
-                    <?php echo form_error('cheq_depot_jour'); ?>
+                    <!-- <?php echo form_error('cheq_depot_jour'); ?>
                     <?php echo form_error('cheq_depot_mois'); ?>
-                    <?php echo form_error('cheq_depot_annee'); ?>
+                    <?php echo form_error('cheq_depot_annee'); ?> -->
+                    <?php echo form_error('cheq_depot_date'); ?>
                     <?php if (isset($message_cheq_depot)) {
                         echo $message_cheq_depot;
                     }?>

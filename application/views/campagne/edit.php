@@ -92,12 +92,12 @@
 				<?php echo form_error('moisd'); ?>
 				<?php echo form_error('anneed'); ?> -->
 				<?php echo form_error('debut'); ?>
-				<?php if(isset($message_debut)) echo('<div class="error">'.$message_debut.'</div>'); ?>
+				<?php if(isset($message_error)) echo('<div class="error">'.$message_error.'</div>'); ?>
 				<!-- <?php echo form_error('jourf'); ?>
 				<?php echo form_error('moisf'); ?>
 				<?php echo form_error('anneef'); ?> -->
 				<?php echo form_error('fin'); ?>
-				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?>
+				<?php if(isset($message_date_error)) echo('<div class="error">'.$message_date_error.'</div>'); ?>
 			</pretty>
 		
 			<pretty>

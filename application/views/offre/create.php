@@ -30,23 +30,23 @@
 				<div class="control-group">
 				<label class="control-label" for="description">Date de début</label>
 				<div class="controls">
-					<input class="datepicker" type="text" name="datedebut" readonly/>
+					<input class="datepicker" type="text" name="datedebut" />
 				</div>
 				</div>
 				<div class="control-group">
 				<label class="control-label" for="description">Date de fin</label>
 				<div class="controls">
-					<input class="datepicker" type="text" name="datefin" readonly/>
+					<input class="datepicker" type="text" name="datefin" />
 				<!-- <?php echo form_error('jourd'); ?>
 				<?php echo form_error('moisd'); ?>
 				<?php echo form_error('anneed'); ?> -->
 				<?php echo form_error('datedebut'); ?>
-				<?php if(isset($message_debut)) echo('<div class="error">'.$message_debut.'</div>'); ?>
+				<?php if(isset($message_error)) echo('<div class="error">'.$message_error.'</div>'); ?>
 				<!-- <?php echo form_error('jourf'); ?>
 				<?php echo form_error('moisf'); ?>
 				<?php echo form_error('anneef'); ?> -->
 				<?php echo form_error('datefin'); ?>
-				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?>
+				<?php if(isset($message_date_error)) echo('<div class="error">'.$message_date_error.'</div>'); ?>
 				</div>
 				</div>
 			</pretty>

@@ -82,7 +82,7 @@
                                 <?php echo form_error('cheq_banq_depot'); ?>
                             </div>
                             <div class="control-group">
-                    <label class="control-label" for="cheq_depot_jour">Date de dépôt</label>
+                    <label class="control-label" for="datedepot">Date de dépôt</label>
                         <div class="controls">
                             <input class="datepicker" type="text" name="datedepot" /></div>
                         <?php if (isset($message_cheq_date)) {
@@ -99,7 +99,7 @@
             <div class="inner-block"> <!-- Date -->
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="jour">Date* </label>
+                        <label class="control-label" for="date">Date* </label>
                         <div class="controls">
                             <input class="datepicker" type="text" name="date" />
                         </div>

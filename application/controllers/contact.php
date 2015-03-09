@@ -311,6 +311,7 @@ class Contact extends MY_Controller {
             $post_country = $this->input->post('country');
             $post_commentaire = $this->input->post('commentaire');
 
+            
             // Vérifications
             $this->form_validation->set_rules('numAd', '"Numéro d adhérent"', 'trim|numeric|encode_php_tags|xss_clean');
             $this->form_validation->set_rules('firstname', 'Prénom', 'trim|max_length[38]|alpha_dash_no_num|encode_php_tags|xss_clean');
@@ -379,7 +380,7 @@ class Contact extends MY_Controller {
             if ($post_commentaire != "")
                 $items = $this->contact_model->read_commentaire($post_commentaire);
             $items = $this->contact_model->get_results();
-            if($post_date != "-") {
+            if($post_date != "") {
                 $this->contact_model->read_by_month($post_date);
                 $dump = $this->contact_model->get_results();
                 var_dump($dump);
