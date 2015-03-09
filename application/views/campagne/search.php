@@ -11,7 +11,7 @@
 		
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Code</label>
+				<label class="control-label" for="description" title="Référence de la campagne (unique)">Code</label>
 				<div class="controls">
 				<input type="text" name="code" value="<?php echo set_value('code');?>" >
 				<?php echo form_error('code'); ?>
@@ -44,17 +44,13 @@
 				<div class="control-group">
 				<label class="control-label" for="description">Date de début</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourd" maxlength="2" placeholder="jj" > /
-				<input type="text" style="width:40px;" name="moisd" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneed" maxlength="4" placeholder="aaaa" >
+					<input class="datepicker" type="text" name="datedebut" readonly/>
 				</div>
 				</div>
 				<div class="control-group">
 				<label class="control-label" for="description">Date de fin</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourf" maxlength="2" placeholder="jj" > /
-				<input type="text" style="width:40px;" name="moisf" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneef" maxlength="4" placeholder="aaaa" >
+					<input class="datepicker" name="datefin" type="text" readonly/>
 				</div>
 				</div>
 				<?php echo form_error('jourd'); ?>

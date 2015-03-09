@@ -1,6 +1,7 @@
 <?php
 foreach ($contact as $contact) {
-    $split = explode("-", $contact->CON_DATE);
+    $datenaissance = $contact->CON_DATE;
+    /*$split = explode("-", $contact->CON_DATE);
     if (count($split) > 1) {
         $annee = $split[0];
         $mois = $split[1];
@@ -17,7 +18,7 @@ foreach ($contact as $contact) {
             $mois = "";
         if ($annee[0] == '0' && $annee[1] == '0' && $annee[2] == '0' && $annee[3] == '0')
             $annee = "";
-    } ?>
+    } */ ?>
 
     <div class="well"><h3>Edition du contact : <?php echo($contact->CON_FIRSTNAME . " " . $contact->CON_LASTNAME) ?> </h3>
         <div class="pull-right">
@@ -34,7 +35,7 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="id">Identifiant</label>
+                        <label class="control-label" title="Code du contact (unique)" for="id">Identifiant</label>
                         <div class="controls">
                             <input type="text" value="<?php echo($contact->CON_ID) ?>" readonly="readonly">
                         </div>
@@ -108,14 +109,14 @@ foreach ($contact as $contact) {
                     <div class="control-group">
                         <label id="nom" class="control-label" for="surname">Date de naissance</label>
                         <div class="controls">
-                            <input class="input-mini" type="text" name="jour" value="<?php if (isset($jour)) echo $jour; ?>" maxlength="2" placeholder="dd" > /
-                            <input class="input-mini" type="text" name="mois" value="<?php if (isset($mois)) echo $mois; ?>" maxlength="2" placeholder="mm" > /
-                            <input class="input-mini" type="text" name="annee" value="<?php if (isset($annee)) echo $annee; ?>" maxlength="4" placeholder="aaaa" >
+                            <input class="datepicker" type="text" name="datenaissance" value="<?php if (isset($datenaissance)) echo $datenaissance; ?>" readonly />
                         </div>
                     </div>
-                    <?php echo form_error('jour'); ?>
+
+                    <!-- <?php echo form_error('jour'); ?>
                     <?php echo form_error('mois'); ?>
-                    <?php echo form_error('annee'); ?>
+                    <?php echo form_error('annee'); ?> -->
+                    <?php echo form_error('datenaissance'); ?>
                     <?php if (isset($message_date)) echo('<div class="error">' . $message_date . '</div>'); ?>
 
                 </pretty>
@@ -236,17 +237,17 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="NPAI">NPAI</label>
+                        <label class="control-label" for="NPAI" title="Permet de compter le nombre de lettres marquées de la mention pli non distribuable.">NPAI</label>
                         <div class="controls">
                             <?php echo("<span style='font-weight:bold'>" . $contact->CON_NPAI . "</span>") ?> 
                             <a href="<?php echo site_url("contact/IncrementNPAI/" . $contact->CON_ID); ?>">
-                                <input type="button" class="btn" value="Incrémenter" onClick='return window.confirm("Incrémenter NPAI?");'/> </a> 
+                                <input type="button" class="btn" title="Le NPAI est augmenté de un" value="Incrémenter" onClick='return window.confirm("Incrémenter NPAI?");'/> </a> 
                             <a href="<?php echo site_url("contact/RAZ_NPAI/" . $contact->CON_ID); ?>">
-                                <input type="button" class="btn" value="RAZ" onClick='return window.confirm("Remettre à zéro NPAI?");'/> </a><br/><br/>
+                                <input type="button" class="btn" value="RAZ" onClick='return window.confirm("Remettre à zéro NPAI?");'title="Remise à Zéro"/> </a><br/><br/>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="solicitation">Solicitation </label>
+                        <label class="control-label" for="solicitation" title="Permet de savoir si la personne souhaite être contactée">Solicitation </label>
                         <div class="controls">
                             <select name="solicitation" value="<?php echo set_value('solicitation'); ?>" >
                                 <option value="yes" <?php if ($contact->CON_SOLICITATION == "yes") echo'selected' ?>>OK</option>
@@ -259,7 +260,7 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="ville">Reçus fiscaux </label>
+                        <label class="control-label" for="ville" title="Règle la fréquence de l’envoi des reçus fiscaux">Reçus fiscaux </label>
                         <div class="controls">
                             <select name="rf_type" id="rf_type" value="<?php echo set_value('voie_type'); ?>" >
                                 <option value="never" <?php if ($contact->CON_RF_TYPE == "never") echo'selected' ?>>Jamais</option>
@@ -270,7 +271,7 @@ foreach ($contact as $contact) {
                         </div>
                     </div>
                     <div class="control-group" id="rf_envoi">
-                        <label class="control-label" for="ville">Envoi par</label>
+                        <label class="control-label" for="ville" title="Définit comment envoyer le reçu fiscal">Envoi par</label>
                         <div class="controls">
                             <select name="rf_envoi" value="<?php echo set_value('voie_type'); ?>" >
                                 <option value="courrier" <?php if ($contact->CON_RF_ENVOI == "courrier") echo'selected' ?>>courrier</option>
@@ -282,7 +283,7 @@ foreach ($contact as $contact) {
 
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="comm">Commentaires</label>
+                        <label class="control-label" for="comm" title="Ecrivez ici des informations complémentaires sur le contact">Commentaires</label>
                         <div class="controls">
                             <textarea name="commentaire" rows="5" cols="60"><?php echo($contact->CON_COMMENTAIRE) ?></textarea>
                         </div>

@@ -1,61 +1,59 @@
 <div id= "create">
 
 	<div class="well"><h2>Créer une nouvelle offre </h2></div>
-	
+
 	<form class="form-horizontal" method="post" name="creerOffre" <?php echo ('action="'.site_url("offre/create").'"'); ?>>
-	
+
 		<input name= "is_form_sent" type="hidden" value="true">
-		
+
 		<div class="inline-block">
 		<div class="inner-block">
-		
+
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Code*</label>
+				<label class="control-label" for="description" title="Référence de l'offre (unique)">Code*</label>
 				<div class="controls">
-				<input type="text" name="code" value="<?php echo set_value('code');?>" >
+				<input type="text" name="code" title="champ obligatoire" value="<?php echo set_value('code');?>" >
 				<?php echo form_error('code'); ?>
 				</div>
 				</div>
 				<div class="control-group">
-				<label class="control-label" for="description">Libellé</label>
+				<label class="control-label" for="description" title="Description de l'offre">Libellé</label>
 				<div class="controls">
 				<input type="text" name="libelle" value="<?php echo set_value('libelle');?>" >
 				<?php echo form_error('libelle'); ?>
 				</div>
 				</div>
 			</pretty>
-			
+
 			<pretty>
 				<div class="control-group">
 				<label class="control-label" for="description">Date de début</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourd" value="<?php echo set_value('jourd'); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisd" value="<?php echo set_value('moisd'); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneed" value="<?php echo set_value('anneed'); ?>" maxlength="4" placeholder="aaaa" >
+					<input class="datepicker" type="text" name="datedebut" />
 				</div>
 				</div>
 				<div class="control-group">
 				<label class="control-label" for="description">Date de fin</label>
 				<div class="controls">
-				<input type="text" style="width:40px;" name="jourf" value="<?php echo set_value('jourf'); ?>" maxlength="2" placeholder="dd" > /
-				<input type="text" style="width:40px;" name="moisf" value="<?php echo set_value('moisf'); ?>" maxlength="2" placeholder="mm" > /
-				<input type="text" style="width:50px;" name="anneef" value="<?php echo set_value('anneef'); ?>" maxlength="4" placeholder="aaaa" >
-				<?php echo form_error('jourd'); ?>
+					<input class="datepicker" type="text" name="datefin" />
+				<!-- <?php echo form_error('jourd'); ?>
 				<?php echo form_error('moisd'); ?>
-				<?php echo form_error('anneed'); ?>
-				<?php if(isset($message_debut)) echo('<div class="error">'.$message_debut.'</div>'); ?>
-				<?php echo form_error('jourf'); ?>
+				<?php echo form_error('anneed'); ?> -->
+				<?php echo form_error('datedebut'); ?>
+				<?php if(isset($message_error)) echo('<div class="error">'.$message_error.'</div>'); ?>
+				<!-- <?php echo form_error('jourf'); ?>
 				<?php echo form_error('moisf'); ?>
-				<?php echo form_error('anneef'); ?>
-				<?php if(isset($message_fin)) echo('<div class="error">'.$message_fin.'</div>'); ?>
+				<?php echo form_error('anneef'); ?> -->
+				<?php echo form_error('datefin'); ?>
+				<?php if(isset($message_date_error)) echo('<div class="error">'.$message_date_error.'</div>'); ?>
 				</div>
 				</div>
 			</pretty>
-			
+
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Relier à la campagne</label>
+				<label class="control-label" title="Permet d'associer l'offre à une campagne" for="description">Relier à la campagne</label>
 				<div class="controls">
 				<select name="campagne" >
 				<?php foreach($list_campagnes as $list_campagne)
@@ -75,12 +73,12 @@
 				</div>
 				</div>
 			</pretty>
-			
+
 			<pretty>
 				<div class="control-group">
 				<input type="hidden" id="segments" name="segments" value="<?php echo set_value('segments');?>" >
-	
-				<label class="control-label" for="description">Segments</label>
+
+				<label class="control-label" title="Permet d'associer un segment à une offre en inscrivant son code" for="description">Segments</label>
 				<div class="controls">
 				<input type="text" id="seg" value="<?php echo set_value('segment');?>" >
 				<button type="button" class="btn" id="seg_ajout" >Ajouter</button>
@@ -92,10 +90,10 @@
 			</pretty>
 		</div>
 		</div>
-		
+
 		<div class="inline-block">
 		<div class="inner-block">
-		
+
 		<pretty>
 			<div class="control-group">
 			<label class="control-label" for="description">Description</label>
@@ -112,16 +110,16 @@
 			</div>
 			</div>
 		</pretty>
-		
+
 		<div id="searchPattern">
 			<button type="submit" class="btn">Sauvegarder</button>
 		</div>
-		
+
 		</div>
 		</div>
-		
+
 		<div id="clear"></div>
-		
+
 	</form>
 </div>
 <script LANGUAGE="Javascript"> var baseURL = "<?php echo site_url();?>"</script>

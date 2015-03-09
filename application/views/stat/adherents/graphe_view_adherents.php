@@ -1,70 +1,109 @@
 <?php
-        //tableaux pour le montant global des campagnes
-        $data_evo_year = array();
-        $data_evo_nombre = array();
-
-        $data_evo_year_donateurs = array();
-        $data_evo_nombre_donateurs = array();
-
+        // nombre d'adhérents au cours du temps
+        $stats_adherents = array();
         foreach ($stat_evolution_nombre_adhérents as $value) {
-            array_push($data_evo_year, $value->YEAR);
-            array_push($data_evo_nombre, $value->NOMBRE);
+            $stats_adherents[$value->YEAR] = (int) $value->NOMBRE;
         }
+        ksort($stats_adherents);
 
+        // nombre de donateurs au cours du temps
+        $stats_donateurs = array();
         foreach($stat_evolution_donateurs as $value) {
-        	array_push($data_evo_year_donateurs, $value->YEAR);
-        	array_push($data_evo_nombre_donateurs, $value->NOMBRE);
+            $stats_donateurs[$value->YEAR] = (int) $value->NOMBRE;
         }
+        ksort($stats_donateurs);
+
+        // dons répartis en fonction de leur valeur
+        $dons_par_valeur = array();
+        foreach($dons_repartis_par_montant as $value) {
+            if(!isset($dons_par_valeur[$value->TOTAL])){
+                $dons_par_valeur[$value->TOTAL] = 0;
+            }
+            $dons_par_valeur[$value->TOTAL] ++;
+        }
+        ksort($dons_par_valeur);
 ?>
 
-<!--Div that will hold the pie chart-->
-<div id='chart_container'>
-	<div id='adherents_full'></div>
-	<div id='donateurs'></div>
-</div>
+<div id="evolution_adherents" style="width:100%; height:400px;"></div>
+<div id="evolution_donateurs" style="width:100%; height:400px;"></div>
+<div id="repartition_dons_valeur" style="width:100%; height:400px;"></div>
 
-<link href="<?php echo css_url('style_graphe');?>" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="<?php echo js_url('jsapi'); ?>"></script>
-<script type="text/javascript">
-	google.load("visualization", "1", {packages:["corechart"]});
-	google.setOnLoadCallback(drawChart);
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable([
-			['Année', 'Adhérents'],
-			['<?php echo $data_evo_year[2]; ?> ',  <?php echo (int)$data_evo_nombre[2]; ?> ],
-          	['<?php echo $data_evo_year[1]; ?> ',  <?php echo (int)$data_evo_nombre[1]; ?> ]
-          ]);
 
-		var options = {
-			title: 'évolution du nombre d\'adhérents total',
-			vAxis: {title: 'Année',  titleTextStyle: {color: 'red'}}
-		};
+<script>
+$(function () {
 
-		var chart = new google.visualization.BarChart(document.getElementById('adherents_full'));
-		chart.draw(data, options);
-	}
-</script>
+    $("#evolution_adherents").highcharts({
+        chart: {
+            type: 'column',
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Evolution du nombre d\'adhérents au cours du temps'
+        },
+        yAxis: {
+            min: 0,
+            title: { text : 'Nombre d\'adhérents' }
+        },
+        xAxis: {
+            title: { text: 'Date' },
+            categories : <?php echo json_encode(array_keys($stats_adherents)); ?>
+        },
+        series: [
+            {
+                name: 'adhérents',
+                data: <?php echo json_encode(array_values($stats_adherents)); ?>
+            },
+        ]
+    });    
 
-<link href="<?php echo css_url('style_graphe');?>" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="<?php echo js_url('jsapi'); ?>"></script>
-<script type="text/javascript">
-	google.load("visualization", "1", {packages:["corechart"]});
-	google.setOnLoadCallback(drawChart);
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable([
-			['Année', 'Donateurs'],
-			['<?php echo $data_evo_year_donateurs[2]; ?> ',  <?php echo (int)$data_evo_nombre_donateurs[2]; ?> ],
-          	['<?php echo $data_evo_year_donateurs[1]; ?> ',  <?php echo (int)$data_evo_nombre_donateurs[1]; ?> ]
-          ]);
+    $("#evolution_donateurs").highcharts({
+        chart: {
+            type: 'column',
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Evolution du nombre de donateurs au cours du temps'
+        },
+        yAxis: {
+            min: 0,
+            title: { text : 'Nombre de donateurs' }
+        },
+        xAxis: {
+            title: { text: 'Date' },
+            categories : <?php echo json_encode(array_keys($stats_donateurs)); ?>
+        },
+        series: [
+            {
+                name: 'donateurs',
+                data: <?php echo json_encode(array_values($stats_donateurs)); ?>
+            },
+        ]
+    });
 
-		var options = {
-			title: 'évolution du nombre de donateurs total',
-			vAxis: {title: 'Année',  titleTextStyle: {color: 'red'}}
-		};
-
-		var chart = new google.visualization.BarChart(document.getElementById('donateurs'));
-		chart.draw(data, options);
-	}
+    $("#repartition_dons_valeur").highcharts({
+        chart: {
+            type: 'column',
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Répartition de la valeur des dons'
+        },
+        yAxis: {
+            min: 0,
+            title: { text : 'Nombre de dons' }
+        },
+        xAxis: {
+            title: { text: 'valeur (Euros)' },
+            categories : <?php echo json_encode(array_keys($dons_par_valeur)); ?>
+        },
+        series: [
+            {
+                name: 'nombre de dons',
+                data: <?php echo json_encode(array_values($dons_par_valeur)); ?>
+            },
+        ]
+    });
+});
 </script>
 
 
