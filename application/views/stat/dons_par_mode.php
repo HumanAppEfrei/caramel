@@ -7,7 +7,14 @@
             date de debut:
             <input type="text" class="datepicker" name="debut" />
             date de fin:
-            <input type="text" class="datepicker" name="fin" />
+            <!-- <input type="date" name="fin" value="2015-03-01" min="1900-01-01" max="2100-01-01"> -->
+            <input type="text" id="datepicker2" name="fin" />
+            <select id="campagne-select" name="campagne-select">
+                <option value='all'>Toutes les campagnes</option>
+                <?php foreach($campagnes as $key => $name){ ?>
+                <option value="<?php echo $key; ?>"><?php echo $name; ?></option>
+                <?php } ?>
+            </select>
             <button type="submit" class="btn" value="trier">Trier</button>
         </form>
     </div>

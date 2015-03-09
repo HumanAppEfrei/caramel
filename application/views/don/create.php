@@ -7,17 +7,17 @@
             <div class="inner-block">
                 <pretty> <!-- Donateur -->
                     <div class="control-group">
-                        <label class="control-label" for="codeCon">Code Donateur*</label>
+                        <label class="control-label" title="Identifiant du contact (unique)" for="codeCon">Code Donateur*</label>
                         <div class="controls">
-                            <input type="text" name="codeCon" id="codeCon" value="<?php if(isset($contact->CON_ID)) echo $contact->CON_ID; else echo set_value('codeCon'); ?>" />
+                            <input type="text" name="codeCon" id="codeCon" title="champ obligatoire" value="<?php if(isset($contact->CON_ID)) echo $contact->CON_ID; else echo set_value('codeCon'); ?>" />
                             <div id="msg_codeCon" class="error"></div>
                         </div>
-                        <?php echo form_error('codeCon'); if(isset($check_contact) && (!$check_contact)) 
+                        <?php echo form_error('codeCon'); if(isset($check_contact) && (!$check_contact))
                             echo '<div class="error">Ce code donateur est inexistant</div>'
                         ?>
                     </div>
                 </pretty> <!-- /Donateur -->
-                
+
                 <pretty> <!-- Type et montant -->
                     <div class="control-group">
                         <label class="control-label" for="type_versement">Type de Versement</label>
@@ -34,7 +34,7 @@
                     <div class="control-group">
                         <label class="control-label" for="montant">Montant* (euros)</label>
                         <div class="controls">
-                            <input type="text" name="montant" id="montant" value="<?php echo set_value('montant'); ?>"/>
+                            <input type="text" name="montant" title="champ obligatoire" id="montant" value="<?php echo set_value('montant'); ?>"/>
                         </div>
                         <?php echo form_error('montant'); ?>
                     </div>
@@ -94,24 +94,24 @@
                 </pretty> <!-- /Mode de paiement -->
             </div>
         </div>
-        
+
         <div class="inline-block">
             <div class="inner-block"> <!-- Date -->
                 <pretty>
                     <div class="control-group">
-                        <label class="control-label" for="date">Date* </label>
+                        <label class="control-label" title="champ obligatoire" for="jour">Date* </label>
                         <div class="controls">
                             <input class="datepicker" type="text" name="date" />
                         </div>
                         <?php echo form_error('date'); ?>
                         <?php if(isset($message_date)) echo('<div class="error">'.$message_date.'</div>'); ?>
                     </div>
-                </pretty>   
+                </pretty>
             </div> <!-- /Date -->
             <div class="inner-block">
                 <pretty> <!-- Offre -->
                     <div class="control-group">
-                        <label class="control-label" for="offre">Répond à l'offre</label>
+                        <label class="control-label" title="Permet d'associer un don à une offre"for="offre">Répond à l'offre</label>
                         <div class="controls">
                             <select id="offre" name="offre" value="<?php echo set_value('offre'); ?>" >
                                 <option value="aucune" <?php echo set_select('offre', 'aucune'); ?>>Aucune</option>
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                 </pretty> <!-- /Offre -->
-                
+
                 <pretty> <!-- Commentaire -->
                     <div class="control-group">
                         <label class="control-label" for="commentaire">Commentaires</label>
@@ -148,7 +148,7 @@
             <div class="well">
                 <h3>Fléchage du versement</h3>
                 <?php if(isset($message_flech)) echo('<div class="error">'.$message_flech.'</div>'); ?>
-                
+
                 <!--Generation dynamique-->
                 <div class="inner-block" id="addFlechBlock">
                     <input type="hidden" id="flech_valide" name="flech_valide" value="false"/>
@@ -188,6 +188,5 @@
         <?php endforeach; ?>
     </table>
     <?php endif; ?>
-</div> 
-<script language="Javascript" src="<?php echo base_url().'assets/javascript/jquery.js'?>" ></script>
+</div>
 <script language="Javascript" src="<?php echo base_url().'assets/javascript/don_view.js'?>" ></script>

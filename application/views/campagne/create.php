@@ -11,14 +11,14 @@
 		
 			<pretty>
 				<div class="control-group">
-				<label class="control-label" for="description">Code</label>
+				<label class="control-label" for="description" title="Référence de la campagne (unique)">Code</label>
 				<div class="controls">
 				<input type="text" name="code" value="<?php echo set_value('code');?>" >
 				<?php echo form_error('code'); ?>
 				</div>
 				</div>
 				<div class="control-group">
-				<label class="control-label" for="description">Nom*</label>
+				<label class="control-label" for="description" title="champ obligatoire">Nom*</label>
 				<div class="controls">
 				<input type="text" name="nom" value="<?php echo set_value('nom');?>" >
 				<?php echo form_error('nom'); ?>
