@@ -18,7 +18,7 @@ class Admin extends MY_Controller {
      */
     public function index() {
         $nav_data = array('username' => $this->session->userdata('username'));
-		
+
         $this->load->view('base/header');
         $this->load->view('base/navigation', $nav_data);
         $this->load->view('base/reglages');
@@ -58,36 +58,35 @@ class Admin extends MY_Controller {
         if ($post_form) {
             // on recupere les infromations envoyees
             $post_valeur = $this->input->post('column');
-
+            array_pop($post_valeur);
+            $post_valeur = array_values($post_valeur);
+            $columnNumber = sizeof($post_valeur);
             // on cree le tableau qui contiendra toutes les donnees a mettre dans le csv
             $csv_dump = array();
             // creation de la ligne d'en tete
-            $csv_dump[0] = array();
+            $csv_dump[0] = array_fill(0,$columnNumber-1,' ');
             foreach($post_valeur as $index => $column){
-                if($index > 0){
-                    // ajout de la colonne courante dans la ligne d'en tete
-                    array_push($csv_dump[0],$column);
-                    // separationdu nom de table et du nom de colonne
-                    $elements = explode(':',$column);
-                    $this->db->select($elements[1]);
-                    $query = $this->db->get($elements[0]);
-                    // execution de la requete
-                    foreach($query->result_array() as $index_row => $row) {
-                        // si la ligne est nulle on la cree
-                        if(is_null($csv_dump[$index+1])) $csv_dump[$index+1] = array();
-                        $csv_dump[$index_row+1][$index] =$row[$elements[1]];
-                    }
+                // ajout de la colonne courante dans la ligne d'en tete
+                $csv_dump[0][$index] = $column;
+                // array_push($csv_dump[0],$column);
+                // separationdu nom de table et du nom de colonne
+                $elements = explode(':',$column);
+                $this->db->select($elements[1]);
+                $query = $this->db->get($elements[0]);
+                // execution de la requete
+                foreach($query->result_array() as $index_row => $row) {
+                    // si la ligne est nulle on la cree
+                    if(is_null($csv_dump[$index_row+1])) $csv_dump[$index_row+1] = array_fill(0,$columnNumber-1,' ');
+                    $csv_dump[$index_row+1][$index] = $row[$elements[1]];
                 }
             }
-
-            // ajout de '' dans les trous du tableau por bien formater le csv
-            $column_count = count($csv_dump[0]);
-            foreach($csv_dump as &$row){
-                for($i = 0; $i < $column_count; $i ++){
-                    if(is_null($row[$i])) $row[$i] = '';
-                }
-            }
-            unset($row);
+            // $column_count = count($csv_dump[0]);
+            // foreach($csv_dump as &$row){
+                // for($i = 0; $i < $column_count; $i ++){
+                    // if(is_null($row[$i])) $row[$i] = '';
+                // }
+            // }
+            // unset($row);
 
             // envoie du fichier csv au client
             $out = fopen('php://output', 'w');
