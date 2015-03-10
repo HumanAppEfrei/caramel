@@ -17,6 +17,7 @@ class User_model extends MY_Model
      * @param string $password Le mot de passe de l'utilisateur
      * @param string $email L'email de l'utilisateur
      * @param string $type Le type de l'utilisateur
+     * La colonne USER_FIRST_CONN est automatiquement fixée à 1 
      * @return false|request La requete d'ajout de l'utilisateur
      */
 	public function add_user($firstname,$lastname,$login,$password,$email, $type = 'VISIT')
@@ -37,7 +38,8 @@ class User_model extends MY_Model
 				->set('USER_PASSWORD', $this->encrypt->encode($password))
 				->set('USER_EMAIL', $email)
 				->set('USER_DATEADDED', 'NOW()',false)
-				->set('USER_TYPE', $type)
+                ->set('USER_TYPE', $type)
+                ->set('USER_FIRST_CONN', 1)
 				->insert($this->table);
 		}
 	}
@@ -96,5 +98,33 @@ class User_model extends MY_Model
 				->limit(1)
 				->get()
 				->result();
-	}
+    }
+
+    /**
+     * Fonction qui retourne le champs USER_FIRST_CONN
+     * @return (int) USER_FIRST_CONN
+     **/
+    public function get_first_conn($login)
+    {
+        return (int) $this->db->select('USER_FIRST_CONN')
+                            ->from($this->table)
+                            ->where('USER_LOGIN', $login)
+                            ->limit(1)
+                            ->get()
+                            ->row()->USER_FIRST_CONN;
+
+    }
+
+    /**
+     * Fonction qui met a 0 le champ USER_FIRST_CONN pour indiquer que l'utilisateur s'est déjà
+     * connecté au moins une fois
+     **/
+    public function set_first_conn($login)
+    {
+        $data = array(
+          'USER_FIRST_CONN' => '0'
+        );
+        $this->db->where('USER_LOGIN', $login)
+                ->update($this->table, $data);
+    }
 }
